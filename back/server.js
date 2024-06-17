@@ -2,9 +2,16 @@ import {  createYoga } from "graphql-yoga";
 import express from "express";
 import { ruruHTML } from "ruru/server";
 import schema from "./src/graphql/index.js"
+import { setupDatabase } from "./src/mongo/index.js";
 
 const yoga = createYoga({
     schema,
+    context: async ()=>{
+      const mongo = await setupDatabase()
+      return{
+        mongo
+      }
+    }
 })
 
 
@@ -20,5 +27,5 @@ app.get("/", (_req, res) => {
 app.listen(4000);
 console.log(`
     Api running on: http://localhost:4000
-    Test: http://localhost:4000/graphql?query={age}
+    Test: http://localhost:4000/graphql?query={users}
 `);
