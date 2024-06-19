@@ -18,15 +18,23 @@ export async function setupDatabase() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
-    const db = client.db('sample_mflix')
+    const db = client.db('ftoh')
    
-    return{
-        client,
-        db,
-        // collections
-            users: db.collection('users'),
-            movies: db.collection('movies'),
-            comments: db.collection('comments')
+    return {
+      client,
+      db,
+      championships: db.collection('championships'),
+      seasons: db.collection('seasons'),
+      news: db.collection('news'),
+      teams: db.collection('teams'),
+      drivers: db.collection('drivers'),
+      calendar: db.collection('calendar'),
+      races: db.collection('races'),
+      phases: db.collection('phases'),
+      results: db.collection('results'),
+      highlights: db.collection('highlights'),
+      teamHistories: db.collection('teamHistories'),
+      driverHistories: db.collection('driverHistories'),
     };
 
   } catch(err){
