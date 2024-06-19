@@ -23,7 +23,8 @@ export const TypeDefs = /* GraphQL */ `
   type Championship {
     id: ID!
     name: String!
-    seasons: [Season!]  # Relacionamento com temporadas
+
+    season: [Season!] 
   }
 `;
 
@@ -31,7 +32,6 @@ export const resolvers = {
   Query: {
     championships: async (_, __, { mongo }) => {
       const result = await mongo.championships.find().toArray();
-      console.log(result); // Verifica se os campeonatos estão sendo retornados corretamente
       return result;
   },
     championship: async (_, { id }, { mongo }) => {
@@ -64,9 +64,9 @@ export const resolvers = {
 
   Championship: {
     id: (obj) => obj._id || obj.id,
-    seasons: async ({ _id }, _, { mongo }) => {
-      const seasons = await mongo.seasons.find({ championshipId: new ObjectId(_id) }).toArray();
-      return seasons;
+    season: async ({ id }, _, { mongo }) => {
+      const season = await mongo.seasons.find({ id });
+      return season;
     },
   },
 };

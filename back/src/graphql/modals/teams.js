@@ -51,6 +51,8 @@ export const TypeDefs = /* GraphQL */ `
     points: Int
     position: Int
     drivers: [Driver!]
+
+    season: [Season]
   }
 `;
 
@@ -91,6 +93,9 @@ export const resolvers = {
     id: (obj) => obj._id || obj.id,
     drivers: async ({ _id }, _, { mongo }) => {
       return mongo.drivers.find({ teamId: new ObjectId(_id) }).toArray();
+    },
+    season: async ({ seasonId }, _, { mongo }) => {
+      return mongo.seasons.findOne({ _id: new ObjectId(seasonId) });
     },
   },
 };

@@ -28,7 +28,10 @@ export const TypeDefs = /* GraphQL */ `
     id: ID!
     number: Int!
     date: String!
-    championship: Championship  # Relacionamento com campeonato
+    
+
+    championship: Championship 
+    team: Team
   }
 `;
 
@@ -70,5 +73,9 @@ export const resolvers = {
     championship: async ({ championshipId }, _, { mongo }) => {
       return mongo.championships.findOne({ _id: new ObjectId(championshipId) });
     },
+    team: async ({ teamId }, _, { mongo }) => {
+      return mongo.teams.findOne({ _id: new ObjectId(teamId) });
+    },
   },
+
 };
