@@ -1,46 +1,51 @@
 import { ObjectId } from 'mongodb';
 
 export const TypeDefs = /* GraphQL */ `
-  extend type Query {
-    seasons: [Season!]!
-    season(id: ID!): Season
+type Query {
+    seasons: [Season]
+    season(id: ID): Season
   }
 
-  extend type Mutation {
-    createSeason(season: NewSeasonInput!): Season
-    deleteSeason(id: ID!): Boolean
-    updateSeason(id: ID!, update: UpdateSeasonInput!): Season
+  type Mutation {
+    createSeason(season: NewSeasonInput): Season
+    deleteSeason(id: ID): Boolean
+    updateSeason(id: ID, update: UpdateSeasonInput): Season
   }
 
   input NewSeasonInput {
-    number: Int!
-    date: String!
-    championshipId: ID!
+    seasonNumber: Int
+    date: String
+    championshipId: ID
+    championshipName: String
+    seasonId: String  # Definido por você
   }
 
   input UpdateSeasonInput {
-    number: Int
+    seasonNumber: Int
     date: String
     championshipId: ID
+    championshipName: String
+    seasonId: String  # Opcionalmente atualizável
   }
 
   type Season {
-    id: ID!
-    number: Int!
-    date: String!
-    
+    id: ID   # ObjectId gerado pelo MongoDB
+    seasonId: String  # Definido por você
+    seasonNumber: Int
+    date: String
+    championshipName: String
 
-    championship: Championship 
-    team: Team
+    championship: Championship
+    teams: [Team]
   }
 `;
 
 export const resolvers = {
   Query: {
-    seasons: async (_, __, { mongo }) => {
+    seasons: (_, __, { mongo }) => {
       return mongo.seasons.find().toArray();
     },
-    season: async (_, { id }, { mongo }) => {
+    season: (_, { id }, { mongo }) => {
       return mongo.seasons.findOne({ _id: new ObjectId(id) });
     },
   },
@@ -49,14 +54,14 @@ export const resolvers = {
     createSeason: async (_, { season }, { mongo }) => {
       const response = await mongo.seasons.insertOne(season);
       return {
-        id: response.insertedId,
+        id: response.insertedId,  // ObjectId gerado pelo MongoDB
         ...season,
       };
     },
 
     deleteSeason: async (_, { id }, { mongo }) => {
-      await mongo.seasons.deleteOne({ _id: new ObjectId(id) });
-      return true;
+      const result = await mongo.seasons.deleteOne({ _id: new ObjectId(id) });
+      return result.deletedCount === 1;
     },
 
     updateSeason: async (_, { id, update }, { mongo }) => {
@@ -69,13 +74,12 @@ export const resolvers = {
   },
 
   Season: {
-    id: (obj) => obj._id || obj.id,
-    championship: async ({ championshipId }, _, { mongo }) => {
+    id: ({ _id }) => _id,  // Utilizando _id do MongoDB como ID
+    championship: ({ championshipId }, _, { mongo }) => {
       return mongo.championships.findOne({ _id: new ObjectId(championshipId) });
     },
-    team: async ({ teamId }, _, { mongo }) => {
-      return mongo.teams.findOne({ _id: new ObjectId(teamId) });
+    teams: ({ seasonId }, _, { mongo }) => {
+      return mongo.teams.find({ seasonId }).toArray();
     },
   },
-
 };

@@ -1,60 +1,60 @@
 import { ObjectId } from 'mongodb';
 
 export const TypeDefs = /* GraphQL */ `
-  extend type Query {
+  type Query {
     championships: [Championship!]!
     championship(id: ID!): Championship
   }
 
-  extend type Mutation {
+  type Mutation {
     createChampionship(championship: NewChampionshipInput!): Championship
     deleteChampionship(id: ID!): Boolean
     updateChampionship(id: ID!, update: UpdateChampionshipInput!): Championship
   }
 
   input NewChampionshipInput {
-    name: String!
+    championshipName: String!
   }
 
   input UpdateChampionshipInput {
-    name: String
+    championshipName: String
   }
 
   type Championship {
     id: ID!
-    name: String!
+    championshipName: String!
 
-    season: [Season!] 
+    seasons: [Season] 
   }
 `;
 
 export const resolvers = {
   Query: {
-    championships: async (_, __, { mongo }) => {
-      const result = await mongo.championships.find().toArray();
+    championships: (_, __, { mongo }) => {
+      const result =  mongo.championships.find().toArray();
       return result;
   },
-    championship: async (_, { id }, { mongo }) => {
+    championship: (_, { id }, { mongo }) => {
       return mongo.championships.findOne({ _id: new ObjectId(id) });
     },
   },
 
   Mutation: {
-    createChampionship: async (_, { championship }, { mongo }) => {
-      const response = await mongo.championships.insertOne(championship);
+    createChampionship: (_, { championship }, { mongo }) => {
+      const response = mongo.championships.insertOne(championship);
       return {
         id: response.insertedId,
         ...championship,
       };
     },
 
-    deleteChampionship: async (_, { id }, { mongo }) => {
-      await mongo.championships.deleteOne({ _id: new ObjectId(id) });
+    deleteChampionship: (_, { id }, { mongo }) => {
+     mongo.championships.deleteOne({ _id: new ObjectId(id) });
       return true;
     },
 
-    updateChampionship: async (_, { id, update }, { mongo }) => {
-      const response = await mongo.championships.updateOne(
+    updateChampionship: (_, { id, update }, { mongo }) => {
+      const response = mongo.championships.updateOne(
         { _id: new ObjectId(id) },
         { $set: update }
       );
@@ -63,10 +63,9 @@ export const resolvers = {
   },
 
   Championship: {
-    id: (obj) => obj._id || obj.id,
-    season: async ({ id }, _, { mongo }) => {
-      const season = await mongo.seasons.find({ id });
-      return season;
+    id: ({ _id }) => _id.toString(), // Converte o ObjectId para string
+    seasons: ({ championshipName }, _, { mongo }) => {
+      return mongo.seasons.find({championshipName}).toArray();
     },
   },
 };

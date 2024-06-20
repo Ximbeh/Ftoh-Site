@@ -23,6 +23,8 @@ export const TypeDefs = /* GraphQL */ `
     logo: String
     points: Int
     position: Int
+    seasonNumber: Int
+    seasonId: String!  # Referência ao seasonId
   }
 
   input UpdateTeamInput {
@@ -36,10 +38,12 @@ export const TypeDefs = /* GraphQL */ `
     logo: String
     points: Int
     position: Int
+    seasonNumber: Int
+    seasonId: String  # Opcionalmente atualizável
   }
 
   type Team {
-    id: ID!
+    id: ID!   # ObjectId gerado pelo MongoDB
     name: String!
     poles: Int
     wins: Int
@@ -50,18 +54,20 @@ export const TypeDefs = /* GraphQL */ `
     logo: String
     points: Int
     position: Int
-    drivers: [Driver!]
+    seasonNumber: Int
+    seasonId: String
 
-    season: [Season]
+    season: Season
+    drivers: [Driver]
   }
 `;
 
 export const resolvers = {
   Query: {
-    teams: async (_, __, { mongo }) => {
+    teams: (_, __, { mongo }) => {
       return mongo.teams.find().toArray();
     },
-    team: async (_, { id }, { mongo }) => {
+    team: (_, { id }, { mongo }) => {
       return mongo.teams.findOne({ _id: new ObjectId(id) });
     },
   },
@@ -70,14 +76,14 @@ export const resolvers = {
     createTeam: async (_, { team }, { mongo }) => {
       const response = await mongo.teams.insertOne(team);
       return {
-        id: response.insertedId,
+        id: response.insertedId,  // ObjectId gerado pelo MongoDB
         ...team,
       };
     },
 
     deleteTeam: async (_, { id }, { mongo }) => {
-      await mongo.teams.deleteOne({ _id: new ObjectId(id) });
-      return true;
+      const result = await mongo.teams.deleteOne({ _id: new ObjectId(id) });
+      return result.deletedCount === 1;
     },
 
     updateTeam: async (_, { id, update }, { mongo }) => {
@@ -91,11 +97,11 @@ export const resolvers = {
 
   Team: {
     id: (obj) => obj._id || obj.id,
-    drivers: async ({ _id }, _, { mongo }) => {
-      return mongo.drivers.find({ teamId: new ObjectId(_id) }).toArray();
+    season: ({ seasonId }, _, { mongo }) => {
+      return mongo.seasons.findOne({ seasonId });
     },
-    season: async ({ seasonId }, _, { mongo }) => {
-      return mongo.seasons.findOne({ _id: new ObjectId(seasonId) });
+    drivers: ({ _id }, _, { mongo }) => {
+      return mongo.drivers.find({ teamId: new ObjectId(_id) }).toArray();
     },
   },
 };
