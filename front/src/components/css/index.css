@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: Formula;
+    src: url("../../fonts/Formula1/Formula1-Regular.otf") format("opentype");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Formula-Bold;
+    src: url("../../fonts/Formula1/Formula1-Bold.otf") format("opentype");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Formula-Wide;
+    src: url("../../fonts/Formula1/Formula1-Wide.otf") format("opentype");
+    font-style: normal;
+    font-display: swap;
+}
