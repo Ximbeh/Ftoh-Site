@@ -2,31 +2,35 @@ import { ObjectId } from 'mongodb';
 
 export const TypeDefs = /* GraphQL */ `
   extend type Query {
-    calendar: [Calendar!]!
-    calendarEvent(id: ID!): Calendar
+    calendar: [Calendar]
+    calendarEvent(id: ID): Calendar
   }
 
   extend type Mutation {
-    createCalendarEvent(event: NewCalendarEventInput!): Calendar
-    deleteCalendarEvent(id: ID!): Boolean
-    updateCalendarEvent(id: ID!, update: UpdateCalendarEventInput!): Calendar
+    createCalendarEvent(event: NewCalendarEventInput): Calendar
+    deleteCalendarEvent(id: ID): Boolean
+    updateCalendarEvent(id: ID, update: UpdateCalendarEventInput): Calendar
   }
 
   input NewCalendarEventInput {
-    name: String!
-    raceIds: [ID!]!
+    name: String
+    seasonId: [String]
   }
 
   input UpdateCalendarEventInput {
     name: String
-    raceIds: [ID]
+    seasonId: [String]
+    calendarId: String
   }
 
   type Calendar {
-    id: ID!
-    name: String!
-    races: [Race!]!
-    raceIds: [ID!]!
+    id: ID
+    calendarId: String
+    name: String
+    seasonId: [String]
+
+    races: [Race]
+    season: [Season]
   }
 `;
 
@@ -42,10 +46,15 @@ export const resolvers = {
 
   Mutation: {
     createCalendarEvent: async (_, { event }, { mongo }) => {
-      const response = await mongo.calendar.insertOne(event);
+      const calendarId = new ObjectId();
+      const calendarData = {
+        ...event,
+        calendarId: calendarId.toString(),
+      };
+      const response = await mongo.calendar.insertOne({_id: calendarId, ...calendarData});
       return {
         id: response.insertedId,
-        ...event,
+        ...calendarData,
       };
     },
 
@@ -55,13 +64,8 @@ export const resolvers = {
     },
 
     updateCalendarEvent: async (_, { id, update }, { mongo }) => {
-      // Garantindo que update.raceIds seja um array, mesmo que vazio
-      if (update.raceIds && !Array.isArray(update.raceIds)) {
-        update.raceIds = [update.raceIds];
-      }
-      
       await mongo.calendar.updateOne(
-        { _id: new ObjectId(id) },
+        {_id: new ObjectId(id)},
         { $set: update }
       );
       return mongo.calendar.findOne({ _id: new ObjectId(id) });
@@ -70,12 +74,11 @@ export const resolvers = {
 
   Calendar: {
     id: (obj) => obj._id || obj.id,
-    races: async ({ raceIds }, _, { mongo }) => {
-      if (!raceIds || raceIds.length === 0) {
-        return [];
-      }
-      const raceObjectIds = raceIds.map((id) => new ObjectId(id));
-      return mongo.races.find({ _id: { $in: raceObjectIds } }).toArray();
+    season: async ({ seasonId }, _, { mongo }) => {
+      return mongo.seasons.find({ _id: { $in: seasonId.map(id => new ObjectId(id)) } }).toArray();
+    },
+    races: ({ calendarId }, _, { mongo }) => {
+      return mongo.races.find({ calendarId }).toArray();
     },
   },
 };

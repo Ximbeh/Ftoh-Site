@@ -13,22 +13,31 @@ export const TypeDefs = /* GraphQL */ `
   }
 
   input NewTeamHistoryInput {
-    teamId: ID!
-    year: Int!
-    performance: String!
+    name: [String]
+    nacionality: String
+    text: String
+    logo: String
+    championships: Int
   }
 
   input UpdateTeamHistoryInput {
-    teamId: ID
-    year: Int
-    performance: String
+    name: [String]
+    nacionality: String
+    text: String
+    logo: String
+    championships: Int
   }
 
   type TeamHistory {
-    id: ID!
-    team: Team!
-    year: Int!
-    performance: String!
+    id: ID
+    teamHistoryId: String
+    name: [String]
+    nacionality: String
+    text: String
+    logo: String
+    championships: Int
+
+    team: [Team]
   }
 `;
 
@@ -44,10 +53,15 @@ export const resolvers = {
 
   Mutation: {
     createTeamHistory: async (_, { teamHistory }, { mongo }) => {
-      const response = await mongo.teamHistories.insertOne(teamHistory);
+      const teamHistoryId = new ObjectId();
+      const teamHistoryData = {
+        ...teamHistory,
+        teamHistoryId: teamHistoryId.toString(),
+      };
+      const response = await mongo.teamHistories.insertOne({ _id: teamHistoryId, ...teamHistoryData });
       return {
         id: response.insertedId,
-        ...teamHistory,
+        ...teamHistoryData,
       };
     },
 
@@ -67,8 +81,8 @@ export const resolvers = {
 
   TeamHistory: {
     id: (obj) => obj._id || obj.id,
-    team: async ({ teamId }, _, { mongo }) => {
-      return mongo.teams.findOne({ _id: new ObjectId(teamId) });
+    team: async ({ name }, _, { mongo }) => {
+      return mongo.teams.find({ name: { $in: name } }).toArray();
     },
   },
 };

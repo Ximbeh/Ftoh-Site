@@ -1,34 +1,41 @@
 import { ObjectId } from 'mongodb';
 
+
 export const TypeDefs = /* GraphQL */ `
   extend type Query {
-    driverHistories: [DriverHistory!]!
-    driverHistory(id: ID!): DriverHistory
+    driverHistories: [DriverHistory]
+    driverHistory(id: ID): DriverHistory
   }
 
   extend type Mutation {
-    createDriverHistory(driverHistory: NewDriverHistoryInput!): DriverHistory
-    deleteDriverHistory(id: ID!): Boolean
-    updateDriverHistory(id: ID!, update: UpdateDriverHistoryInput!): DriverHistory
+    createDriverHistory(driverHistory: NewDriverHistoryInput): DriverHistory
+    deleteDriverHistory(id: ID): Boolean
+    updateDriverHistory(id: ID, update: UpdateDriverHistoryInput): DriverHistory
   }
 
   input NewDriverHistoryInput {
-    driverId: ID!
-    year: Int!
-    performance: String!
+    name: [String]
+    nacionality: String
+    text: String
+    championships: Int
   }
 
   input UpdateDriverHistoryInput {
-    driverId: ID
-    year: Int
-    performance: String
+    name: [String]
+    nacionality: String
+    text: String
+    championships: Int
   }
 
   type DriverHistory {
-    id: ID!
-    driver: Driver!
-    year: Int!
-    performance: String!
+    id: ID
+    driverHistoryId: String
+    nacionality: String
+    text: String
+    championships: Int
+    name: [String]
+
+    driver: [Driver]
   }
 `;
 
@@ -44,10 +51,15 @@ export const resolvers = {
 
   Mutation: {
     createDriverHistory: async (_, { driverHistory }, { mongo }) => {
-      const response = await mongo.driverHistories.insertOne(driverHistory);
+      const driverHistoryId = new ObjectId();
+      const driverHistoryData = {
+        ...driverHistory,
+        driverHistoryId: driverHistoryId.toString(),
+      };
+      const response = await mongo.driverHistories.insertOne({ _id: driverHistoryId, ...driverHistoryData });
       return {
         id: response.insertedId,
-        ...driverHistory,
+        ...driverHistoryData,
       };
     },
 
@@ -67,8 +79,9 @@ export const resolvers = {
 
   DriverHistory: {
     id: (obj) => obj._id || obj.id,
-    driver: async ({ driverId }, _, { mongo }) => {
-      return mongo.drivers.findOne({ _id: new ObjectId(driverId) });
+    driver: async ({ name }, _, { mongo }) => {
+
+      return mongo.drivers.find({ name: { $in: name } }).toArray();
     },
   },
 };

@@ -2,44 +2,48 @@ import { ObjectId } from 'mongodb';
 
 export const TypeDefs = /* GraphQL */ `
   extend type Query {
-    races: [Race!]!
-    race(id: ID!): Race
+    races: [Race]
+    race(id: ID): Race
   }
 
   extend type Mutation {
-    createRace(race: NewRaceInput!): Race
-    deleteRace(id: ID!): Boolean
-    updateRace(id: ID!, update: UpdateRaceInput!): Race
+    createRace(race: NewRaceInput): Race
+    deleteRace(id: ID): Boolean
+    updateRace(id: ID, update: UpdateRaceInput): Race
   }
 
   input NewRaceInput {
-    name: String!
-    map: String
-    location: String!
-    description: String!
-    fullName: String!
-    calendarIds: [ID!]
-  }
-
-  input UpdateRaceInput {
     name: String
     map: String
     location: String
     description: String
     fullName: String
-    calendarIds: [ID]
+    calendarId: String
+  }
+
+  input UpdateRaceInput {
+    raceId: String
+    name: String
+    map: String
+    location: String
+    description: String
+    fullName: String
+    calendarId: String
   }
 
   type Race {
-    id: ID!
-    name: String!
+    id: ID
+    raceId: String
+    name: String
     map: String
-    location: String!
-    description: String!
-    fullName: String!
-    phases: [Phase!]
-    calendarIds: [ID!]!
-    calendars: [Calendar!]!
+    location: String
+    description: String
+    fullName: String
+    calendarId: String
+
+    calendar: [Calendar]
+    phases: [Phase]
+    news: [News]
   }
 `;
 
@@ -55,10 +59,19 @@ export const resolvers = {
 
   Mutation: {
     createRace: async (_, { race }, { mongo }) => {
-      const response = await mongo.races.insertOne(race);
+      const raceData = {
+        ...race,
+      };
+      const response = await mongo.races.insertOne(raceData);
+      const raceId = response.insertedId.toString();
+      await mongo.races.updateOne(
+        { _id: new ObjectId(raceId) },
+        { $set: { raceId } }
+      );
       return {
         id: response.insertedId,
-        ...race,
+        ...raceData,
+        raceId,
       };
     },
 
@@ -68,9 +81,9 @@ export const resolvers = {
     },
 
     updateRace: async (_, { id, update }, { mongo }) => {
-      // Garantindo que update.calendarIds seja um array, mesmo que vazio
-      if (update.calendarIds && !Array.isArray(update.calendarIds)) {
-        update.calendarIds = [update.calendarIds];
+      // Garantindo que update.calendarId seja um array, mesmo que vazio
+      if (update.calendarId && Array.isArray(update.calendarId)) {
+        update.calendarId = [update.calendarId];
       }
       
       await mongo.races.updateOne(
@@ -83,15 +96,14 @@ export const resolvers = {
 
   Race: {
     id: (obj) => obj._id || obj.id,
-    phases: async ({ _id }, _, { mongo }) => {
-      return mongo.phases.find({ raceId: new ObjectId(_id) }).toArray();
+    calendar: async ({ calendarId }, _, { mongo }) => {
+      return mongo.calendar.find({ calendarId });
     },
-    calendars: async ({ calendarIds }, _, { mongo }) => {
-      if (!calendarIds || calendarIds.length === 0) {
-        return [];
-      }
-      const calendarObjectIds = calendarIds.map((id) => new ObjectId(id));
-      return mongo.calendar.find({ _id: { $in: calendarObjectIds } }).toArray();
+    phases: ({ raceId }, _, { mongo }) => {
+      return mongo.phases.find({ raceId }).toArray();
+    },
+    news: async ({ raceId }, _, { mongo }) => {
+      return mongo.news.find({ raceId }).toArray();
     },
   },
 };

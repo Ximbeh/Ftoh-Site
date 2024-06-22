@@ -2,18 +2,18 @@ import { ObjectId } from 'mongodb';
 
 export const TypeDefs = /* GraphQL */ `
   extend type Query {
-    teams: [Team!]!
-    team(id: ID!): Team
+    teams: [Team]
+    team(id: ID): Team
   }
 
   extend type Mutation {
-    createTeam(team: NewTeamInput!): Team
-    deleteTeam(id: ID!): Boolean
-    updateTeam(id: ID!, update: UpdateTeamInput!): Team
+    createTeam(team: NewTeamInput): Team
+    deleteTeam(id: ID): Boolean
+    updateTeam(id: ID, update: UpdateTeamInput): Team
   }
 
   input NewTeamInput {
-    name: String!
+    name: String
     poles: Int
     wins: Int
     bestPosition: Int
@@ -24,7 +24,8 @@ export const TypeDefs = /* GraphQL */ `
     points: Int
     position: Int
     seasonNumber: Int
-    seasonId: String!  # Referência ao seasonId
+    seasonId: String
+    teamId: String
   }
 
   input UpdateTeamInput {
@@ -39,12 +40,13 @@ export const TypeDefs = /* GraphQL */ `
     points: Int
     position: Int
     seasonNumber: Int
-    seasonId: String  # Opcionalmente atualizável
+    seasonId: String
+    teamId: String
   }
 
   type Team {
-    id: ID!   # ObjectId gerado pelo MongoDB
-    name: String!
+    id: ID  
+    name: String
     poles: Int
     wins: Int
     bestPosition: Int
@@ -56,28 +58,39 @@ export const TypeDefs = /* GraphQL */ `
     position: Int
     seasonNumber: Int
     seasonId: String
+    teamId: String
 
     season: Season
     drivers: [Driver]
+    news: [News]
   }
 `;
 
 export const resolvers = {
   Query: {
-    teams: (_, __, { mongo }) => {
+    teams: async (_, __, { mongo }) => {
       return mongo.teams.find().toArray();
     },
-    team: (_, { id }, { mongo }) => {
+    team: async (_, { id }, { mongo }) => {
       return mongo.teams.findOne({ _id: new ObjectId(id) });
     },
   },
 
   Mutation: {
     createTeam: async (_, { team }, { mongo }) => {
-      const response = await mongo.teams.insertOne(team);
-      return {
-        id: response.insertedId,  // ObjectId gerado pelo MongoDB
+      const teamData = {
         ...team,
+      };
+      const response = await mongo.teams.insertOne(teamData);
+      const teamId = response.insertedId.toString();
+      await mongo.teams.updateOne(
+        { _id: new ObjectId(teamId) },
+        { $set: { teamId } }
+      );
+      return {
+        id: response.insertedId,
+        ...teamData,
+        teamId,
       };
     },
 
@@ -89,7 +102,7 @@ export const resolvers = {
     updateTeam: async (_, { id, update }, { mongo }) => {
       await mongo.teams.updateOne(
         { _id: new ObjectId(id) },
-        { $set: update }
+        { $set: { ...update, teamId: id } }
       );
       return mongo.teams.findOne({ _id: new ObjectId(id) });
     },
@@ -97,11 +110,15 @@ export const resolvers = {
 
   Team: {
     id: (obj) => obj._id || obj.id,
-    season: ({ seasonId }, _, { mongo }) => {
+    season: async ({ seasonId }, _, { mongo }) => {
       return mongo.seasons.findOne({ seasonId });
     },
-    drivers: ({ _id }, _, { mongo }) => {
-      return mongo.drivers.find({ teamId: new ObjectId(_id) }).toArray();
+    drivers: async ({ _id }, _, { mongo }) => {
+      return mongo.drivers.find({ teamId: _id.toString() }).toArray();
+    },
+    news: async ({ teamId }, _, { mongo }) => {
+      console.log(teamId);
+      return mongo.news.find({ teamId }).toArray();
     },
   },
 };

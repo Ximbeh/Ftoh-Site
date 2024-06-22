@@ -2,33 +2,43 @@ import { ObjectId } from 'mongodb';
 
 export const TypeDefs = /* GraphQL */ `
   extend type Query {
-    highlights: [Highlight!]!
-    highlight(id: ID!): Highlight
+    highlights: [Highlight]
+    highlight(id: ID): Highlight
   }
 
   extend type Mutation {
-    createHighlight(highlight: NewHighlightInput!): Highlight
-    deleteHighlight(id: ID!): Boolean
-    updateHighlight(id: ID!, update: UpdateHighlightInput!): Highlight
+    createHighlight(highlight: NewHighlightInput): Highlight
+    deleteHighlight(id: ID): Boolean
+    updateHighlight(id: ID, update: UpdateHighlightInput): Highlight
   }
 
   input NewHighlightInput {
-    title: String!
-    content: String!
-    phaseId: ID!
+    title: String
+    content: String
+    phaseId: String
+    image: [String]
+    video: String
   }
 
   input UpdateHighlightInput {
+    highlightId: String
     title: String
     content: String
-    phaseId: ID
+    phaseId: String
+    image: [String]
+    video: String
   }
 
   type Highlight {
-    id: ID!
-    title: String!
-    content: String!
-    phase: Phase!
+    id: ID
+    highlightId: String
+    title: String
+    content: String
+    image: [String]
+    video: String
+    phaseId: String
+
+    phase: Phase
   }
 `;
 
@@ -45,9 +55,15 @@ export const resolvers = {
   Mutation: {
     createHighlight: async (_, { highlight }, { mongo }) => {
       const response = await mongo.highlights.insertOne(highlight);
+      const highlightId = response.insertedId.toString();
+      await mongo.highlights.updateOne(
+        { _id: new ObjectId(highlightId) },
+        { $set: { highlightId } }
+      );
       return {
         id: response.insertedId,
         ...highlight,
+        highlightId,
       };
     },
 

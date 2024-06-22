@@ -17,26 +17,26 @@ type Query {
     date: String
     championshipId: ID
     championshipName: String
-    seasonId: String  # Definido por você
   }
 
   input UpdateSeasonInput {
     seasonNumber: Int
     date: String
     championshipId: ID
-    championshipName: String
-    seasonId: String  # Opcionalmente atualizável
+    championshipName: String 
+    seasonId: String
   }
 
   type Season {
-    id: ID   # ObjectId gerado pelo MongoDB
-    seasonId: String  # Definido por você
+    id: ID 
+    seasonId: String 
     seasonNumber: Int
     date: String
     championshipName: String
 
     championship: Championship
     teams: [Team]
+    news: [News]
   }
 `;
 
@@ -52,10 +52,15 @@ export const resolvers = {
 
   Mutation: {
     createSeason: async (_, { season }, { mongo }) => {
-      const response = await mongo.seasons.insertOne(season);
+      const seasonId = new ObjectId();
+      const seasonData = {
+        ...season,
+        seasonId: seasonId.toString(),
+      };
+      const response = await mongo.seasons.insertOne({ _id: seasonId, ...seasonData });
       return {
         id: response.insertedId,  // ObjectId gerado pelo MongoDB
-        ...season,
+        ...seasonData,
       };
     },
 
@@ -74,12 +79,16 @@ export const resolvers = {
   },
 
   Season: {
-    id: ({ _id }) => _id,  // Utilizando _id do MongoDB como ID
+    id: (obj) => obj._id || obj.id,
     championship: ({ championshipId }, _, { mongo }) => {
       return mongo.championships.findOne({ _id: new ObjectId(championshipId) });
     },
     teams: ({ seasonId }, _, { mongo }) => {
       return mongo.teams.find({ seasonId }).toArray();
+    },
+    news: async ({ seasonId }, _, { mongo }) => {
+      const newsList = await mongo.news.find({ seasonId }).toArray();
+      return newsList.length ? newsList : [];
     },
   },
 };

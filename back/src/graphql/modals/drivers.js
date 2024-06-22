@@ -22,7 +22,7 @@ export const TypeDefs = /* GraphQL */ `
     number: Int
     points: Int
     position: Int
-    teamId: ID!
+    teamId: String
   }
 
   input UpdateDriverInput {
@@ -35,7 +35,8 @@ export const TypeDefs = /* GraphQL */ `
     number: Int
     points: Int
     position: Int
-    teamId: ID
+    teamId: String
+    newsId: [String]
   }
 
   type Driver {
@@ -49,7 +50,12 @@ export const TypeDefs = /* GraphQL */ `
     number: Int
     points: Int
     position: Int
+    teamId: String
+    driverId: String
+
     team: Team
+    news: [News]
+    results: [Result]
   }
 `;
 
@@ -65,16 +71,21 @@ export const resolvers = {
 
   Mutation: {
     createDriver: async (_, { driver }, { mongo }) => {
-      const response = await mongo.drivers.insertOne(driver);
+      const driverId = new ObjectId();
+      const driverData = {
+        ...driver,
+        driverId: driverId.toString(),
+      };
+      const response = await mongo.drivers.insertOne({ _id: driverId, ...driverData });
       return {
         id: response.insertedId,
-        ...driver,
+        ...driverData,
       };
     },
 
     deleteDriver: async (_, { id }, { mongo }) => {
-      await mongo.drivers.deleteOne({ _id: new ObjectId(id) });
-      return true;
+      const result = await mongo.drivers.deleteOne({ _id: new ObjectId(id) });
+      return result.deletedCount === 1;
     },
 
     updateDriver: async (_, { id, update }, { mongo }) => {
@@ -90,6 +101,12 @@ export const resolvers = {
     id: (obj) => obj._id || obj.id,
     team: async ({ teamId }, _, { mongo }) => {
       return mongo.teams.findOne({ _id: new ObjectId(teamId) });
+    },
+    news: async ({ driverId }, _, { mongo }) => {
+      return mongo.news.find({ driverId }).toArray();
+    },
+    results: ({ driverId }, _, { mongo }) => {
+      return mongo.results.find({ driverId }).toArray();
     },
   },
 };

@@ -2,38 +2,41 @@ import { ObjectId } from 'mongodb';
 
 export const TypeDefs = /* GraphQL */ `
   extend type Query {
-    phases: [Phase!]!
-    phase(id: ID!): Phase
+    phases: [Phase]
+    phase(id: ID): Phase
   }
 
   extend type Mutation {
-    createPhase(phase: NewPhaseInput!): Phase
-    deletePhase(id: ID!): Boolean
-    updatePhase(id: ID!, update: UpdatePhaseInput!): Phase
+    createPhase(phase: NewPhaseInput): Phase
+    deletePhase(id: ID): Boolean
+    updatePhase(id: ID, update: UpdatePhaseInput): Phase
   }
 
   input NewPhaseInput {
-    name: String!
-    date: String!
-    finished: Boolean!
-    raceId: ID!
+    name: String
+    date: String
+    finished: Boolean
+    raceId: String
   }
 
   input UpdatePhaseInput {
     name: String
     date: String
     finished: Boolean
-    raceId: ID
+    raceId: String
   }
 
   type Phase {
-    id: ID!
-    name: String!
-    date: String!
-    finished: Boolean!
-    race: Race!
-    highlights: [Highlight!]
-    results: [Result!]
+    id: ID
+    name: String
+    date: String
+    finished: Boolean
+    raceId: String
+    phaseId: String
+
+    race: Race
+    results: [Result]
+    highlights: [Highlight]
   }
 `;
 
@@ -49,11 +52,22 @@ export const resolvers = {
 
   Mutation: {
     createPhase: async (_, { phase }, { mongo }) => {
-      const response = await mongo.phases.insertOne(phase);
-      return {
-        id: response.insertedId,
+      const phaseData = {
         ...phase,
       };
+      const response = await mongo.phases.insertOne(phaseData);
+      const phaseId = response.insertedId.toString()
+      await mongo.phases.updateOne(
+        {_id: new ObjectId(phaseId)},
+        {$set:{phaseId}}
+      );
+      return {
+        id: response.insertedId,
+        ...phaseData,
+        phaseId
+      };
+
+      return isertedPhase
     },
 
     deletePhase: async (_, { id }, { mongo }) => {
@@ -73,13 +87,13 @@ export const resolvers = {
   Phase: {
     id: (obj) => obj._id || obj.id,
     race: async ({ raceId }, _, { mongo }) => {
-      return mongo.races.findOne({ _id: new ObjectId(raceId) });
+      return mongo.races.findOne({ raceId });
     },
     highlights: async ({ _id }, _, { mongo }) => {
-      return mongo.highlights.find({ phaseId: _id }).toArray();
+      return mongo.highlights.find({ phaseId: _id.toString() }).toArray();
     },
-    results: async ({ _id }, _, { mongo }) => {
-      return mongo.results.find({ phaseId: _id }).toArray();
+    results: ({ phaseId }, _, { mongo }) => {
+      return mongo.results.find({ phaseId }).toArray();
     },
   },
 };
