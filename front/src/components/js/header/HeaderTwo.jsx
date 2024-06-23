@@ -1,4 +1,4 @@
-import FtohLogo from '../../assets/f1_logo.svg'
+import FtohLogo from '../../../assets/f1_logo.svg'
 
 const HeaderTwo = () => {
 

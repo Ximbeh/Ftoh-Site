@@ -10,7 +10,20 @@ export default {
         formula: ['Formula', 'sans-serif'],
         'formula-bold': ['Formula-Bold', 'sans-serif'],
         'formula-wide': ['Formula-Wide', 'sans-serif']
+      },
+
+      backgroundImage:{
+        'grade-pattern':"url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-x2.png)"
+      },
+      backgroundSize:{
+        '2': '8px'
+      },
+
+      minHeight:{
+        '4': '16px'
       }
+
+      
     },
   },
   plugins: [],

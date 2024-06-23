@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import FtohLogo from '../../assets/f1_logo.svg'
+import FtohLogo from '../../../assets/f1_logo.svg'
 import {Menu, X, ChevronRight} from "lucide-react"
 import { FaDiscord } from "react-icons/fa";
-import "../css/header.css"
+import "../../css/header.css"
 
 
 const HeaderMobile= () => {
