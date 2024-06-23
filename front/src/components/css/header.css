@@ -1,0 +1,11 @@
+.triangulo-baixo{
+ border-left: 10px solid white;
+ border-right: 10px solid white;
+ border-bottom: 10px solid rgb(220, 38, 38);
+ bottom: -12px;
+ left: 100px;
+}
+
+.w-calc100-62{
+    width: calc(100% - 62px);
+}

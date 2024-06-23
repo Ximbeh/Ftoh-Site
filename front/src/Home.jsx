@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import viteLogo from '/vite.svg'
 import { useQuery } from '@apollo/client';
-import HeaderOne from './components/js/HeaderOne';
-import HeaderTwo from './components/js/HeaderTwo';
+import Header from './components/js/Header';
 import { GET_DRIVERS } from './queries';
 
 const App = () => {
@@ -10,9 +9,8 @@ const App = () => {
   return (
     <>
       <div>
-        <HeaderOne></HeaderOne>
-        <HeaderTwo></HeaderTwo>
-       
+        <Header></Header>
+        <h1>aaaa</h1>
       </div>
     </>
   )
