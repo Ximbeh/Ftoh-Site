@@ -1,0 +1,25 @@
+.imagem:hover + .text, .text:hover {
+    border-color: rgb(220 38 38);
+    padding-bottom: 30px;
+}
+
+.text:hover ~ .imagem .img, .imagem:hover img{
+    transform: scale(1.1);
+}
+
+.max-w-screen-lg-30{
+    max-width: 1054px;
+}
+
+
+.sticky-sidebar {
+    position: sticky;
+    width: 100%;
+    top: 130px;
+  }
+  
+  .bottom-fixed-sidebar {
+    width: calc(100% - 30px);
+    position: absolute;
+    bottom: 0px;
+  }

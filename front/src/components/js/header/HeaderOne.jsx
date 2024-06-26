@@ -8,7 +8,7 @@ const HeaderOne = () => {
             <span className="before: absolute before: bg-black before: opacity-40 before:left-10 before: flex w-px h-6 left-12"></span>
             <div className="flex space-x-4 items-center font-formula-bold text-xs">
                 <a>
-                    <span className="opacity-40 hover:opacity-100 hover:cursor-pointer">F1-Classic</span>
+                    <span className="hover:opacity-100 hover:cursor-pointer">F1-Classic</span>
                     <span className="before: absolute before: bg-red-600 before: flex triangulo-baixo"></span>
                 </a>
                 <a><span className="opacity-40 hover:opacity-100 hover:cursor-pointer">F2-Classic</span></a>

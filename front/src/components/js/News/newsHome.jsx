@@ -1,25 +1,75 @@
-
+import { useEffect, useRef } from 'react';
+import PrincipalNewsHome from './PrincipalNewsHome';
+import SecondNews from './SecondNews';
+import {ChevronRight} from "lucide-react"
+import "../../css/news.css"
 
 const NewsHome = () => {
+  const contentAreaRef = useRef(null);
+  const principalHomeRef = useRef(null);
 
-    return(
-        <div className="py-6 px-3 font-formula">
-            {/* Noticia principal */}
-            <div className="hover:cursor-pointer pt-3 pr-3 border-l-0 border-b-0 border-r-8 border-t-8 border-solid border-red-600 rounded-tr-3xl max-w-lg m-auto
-            md:max-w-screen-md
-            lg: ">
-                <p className="text-red-600 text-xs font-formula-bold mb-1 uppercase">Tag</p>
-                <h2 className="text-black text-2xl font-formula-bold mb-5 hover:underline">Manchete</h2>
-                <div className="overflow-hidden inline-block rounded-sm w-full">
-                <img className="w-full h-full hover:scale-110 duration-500 transition-transform mb-2" src="https://media.formula1.com/image/upload/t_16by9North/f_auto/q_auto/v1719156582/fom-website/2024/Spain/GettyImages-2158857659.jpg.transform/4col/image.jpg"/>
-                </div>
-                <span
-                    className="flex w-full h-4 bg-repeat bg-grade-pattern bg-2"
-                />
-            </div>
+  const topSpace = 130;
+  const breakpoint = 1024;
+  const stickyClass = 'sticky-sidebar';
+  const bottomFixedClass = 'bottom-fixed-sidebar';
+
+  useEffect(() => {
+    const contentArea = contentAreaRef.current;
+    const sideBar = principalHomeRef.current;
+
+    const controlSideBarFloating = () => {
+      if (!contentArea || !sideBar) return;
+
+      const rectL = contentArea.getBoundingClientRect();
+      const rectR = sideBar.getBoundingClientRect();
+      if (window.innerWidth >= breakpoint) {
+        if (rectL.top - topSpace + (rectL.height - rectR.height) >= 0 && rectL.top - topSpace <= 0) {
+          sideBar.classList.add(stickyClass);
+          sideBar.classList.remove(bottomFixedClass);
+        } else if (rectL.top - topSpace + (rectL.height - rectR.height) <= 0) {
+          sideBar.classList.remove(stickyClass);
+          sideBar.classList.add(bottomFixedClass);
+        } else {
+          sideBar.classList.remove(stickyClass);
+          sideBar.classList.remove(bottomFixedClass);
+        }
+      } else {
+        sideBar.classList.remove(stickyClass);
+        sideBar.classList.remove(bottomFixedClass);
+      }
+    };
+
+    window.addEventListener('scroll', controlSideBarFloating);
+    window.addEventListener('resize', controlSideBarFloating);
+
+    controlSideBarFloating();
+
+    return () => {
+      window.removeEventListener('scroll', controlSideBarFloating);
+      window.removeEventListener('resize', controlSideBarFloating);
+    };
+  }, []);
+
+  return (
+    <div className='px-3 lg:grid lg:grid-cols-2 gap-3 px-7 py-7 max-w-screen-lg-30 mx-auto xl:max-w-screen-xl'>
+      <div ref={contentAreaRef} className="content-area">
+        <PrincipalNewsHome ref={principalHomeRef} />
+      </div>
+      <div>
+        <div className='grid grid-cols-2 max-w-lg m-auto md:max-w-screen-md gap-x-5 gap-y-4'>
+            <SecondNews />
+            <SecondNews />
+            <SecondNews />
+            <SecondNews />
+            <SecondNews />
+            <SecondNews />
         </div>
-    )
-
+        <button className='flex gap-2 mt-7 bg-red-600 px-4 py-3 rounded-md font-formula text-white border-red-600 border-2
+        hover:bg-white hover:text-red-600 duration-300
+        '>Veja as últimas notícias <ChevronRight color="#fff"/></button>
+      </div>
+    </div>
+  );
 }
 
-export default NewsHome
+export default NewsHome;
