@@ -24,6 +24,10 @@ export default {
 
       minHeight:{
         '4': '16px'
+      },
+
+      maxWidth:{
+        '1/2': '50%'
       }
 
       

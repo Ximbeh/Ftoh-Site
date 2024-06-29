@@ -51,7 +51,7 @@ const NewsHome = () => {
   }, []);
 
   return (
-    <div className='px-2 relative lg:grid lg:grid-cols-2 gap-3 py-7 max-w-screen-lg-30 xl:max-w-screen-xl'>
+    <div className='mx-auto px-2 relative lg:grid lg:grid-cols-2 gap-3 py-7 max-w-screen-lg-30 xl:max-w-screen-xl'>
       <div ref={contentAreaRef} className="content-area lg:bg-repeat lg:bg-grade-pattern lg:bg-2">
         <PrincipalNewsHome ref={principalHomeRef} />
       </div>
