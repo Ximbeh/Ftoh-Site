@@ -9,7 +9,10 @@ export default {
       fontFamily:{
         formula: ['Formula', 'sans-serif'],
         'formula-bold': ['Formula-Bold', 'sans-serif'],
-        'formula-wide': ['Formula-Wide', 'sans-serif']
+        'formula-wide': ['Formula-Wide', 'sans-serif'],
+        titillium: ['Titillium', 'sans-serif'],
+        'titillium-bold': ['Titillium-Bold', 'sans-serif'],
+        'titillium-italic': ['Titillium-Italic', 'sans-serif']
       },
 
       backgroundImage:{

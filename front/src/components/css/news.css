@@ -19,7 +19,15 @@
   }
   
   .bottom-fixed-sidebar {
-    width: calc(100% - 30px);
+    width: 513px;
     position: absolute;
-    bottom: 0px;
+    bottom: 28px;
+  }
+
+  @media (min-width: 1260px) {
+    .bottom-fixed-sidebar {
+        width: 626px;
+        position: absolute;
+        bottom: 28px;
+      }
   }

@@ -51,12 +51,12 @@ const NewsHome = () => {
   }, []);
 
   return (
-    <div className='px-3 lg:grid lg:grid-cols-2 gap-3 px-7 py-7 max-w-screen-lg-30 mx-auto xl:max-w-screen-xl'>
-      <div ref={contentAreaRef} className="content-area">
+    <div className='px-2 relative lg:grid lg:grid-cols-2 gap-3 py-7 max-w-screen-lg-30 xl:max-w-screen-xl'>
+      <div ref={contentAreaRef} className="content-area lg:bg-repeat lg:bg-grade-pattern lg:bg-2">
         <PrincipalNewsHome ref={principalHomeRef} />
       </div>
       <div>
-        <div className='grid grid-cols-2 max-w-lg m-auto md:max-w-screen-md gap-x-5 gap-y-4'>
+        <div className='grid grid-cols-2 max-w-lg mx-auto md:max-w-screen-md gap-x-5 gap-y-4'>
             <SecondNews />
             <SecondNews />
             <SecondNews />
@@ -64,8 +64,8 @@ const NewsHome = () => {
             <SecondNews />
             <SecondNews />
         </div>
-        <button className='flex gap-2 mt-7 bg-red-600 px-4 py-3 rounded-md font-formula text-white border-red-600 border-2
-        hover:bg-white hover:text-red-600 duration-300
+        <button className='flex mx-auto gap-2 mt-7 bg-red-600 px-4 py-3 rounded-md font-formula text-white border-red-600 border-2
+        hover:bg-white hover:text-red-600 duration-300 lg:mx-0
         '>Veja as últimas notícias <ChevronRight color="#fff"/></button>
       </div>
     </div>

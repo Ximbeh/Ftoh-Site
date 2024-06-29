@@ -12,7 +12,7 @@ const SecondNews = () => {
                 </div>
                 <div className="duration-300 text pt-1 pb-3 px-3 border-r border-b border-l-0 border-t-0 border-solid border-gray-300 rounded-br-3xl min-h-4">
                     <p className="text-red-600 text-xs font-formula-bold mb-1 uppercase">Tag</p>
-                    <h2 className="text-black text-sm font-formula md:hover:underline">Manchete</h2>
+                    <h2 className="text-black font-titillium text-sm md:hover:underline">Manchete</h2>
                 </div>
             </div>
         </div>

@@ -22,3 +22,24 @@
     font-style: normal;
     font-display: swap;
 }
+
+@font-face {
+    font-family: Titillium;
+    src: url("../../fonts/Titillium_Web/TitilliumWeb-Regular.ttf") format("normal");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Titillium-Bold;
+    src: url("../../fonts/Titillium_Web/TitilliumWeb-Bold.ttf") format("normal");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Titillium-Wide;
+    src: url("../../fonts/Titillium_Web/TitilliumWeb-Wide.ttf") format("normal");
+    font-style: normal;
+    font-display: swap;
+}
