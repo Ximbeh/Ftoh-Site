@@ -5,6 +5,7 @@ import Header from './components/js/header/Header';
 import NewsHome from './components/js/News/NewsHome';
 import Video from './components/js/Video';
 import { CarouselCustomNavigation } from './components/js/Carousel';
+import CarouselSchedule from './components/js/CarouselSchedule';
 import { GET_DRIVERS } from './queries';
 
 const App = () => {
@@ -17,6 +18,8 @@ const App = () => {
         <Video></Video>
         <CarouselCustomNavigation></CarouselCustomNavigation>
         <Video></Video>
+        <CarouselSchedule></CarouselSchedule>
+
        
 
       </div>

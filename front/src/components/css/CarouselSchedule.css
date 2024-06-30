@@ -1,0 +1,603 @@
+body{
+    overflow-x: hidden;
+}
+
+
+.slide-container {
+    width: 150%;
+    height:85vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background-color: rgb(21, 21, 30);
+}
+
+.image-slider{
+    width: 150%;
+    height: 600px;
+    position: absolute;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+}
+
+.slides-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgb(56, 56, 63);
+    border-radius: 0px 0px 20px 0px;
+    border-left: none;
+    border-top: none;
+    height: 90%;
+}
+
+.content{
+    position: relative;
+    width: 146px;
+    transition: 0.5s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    position: absolute;
+    width: 240px;
+    height: 90%;
+    transition: 0.5s;
+}
+
+.open{
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: height 0.5s, opacity 0.5s;
+    transition-delay: 0s, 0.5s;
+}
+
+
+/* ----------------------//------------------------------- */
+
+
+#slider-span1:target ~ .image-slider #contentOpen1,
+#slider-span1:target ~ .image-slider #button-1 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+#slider-span2:target ~ .image-slider #contentOpen2,
+#slider-span2:target ~ .image-slider #button-2 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+#slider-span3:target ~ .image-slider #contentOpen3,
+#slider-span3:target ~ .image-slider #button-3 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+#slider-span4:target ~ .image-slider #contentOpen4,
+#slider-span4:target ~ .image-slider #button-4 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+#slider-span5:target ~ .image-slider #contentOpen5,
+#slider-span5:target ~ .image-slider #button-5 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+#slider-span6:target ~ .image-slider #contentOpen6,
+#slider-span6:target ~ .image-slider #button-6 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+#slider-span7:target ~ .image-slider #contentOpen7,
+#slider-span7:target ~ .image-slider #button-7 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+#slider-span8:target ~ .image-slider #contentOpen8,
+#slider-span8:target ~ .image-slider #button-8 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+#slider-span9:target ~ .image-slider #contentOpen9,
+#slider-span9:target ~ .image-slider #button-9 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+#slider-span10:target ~ .image-slider #contentOpen10,
+#slider-span10:target ~ .image-slider #button-10 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+#slider-span11:target ~ .image-slider #contentOpen11,
+#slider-span11:target ~ .image-slider #button-11 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+#slider-span12:target ~ .image-slider #contentOpen12,
+#slider-span12:target ~ .image-slider #button-12 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+#slider-span13:target ~ .image-slider #contentOpen13,
+#slider-span13:target ~ .image-slider #button-13 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+#slider-span14:target ~ .image-slider #contentOpen14,
+#slider-span14:target ~ .image-slider #button-14 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+#slider-span15:target ~ .image-slider #contentOpen15,
+#slider-span15:target ~ .image-slider #button-15 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+#slider-span16:target ~ .image-slider #contentOpen16,
+#slider-span16:target ~ .image-slider #button-16 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 60%;
+    opacity: 1;
+    width: 514px;
+}
+
+
+
+
+/* ----------------------//------------------------------- */
+
+
+#slider-span1:target ~ .image-slider #content1 h2,
+#slider-span1:target ~ .image-slider #content1 h4 {
+    display: none;
+}
+
+#slider-span2:target ~ .image-slider #content2 h2,
+#slider-span2:target ~ .image-slider #content2 h4 {
+    display: none;
+}
+
+#slider-span3:target ~ .image-slider #content3 h2,
+#slider-span3:target ~ .image-slider #content3 h4 {
+    display: none;
+}
+
+#slider-span4:target ~ .image-slider #content4 h2,
+#slider-span4:target ~ .image-slider #content4 h4 {
+    display: none;
+}
+
+#slider-span5:target ~ .image-slider #content5 h2,
+#slider-span5:target ~ .image-slider #content5 h4 {
+    display: none;
+}
+
+#slider-span6:target ~ .image-slider #content6 h2,
+#slider-span6:target ~ .image-slider #content6 h4 {
+    display: none;
+}
+
+#slider-span7:target ~ .image-slider #content7 h2,
+#slider-span7:target ~ .image-slider #content7 h4 {
+    display: none;
+}
+
+#slider-span8:target ~ .image-slider #content8 h2,
+#slider-span8:target ~ .image-slider #content8 h4 {
+    display: none;
+}
+
+#slider-span9:target ~ .image-slider #content9 h2,
+#slider-span9:target ~ .image-slider #content9 h4 {
+    display: none;
+}
+
+#slider-span10:target ~ .image-slider #content10 h2,
+#slider-span10:target ~ .image-slider #content10 h4 {
+    display: none;
+}
+
+#slider-span11:target ~ .image-slider #content11 h2,
+#slider-span11:target ~ .image-slider #content11 h4 {
+    display: none;
+}
+
+#slider-span12:target ~ .image-slider #content12 h2,
+#slider-span12:target ~ .image-slider #content12 h4 {
+    display: none;
+}
+
+#slider-span13:target ~ .image-slider #content13 h2,
+#slider-span13:target ~ .image-slider #content13 h4 {
+    display: none;
+}
+
+#slider-span14:target ~ .image-slider #content14 h2,
+#slider-span14:target ~ .image-slider #content14 h4 {
+    display: none;
+}
+
+#slider-span15:target ~ .image-slider #content15 h2,
+#slider-span15:target ~ .image-slider #content15 h4 {
+    display: none;
+}
+
+#slider-span16:target ~ .image-slider #content16 h2,
+#slider-span16:target ~ .image-slider #content16 h4 {
+    display: none;
+}
+
+
+/* ----------------------//------------------------------- */
+
+
+#slider-span1:target ~ .image-slider {
+    left: calc(50% + 1100px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span2:target ~ .image-slider {
+    left: calc(50% + 950px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span3:target ~ .image-slider {
+    left: calc(50% + 800px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span4:target ~ .image-slider {
+    left: calc(50% + 650px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span5:target ~ .image-slider {
+    left: calc(50% + 500px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span6:target ~ .image-slider {
+    left: calc(50% + 350px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span7:target ~ .image-slider {
+    left: calc(50% + 200px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span8:target ~ .image-slider {
+    left: calc(50% + 50px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span9:target ~ .image-slider {
+    left: calc(50% - 100px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span10:target ~ .image-slider {
+    left: calc(50% - 250px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span11:target ~ .image-slider {
+    left: calc(50% - 400px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span12:target ~ .image-slider {
+    left: calc(50% - 550px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span13:target ~ .image-slider {
+    left: calc(50% - 700px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span14:target ~ .image-slider {
+    left: calc(50% - 850px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span15:target ~ .image-slider {
+    left: calc(50% - 1000px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span16:target ~ .image-slider {
+    left: calc(50% - 1100px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+
+/* ----------------------//------------------------------- */
+
+@media (max-width: 760px) {
+    .content{
+        width: 120px;
+    }
+
+    .button {
+        width: 220px;
+        height: 90%;
+    }
+
+    
+#slider-span1:target ~ .image-slider #contentOpen1,
+#slider-span1:target ~ .image-slider #button-1 {
+ 
+    width: 280px;
+}
+
+#slider-span2:target ~ .image-slider #contentOpen2,
+#slider-span2:target ~ .image-slider #button-2 {
+ 
+    width: 280px;
+}
+
+#slider-span3:target ~ .image-slider #contentOpen3,
+#slider-span3:target ~ .image-slider #button-3 {
+ 
+    width: 280px;
+}
+
+#slider-span4:target ~ .image-slider #contentOpen4,
+#slider-span4:target ~ .image-slider #button-4 {
+ 
+    width: 280px;
+}
+
+#slider-span5:target ~ .image-slider #contentOpen5,
+#slider-span5:target ~ .image-slider #button-5 {
+ 
+    width: 280px;
+}
+
+#slider-span6:target ~ .image-slider #contentOpen6,
+#slider-span6:target ~ .image-slider #button-6 {
+ 
+    width: 280px;
+}
+
+#slider-span7:target ~ .image-slider #contentOpen7,
+#slider-span7:target ~ .image-slider #button-7 {
+ 
+    width: 280px;
+}
+
+#slider-span8:target ~ .image-slider #contentOpen8,
+#slider-span8:target ~ .image-slider #button-8 {
+ 
+    width: 280px;
+}
+
+#slider-span9:target ~ .image-slider #contentOpen9,
+#slider-span9:target ~ .image-slider #button-9 {
+ 
+    width: 280px;
+}
+
+#slider-span10:target ~ .image-slider #contentOpen10,
+#slider-span10:target ~ .image-slider #button-10 {
+ 
+    width: 280px;
+}
+
+#slider-span11:target ~ .image-slider #contentOpen11,
+#slider-span11:target ~ .image-slider #button-11 {
+ 
+    width: 280px;
+}
+
+#slider-span12:target ~ .image-slider #contentOpen12,
+#slider-span12:target ~ .image-slider #button-12 {
+ 
+    width: 280px;
+}
+
+#slider-span13:target ~ .image-slider #contentOpen13,
+#slider-span13:target ~ .image-slider #button-13 {
+ 
+    width: 280px;
+}
+
+#slider-span14:target ~ .image-slider #contentOpen14,
+#slider-span14:target ~ .image-slider #button-14 {
+ 
+    width: 280px;
+}
+
+#slider-span15:target ~ .image-slider #contentOpen15,
+#slider-span15:target ~ .image-slider #button-15 {
+ 
+    width: 280px;
+}
+
+#slider-span16:target ~ .image-slider #contentOpen16,
+#slider-span16:target ~ .image-slider #button-16 {
+ 
+    width: 280px;
+}
+
+#slider-span1:target ~ .image-slider {
+    left: calc(50% + 910px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span2:target ~ .image-slider {
+    left: calc(50% + 790.25px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span3:target ~ .image-slider {
+    left: calc(50% + 670px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span4:target ~ .image-slider {
+    left: calc(50% + 548px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span5:target ~ .image-slider {
+    left: calc(50% + 425px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span6:target ~ .image-slider {
+    left: calc(50% + 305px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span7:target ~ .image-slider {
+    left: calc(50% + 182px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span8:target ~ .image-slider {
+    left: calc(50% + 60px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span9:target ~ .image-slider {
+    left: calc(50% - 60px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span10:target ~ .image-slider {
+    left: calc(50% - 182px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span11:target ~ .image-slider {
+    left: calc(50% - 305px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span12:target ~ .image-slider {
+    left: calc(50% - 425px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span13:target ~ .image-slider {
+    left: calc(50% - 547px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span14:target ~ .image-slider {
+    left: calc(50% - 670px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span15:target ~ .image-slider {
+    left: calc(50% - 790.25px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#slider-span16:target ~ .image-slider {
+    left: calc(50% - 910.25px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+}
