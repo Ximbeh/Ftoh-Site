@@ -1,0 +1,15 @@
+.active{
+    border-color: rgb(229 57 53) !important;
+}
+
+.hover-text-white:hover *:not(.bg-gray-300) {
+    color: white;
+  }
+
+  .bg-gray-300{
+    color: black !important;
+  }
+  
+  .hover-text-white:hover .chevron-right {
+    color: white;
+  }

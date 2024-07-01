@@ -31,8 +31,12 @@ module.exports = withMT({
 
       maxWidth:{
         '1/2': '50%'
-      }
+      },
 
+      zIndex:{
+        'm1': -1,
+        '1': 1,
+      }
       
     },
   },

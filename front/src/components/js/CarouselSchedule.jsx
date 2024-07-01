@@ -1,30 +1,57 @@
 
 import { Play } from 'lucide-react';
-import React from 'react';
 import '../css/CarouselSchedule.css'
+import React, { useEffect } from 'react';
+
 
 const CarouselSchedule = () => {
 
+    useEffect(() => {
+        const initialHashCheck = () => {
+          if (!window.location.hash) {
+            window.location.hash = '#corrida1';
+          } else {
+            window.scrollTo(0, 0);
+          }
+        };
+    
+        const handleHashChange = () => {
+          window.scrollTo(0, 0);
+        };
+    
+        initialHashCheck();
+        window.addEventListener('hashchange', handleHashChange);
+    
+        const timeoutId = setTimeout(() => {
+          window.removeEventListener('hashchange', handleHashChange);
+        }, 5000);
+    
+        return () => {
+          clearTimeout(timeoutId);
+          window.removeEventListener('hashchange', handleHashChange);
+        };
+      }, []);
+    
 
     return (
-        <div>
+        <div className='relative'>
             <div class="slide-container">
-                <span class="slider-span" id="slider-span1"></span>
-                <span class="slider-span" id="slider-span2"></span>
-                <span class="slider-span" id="slider-span3"></span>
-                <span class="slider-span" id="slider-span4"></span>
-                <span class="slider-span" id="slider-span5"></span>
-                <span class="slider-span" id="slider-span6"></span>
-                <span class="slider-span" id="slider-span7"></span>
-                <span class="slider-span" id="slider-span8"></span>
-                <span class="slider-span" id="slider-span9"></span>
-                <span class="slider-span" id="slider-span10"></span>
-                <span class="slider-span" id="slider-span11"></span>
-                <span class="slider-span" id="slider-span12"></span>
-                <span class="slider-span" id="slider-span13"></span>
-                <span class="slider-span" id="slider-span14"></span>
-                <span class="slider-span" id="slider-span15"></span>
-                <span class="slider-span" id="slider-span16"></span>
+                <span class="corrida absolute -top-32" id="corrida1"></span>
+                <span class="corrida absolute -top-32" id="corrida2"></span>
+                <span class="corrida absolute -top-32" id="corrida3"></span>
+                <span class="corrida absolute -top-32" id="corrida4"></span>
+                <span class="corrida absolute -top-32" id="corrida5"></span>
+                <span class="corrida absolute -top-32" id="corrida6"></span>
+                <span class="corrida absolute -top-32" id="corrida7"></span>
+                <span class="corrida absolute -top-32" id="corrida8"></span>
+                <span class="corrida absolute -top-32" id="corrida9"></span>
+                <span class="corrida absolute -top-32" id="corrida10"></span>
+                <span class="corrida absolute -top-32" id="corrida11"></span>
+                <span class="corrida absolute -top-32" id="corrida12"></span>
+                <span class="corrida absolute -top-32" id="corrida13"></span>
+                <span class="corrida absolute -top-32" id="corrida14"></span>
+                <span class="corrida absolute -top-32" id="corrida15"></span>
+                <span class="corrida absolute -top-32" id="corrida16"></span>
 
                 <div class="image-slider">
                     <div class="slides-div" id="slide-1">
@@ -66,7 +93,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span1" class="button" id="button-1"></a>
+                        <a  href="#corrida1" class="button" id="button-1"></a>
                     </div>
                     <div class="slides-div" id="slide-2">
                         <div className='content' id="content2">
@@ -107,7 +134,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span2" class="button" id="button-2"></a>
+                        <a href="#corrida2" class="button" id="button-2"></a>
                     </div>
                     <div class="slides-div" id="slide-3">
                         <div className='content' id="content3">
@@ -148,7 +175,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span3" class="button" id="button-3"></a>
+                        <a href="#corrida3" class="button" id="button-3"></a>
                     </div>
                     
                     <div class="slides-div" id="slide-4">
@@ -190,7 +217,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span4" class="button" id="button-4"></a>
+                        <a href="#corrida4" class="button" id="button-4"></a>
                     </div>
 
 
@@ -238,7 +265,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span5" class="button" id="button-5"></a>
+                        <a href="#corrida5" class="button" id="button-5"></a>
                     </div>
                     <div class="slides-div" id="slide-6">
                         <div className='content' id="content6">
@@ -279,7 +306,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span6" class="button" id="button-6"></a>
+                        <a href="#corrida6" class="button" id="button-6"></a>
                     </div>
                     <div class="slides-div" id="slide-7">
                         <div className='content' id="content7">
@@ -320,7 +347,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span7" class="button" id="button-7"></a>
+                        <a href="#corrida7" class="button" id="button-7"></a>
                     </div>
                     <div class="slides-div" id="slide-8">
                         <div className='content' id="content8">
@@ -361,7 +388,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span8" class="button" id="button-8"></a>
+                        <a href="#corrida8" class="button" id="button-8"></a>
                     </div>
                     <div class="slides-div" id="slide-9">
                         <div className='content' id="content9">
@@ -402,7 +429,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span9" class="button" id="button-9"></a>
+                        <a href="#corrida9" class="button" id="button-9"></a>
                     </div>
                     <div class="slides-div" id="slide-10">
                         <div className='content' id="content10">
@@ -443,7 +470,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span10" class="button" id="button-10"></a>
+                        <a href="#corrida10" class="button" id="button-10"></a>
                     </div>
                     <div class="slides-div" id="slide-11">
                         <div className='content' id="content11">
@@ -484,7 +511,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span11" class="button" id="button-11"></a>
+                        <a href="#corrida11" class="button" id="button-11"></a>
                     </div>
                     <div class="slides-div" id="slide-12">
                         <div className='content' id="content12">
@@ -525,7 +552,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span12" class="button" id="button-12"></a>
+                        <a href="#corrida12" class="button" id="button-12"></a>
                     </div>
                     <div class="slides-div" id="slide-13">
                         <div className='content' id="content13">
@@ -566,7 +593,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span13" class="button" id="button-13"></a>
+                        <a href="#corrida13" class="button" id="button-13"></a>
                     </div>
                     <div class="slides-div" id="slide-14">
                         <div className='content' id="content14">
@@ -607,7 +634,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span14" class="button" id="button-14"></a>
+                        <a href="#corrida14" class="button" id="button-14"></a>
                     </div>
                     <div class="slides-div" id="slide-15">
                         <div className='content' id="content15">
@@ -648,7 +675,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span15" class="button" id="button-15"></a>
+                        <a href="#corrida15" class="button" id="button-15"></a>
                     </div>
                     <div class="slides-div" id="slide-16">
                         <div className='content' id="content16">
@@ -689,7 +716,7 @@ const CarouselSchedule = () => {
                                
                             </div>
                         </div>
-                        <a href="#slider-span16" class="button" id="button-16"></a>
+                        <a href="#corrida16" class="button" id="button-16"></a>
                     </div>
                 </div>
             </div>

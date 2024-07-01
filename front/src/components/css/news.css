@@ -24,9 +24,9 @@
     bottom: 28px;
   }
 
-  @media (min-width: 1260px) {
+  @media (min-width: 1140px) {
     .bottom-fixed-sidebar {
-        width: 626px;
+        width: 556px;
         position: absolute;
         bottom: 28px;
       }
