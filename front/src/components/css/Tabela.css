@@ -13,3 +13,7 @@
   .hover-text-white:hover .chevron-right {
     color: white;
   }
+
+  .text-stroke{
+    -webkit-text-stroke: 4px white
+  }

@@ -7,6 +7,7 @@ import Video from './components/js/Video';
 import { CarouselCustomNavigation } from './components/js/Carousel';
 import CarouselSchedule from './components/js/CarouselSchedule';
 import Tabela from './components/js/Tabela/Tabela'
+import Footer from './components/js/Footer';
 import { GET_DRIVERS } from './queries';
 
 const App = () => {
@@ -21,7 +22,7 @@ const App = () => {
         <Video></Video>
         <CarouselSchedule></CarouselSchedule>
         <Tabela></Tabela>
-       
+        <Footer></Footer>
 
       </div>
     </>

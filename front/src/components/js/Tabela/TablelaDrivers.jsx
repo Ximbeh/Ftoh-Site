@@ -1,6 +1,9 @@
 
 import '../../css/Tabela.css'
 import { ChevronRight } from 'lucide-react';
+import First from '../../../assets/First.svg'
+import Second from '../../../assets/Second.png'
+import Third from '../../../assets/Third.svg'
 
 const TabelaDrivers = () => {
   return (
@@ -10,14 +13,14 @@ const TabelaDrivers = () => {
           <h1 className='relative  font-formula-bold text-white text-3xl w-full text-center justify-center pt-10 pb-28'>Campeonato de Pilotos</h1>
           <div>
             <div className='bg-white shadow-lg relative w-full h-36 rounded-t-2xl flex items-center md:hidden'>
-              <img className="ml-4 w-28 h-28 bg-blue-900" src="" />
+              <img className="ml-4 w-28 h-28" src={First} />
               <span className='bg-blue-900 absolute w-full h-3 bottom-0'></span>
               <img className="w-72 absolute bottom-0 right-2" src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/homepage/driver-standings-component/MAXVER01.png.transform/4col/image.png"></img>
             </div>
             <div className='flex gap-4 items-end'>
               <div className=' relative w-4/12 hidden md:flex flex-col'>
                 <div className='bg-white relative h-24 rounded-t-2xl flex'>
-                  <img className="ml-4 mt-4 w-12 h-12 bg-blue-900" src="" />
+                  <img className="ml-4 mt-4 w-12 h-12 object-contain" src={Second} />
                   <span className='bg-blue-900 absolute w-full h-2 bottom-0'></span>
                   <img className="w-56 absolute bottom-0 right-2" src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/homepage/driver-standings-component/MAXVER01.png.transform/4col/image.png"></img>
                 </div>
@@ -31,7 +34,7 @@ const TabelaDrivers = () => {
               </div>
               <div className=' relative w-5/12 hidden md:flex flex-col'>
                 <div className='bg-white relative h-32 rounded-t-2xl flex'>
-                  <img className="ml-4 mt-4 w-12 h-12 bg-blue-900" src="" />
+                  <img className="ml-4 mt-4 w-12 h-12" src={First}/>
                   <span className='bg-blue-900 absolute w-full h-2 bottom-0'></span>
                   <img className="w-56 absolute bottom-0 right-2" src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/homepage/driver-standings-component/MAXVER01.png.transform/4col/image.png"></img>
                 </div>
@@ -45,7 +48,7 @@ const TabelaDrivers = () => {
               </div>
               <div className=' relative w-4/12 hidden md:flex flex-col'>
                 <div className='bg-white relative h-24 rounded-t-2xl flex'>
-                  <img className="ml-4 mt-4 w-12 h-12 bg-blue-900" src="" />
+                  <img className="ml-4 mt-4 w-12 h-12" src={Third} />
                   <span className='bg-blue-900 absolute w-full h-2 bottom-0'></span>
                   <img className="w-56 absolute bottom-0 right-2" src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/homepage/driver-standings-component/MAXVER01.png.transform/4col/image.png"></img>
                 </div>
@@ -96,7 +99,7 @@ const TabelaDrivers = () => {
                 </div>
               </div>
 
-              <button className='md:max-w-max md:px-4 w-full bg-red-600 text-white text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2 border-white hover:border-red-600 hover:bg-white hover:text-gray-800 transition duration-500'>Veja o resultado completo</button>
+              <button className='md:max-w-max md:px-4 w-full bg-red-600 text-white text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2 border-white hover:border-red-600 hover:bg-white hover:text-gray-800 transition duration-500'>Tabela Completa</button>
             </div>
           </div>
         </div>
