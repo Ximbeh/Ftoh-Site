@@ -36,7 +36,12 @@ module.exports = withMT({
       zIndex:{
         'm1': -1,
         '1': 1,
-      }
+      },
+
+      backgroundColor: theme=>({
+        ...theme('colors'),
+        'grayTotal': '#15151e'
+      })
       
     },
   },

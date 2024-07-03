@@ -7,6 +7,10 @@
     transform: scale(1.1);
 }
 
+.newsContainer:hover img{
+  transform: scale(1.1);
+}
+
 .max-w-screen-lg-30{
     max-width: 1054px;
 }

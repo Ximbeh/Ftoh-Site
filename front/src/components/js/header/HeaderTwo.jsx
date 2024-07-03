@@ -1,23 +1,65 @@
 import FtohLogo from '../../../assets/f1_logo.svg'
+import { useNavigate } from 'react-router-dom';
 
 const HeaderTwo = () => {
+    const navigate = useNavigate();
 
     return (
         <div className="bg-red-600 hidden lg:flex">
-        <div className="flex space-x-8 max-w-screen-lg ml-10">
-            <img className="h-8 my-5
-            " src={FtohLogo}/>
-            <div className="flex items-center font-formula text-xs text-white">
-                <a className="hover:bg-gray-800 h-full flex items-center px-4 transition ease-out duration-500 hover:cursor-pointer"><span className="hover:opacity-100">Recente</span></a>
-                <a className="hover:bg-gray-800 h-full flex items-center px-4 transition ease-out duration-500 hover:cursor-pointer"><span className="hover:opacity-100">Video</span></a>
-                <a className="hover:bg-gray-800 h-full flex items-center px-4 transition ease-out duration-500 hover:cursor-pointer"><span className="hover:opacity-100">Calendario</span></a>
-                <a className="hover:bg-gray-800 h-full flex items-center px-4 transition ease-out duration-500 hover:cursor-pointer"><span className="hover:opacity-100">Resultados</span></a>
-                <a className="hover:bg-gray-800 h-full flex items-center px-4 transition ease-out duration-500 hover:cursor-pointer"><span className="hover:opacity-100">Pilotos</span></a>
-                <a className="hover:bg-gray-800 h-full flex items-center px-4 transition ease-out duration-500 hover:cursor-pointer"><span className="hover:opacity-100">Times</span></a>
-                <a className="hover:bg-gray-800 h-full flex items-center px-4 transition ease-out duration-500 hover:cursor-pointer"><span className="hover:opacity-100">Vip</span></a>
-                <a className="hover:bg-gray-800 h-full flex items-center px-4 transition ease-out duration-500 hover:cursor-pointer"><span className="hover:opacity-100">Redes Sociais</span></a>
+            <div className="flex space-x-8 max-w-screen-lg ml-10">
+                <img className="h-8 my-5 cursor-pointer"
+                    onClick={() => navigate('/')}
+                    src={FtohLogo} />
+                <div className="flex items-center font-formula text-xs text-white">
+                    <a
+                        className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer"
+                        onClick={() => navigate('/News')}
+                    >
+                        <span className="hover:opacity-100">Notícias</span>
+                    </a>
+                    <a
+                        className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer"
+                        onClick={() => navigate('/Video')}
+                    >
+                        <span className="hover:opacity-100">Vídeo</span>
+                    </a>
+                    <a
+                        className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer"
+                        onClick={() => navigate('/Calendario')}
+                    >
+                        <span className="hover:opacity-100">Calendário</span>
+                    </a>
+                    <a
+                        className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer"
+                        onClick={() => navigate('/Resultados')}
+                    >
+                        <span className="hover:opacity-100">Resultados</span>
+                    </a>
+                    <a
+                        className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer"
+                        onClick={() => navigate('/Pilotos')}
+                    >
+                        <span className="hover:opacity-100">Pilotos</span>
+                    </a>
+                    <a
+                        className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer"
+                        onClick={() => navigate('/Times')}
+                    >
+                        <span className="hover:opacity-100">Times</span>
+                    </a>
+                    <a
+                        className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer"
+                        onClick={() => navigate('/Vip')}
+                    >
+                        <span className="hover:opacity-100">Vip</span>
+                    </a>
+                    <a
+                        className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer"
+                        onClick={() => navigate('/RedesSociais')}
+                    >
+                        <span className="hover:opacity-100">Redes Sociais</span>
+                    </a>            </div>
             </div>
-        </div>
         </div>
     )
 }
