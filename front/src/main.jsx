@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import App from './components/js/App.jsx'
 import Home from './routes/Home.jsx'
-import News from './routes/News.jsx'
+import Latest from './routes/Latest.jsx'
+import News from './components/js/News/News.jsx'
 import './components/css/index.css'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -14,8 +15,12 @@ const router = createBrowserRouter([
     element: <Home /> 
   },
   {
-    path: "news",
-    element: <News /> 
+    path: "latest",
+    element: <Latest /> 
+  },
+  {
+    path: "News",
+    element: <News />
   }
 ])
 

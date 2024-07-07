@@ -1,9 +1,11 @@
 
 import Header from "../components/js/header/Header"
 import NewsContainer from "../components/js/News/NewsContainer"
+import { useNavigate } from 'react-router-dom';
 
 
-const News = () => {
+const Latest = () => {
+  const navigate = useNavigate();
 
   return (
     <>
@@ -15,7 +17,9 @@ const News = () => {
      </header>
      <main className="bg-gray-200 px-2 py-4">
       <div className="md:grid md:grid-cols-2 md:gap-x-4 md:gap-y-2 lg:grid-cols-3  md:max-w-3xl md:mx-auto lg:max-w-6xl">
-        <NewsContainer />
+        <a onClick={() => navigate('/News')}>
+          <NewsContainer/>
+        </a>
         <NewsContainer />
         <NewsContainer />
         <NewsContainer />
@@ -26,4 +30,4 @@ const News = () => {
   )
 }
 
-export default News
+export default Latest

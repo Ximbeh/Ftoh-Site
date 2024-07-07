@@ -41,7 +41,10 @@ module.exports = withMT({
       backgroundColor: theme=>({
         ...theme('colors'),
         'grayTotal': '#15151e'
-      })
+      }),
+      gridTemplateColumns:{
+        'news': '80% 20%'
+      }
       
     },
   },
