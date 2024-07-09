@@ -1,0 +1,13 @@
+.raceMap{
+    filter: invert(1);
+}
+
+.text-stroke{
+    -webkit-text-stroke: 2px rgb(0, 0, 0)
+  }
+
+
+  .img-background-1{
+    background-size: cover;
+    background-image: url("https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Promotional_atom_images/F2_Image");
+  }

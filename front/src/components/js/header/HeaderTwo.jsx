@@ -13,19 +13,19 @@ const HeaderTwo = () => {
                 <div className="flex items-center font-formula text-xs text-white">
                     <a
                         className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer"
-                        onClick={() => navigate('/News')}
+                        onClick={() => navigate('/Latest')}
                     >
                         <span className="hover:opacity-100">Notícias</span>
                     </a>
+                    
                     <a
-                        className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer"
-                        onClick={() => navigate('/Video')}
+                        className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer" href="https://www.youtube.com/channel/UCsNl4k9tn7Ao7wDiykfaHfg" target='_blank'
                     >
                         <span className="hover:opacity-100">Vídeo</span>
                     </a>
                     <a
                         className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer"
-                        onClick={() => navigate('/Calendario')}
+                        onClick={() => navigate('/Calendar')}
                     >
                         <span className="hover:opacity-100">Calendário</span>
                     </a>

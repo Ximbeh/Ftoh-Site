@@ -76,7 +76,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
@@ -117,7 +117,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
@@ -158,7 +158,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
@@ -200,7 +200,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
@@ -248,7 +248,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
@@ -289,7 +289,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
@@ -330,7 +330,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
@@ -371,7 +371,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
@@ -412,7 +412,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
@@ -453,7 +453,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
@@ -494,7 +494,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
@@ -535,7 +535,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
@@ -576,7 +576,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
@@ -617,7 +617,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
@@ -658,7 +658,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
@@ -699,7 +699,7 @@ const CarouselSchedule = () => {
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
                                 <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-xm mr-4 uppercase'>Treino-Livre 3</h3>
+                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
                                     <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
                                     <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
                                 </div>
