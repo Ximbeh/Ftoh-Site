@@ -19,7 +19,9 @@ module.exports = withMT({
       },
 
       backgroundImage:{
-        'grade-pattern':"url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-x2.png)"
+        'grade-pattern':"url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-x2.png)",
+        'grade-pattern-gray': "url(https://www.formula1.com/assets/racing/static/images/plus-white-x2.avif)",
+        'image-schedule': "url(https://media.formula1.com/content/dam/fom-website/races/2024/race-listing/Hungary.jpg)"
       },
       backgroundSize:{
         '2': '8px'
