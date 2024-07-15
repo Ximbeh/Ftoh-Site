@@ -7,9 +7,12 @@ import secondLogo from "../../../assets/Second.png"
 import thirdLogo from "../../../assets/Third.svg"
 import formulaLogo from "../../../assets/f1_logo.svg"
 
+import { useNavigate } from 'react-router-dom';
+
 import "../../css/Calendar.css"
 
 const Calendar = () => {
+    const navigate = useNavigate();
 
     return (
         <div>
@@ -20,7 +23,8 @@ const Calendar = () => {
                 </div>
                 <div className="max-w-xl mx-auto md:max-w-3xl lg:max-w-5xl xl:max-w-7xl md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     <div className="px-4">
-                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200">
+                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200"
+                        onClick={() => navigate('/Race')}>
                             <h4 className="text-red-500 bg-white absolute -top-4 font-formula-bold pr-2 uppercase">Estágio</h4>
                             <div className="flex justify-between items-center pb-4 border-b-2 border-gray-400 mb-4">
                                 <div className="flex flex-col">
@@ -68,57 +72,8 @@ const Calendar = () => {
                         </div>
                     </div>
                     <div className="px-4">
-                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200">
-                            <h4 className="text-red-500 bg-white absolute -top-4 font-formula-bold pr-2 uppercase">Estágio</h4>
-                            <div className="flex justify-between items-center pb-4 border-b-2 border-gray-400 mb-4">
-                                <div className="flex flex-col">
-                                    <h3 className="font-formula-bold text-2xl">29-02</h3>
-                                    <h4 className="text-center font-formula-bold text-lg text-white bg-grayTotal px-2 rounded-xl uppercase">Feb-Mar</h4>
-                                </div>
-                                <img className="border-2 w-12 h-8 rounded-md" src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/Flags%2016x9/bahrain-flag.png" alt="" />
-                            </div>
-                            <div className="pb-4 border-b-2 border-gray-400 mb-4">
-                                <div className="flex">
-                                    <h3 className="font-formula-bold text-xl">Nome Corrida</h3>
-                                    <ChevronRight className="mt-0.5" color="rgb(229 57 53)" />
-                                </div>
-                                <p className="font-formula text-gray-700">Nome completo da corrida de formula-1</p>
-                            </div>
-                            <div className="flex items-end gap-1">
-                                <div className="w-full">
-                                    <div className="rounded-t-xl relative flex justify-center h-16 bg-gray-800">
-                                        <img className="absolute h-20 bottom-0 left-1/5" src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/drivers/2024/maxver01.png.transform/2col/image.png" alt="" />
-                                    </div>
-                                    <div className="p-2 border-b border-r border-gray-300 rounded-br-xl flex items-center gap-2 justify-center">
-                                        <img className="w-10 h-full" src={secondLogo} alt="" />
-                                        <h2 className="font-formula-bold text-lg uppercase">Ver</h2>
-                                    </div>
-                                </div>
-                                <div className="w-full">
-                                    <div className="rounded-t-xl relative  flex justify-center h-20 bg-gray-800">
-                                        <img className="absolute h-24 bottom-0" src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/drivers/2024/maxver01.png.transform/2col/image.png" alt="" />
-                                    </div>
-                                    <div className="p-2 border-b border-r border-gray-300 rounded-br-xl flex gap-2 justify-center">
-                                        <img className="w-10" src={firstLogo} alt="" />
-                                        <h2 className="font-formula-bold text-lg uppercase">Ver</h2>
-                                    </div>
-                                </div>
-                                <div className="w-full">
-                                    <div className="rounded-t-xl relative  flex justify-center h-14 bg-gray-800">
-                                        <img className="absolute h-20 bottom-0" src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/drivers/2024/maxver01.png.transform/2col/image.png" alt="" />
-                                    </div>
-                                    <div className="p-2 border-b border-r border-gray-300 rounded-br-xl flex gap-2 justify-center">
-                                        <img className="w-10" src={thirdLogo} alt="" />
-                                        <h2 className="font-formula-bold text-lg uppercase">Ver</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div className="px-4">
-                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200">
+                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200"
+                        onClick={() => navigate('/Race')}>
                             <h4 className="text-red-500 bg-white absolute -top-4 font-formula-bold pr-2 uppercase">Estágio</h4>
                             <div className="flex justify-between items-center pb-4 border-b-2 border-gray-400 mb-4">
                                 <div className="flex flex-col">
@@ -168,7 +123,8 @@ const Calendar = () => {
 
                     </div>
                     <div className="px-4">
-                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200">
+                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200"
+                        onClick={() => navigate('/Race')}>
                             <h4 className="text-red-500 bg-white absolute -top-4 font-formula-bold pr-2 uppercase">Estágio</h4>
                             <div className="flex justify-between items-center pb-4 border-b-2 border-gray-400 mb-4">
                                 <div className="flex flex-col">
@@ -218,7 +174,59 @@ const Calendar = () => {
 
                     </div>
                     <div className="px-4">
-                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200">
+                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200"
+                        onClick={() => navigate('/Race')}>
+                            <h4 className="text-red-500 bg-white absolute -top-4 font-formula-bold pr-2 uppercase">Estágio</h4>
+                            <div className="flex justify-between items-center pb-4 border-b-2 border-gray-400 mb-4">
+                                <div className="flex flex-col">
+                                    <h3 className="font-formula-bold text-2xl">29-02</h3>
+                                    <h4 className="text-center font-formula-bold text-lg text-white bg-grayTotal px-2 rounded-xl uppercase">Feb-Mar</h4>
+                                </div>
+                                <img className="border-2 w-12 h-8 rounded-md" src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/Flags%2016x9/bahrain-flag.png" alt="" />
+                            </div>
+                            <div className="pb-4 border-b-2 border-gray-400 mb-4">
+                                <div className="flex">
+                                    <h3 className="font-formula-bold text-xl">Nome Corrida</h3>
+                                    <ChevronRight className="mt-0.5" color="rgb(229 57 53)" />
+                                </div>
+                                <p className="font-formula text-gray-700">Nome completo da corrida de formula-1</p>
+                            </div>
+                            <div className="flex items-end gap-1">
+                                <div className="w-full">
+                                    <div className="rounded-t-xl relative flex justify-center h-16 bg-gray-800">
+                                        <img className="absolute h-20 bottom-0 left-1/5" src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/drivers/2024/maxver01.png.transform/2col/image.png" alt="" />
+                                    </div>
+                                    <div className="p-2 border-b border-r border-gray-300 rounded-br-xl flex items-center gap-2 justify-center">
+                                        <img className="w-10 h-full" src={secondLogo} alt="" />
+                                        <h2 className="font-formula-bold text-lg uppercase">Ver</h2>
+                                    </div>
+                                </div>
+                                <div className="w-full">
+                                    <div className="rounded-t-xl relative  flex justify-center h-20 bg-gray-800">
+                                        <img className="absolute h-24 bottom-0" src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/drivers/2024/maxver01.png.transform/2col/image.png" alt="" />
+                                    </div>
+                                    <div className="p-2 border-b border-r border-gray-300 rounded-br-xl flex gap-2 justify-center">
+                                        <img className="w-10" src={firstLogo} alt="" />
+                                        <h2 className="font-formula-bold text-lg uppercase">Ver</h2>
+                                    </div>
+                                </div>
+                                <div className="w-full">
+                                    <div className="rounded-t-xl relative  flex justify-center h-14 bg-gray-800">
+                                        <img className="absolute h-20 bottom-0" src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/drivers/2024/maxver01.png.transform/2col/image.png" alt="" />
+                                    </div>
+                                    <div className="p-2 border-b border-r border-gray-300 rounded-br-xl flex gap-2 justify-center">
+                                        <img className="w-10" src={thirdLogo} alt="" />
+                                        <h2 className="font-formula-bold text-lg uppercase">Ver</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div className="px-4">
+                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200"
+                        onClick={() => navigate('/Race')}>
                             <h4 className="text-red-500 bg-white absolute -top-4 font-formula-bold pr-2 uppercase">Estágio</h4>
                             <div className="flex justify-between items-center pb-4 border-b-2 border-gray-400 mb-4">
                                 <div className="flex flex-col">
@@ -268,7 +276,9 @@ const Calendar = () => {
 
                     </div>
                 </div>
-                <div className="cursor-pointer bg-grayTotal text-white px-4 py-6 mb-10">
+
+                <div className="cursor-pointer bg-grayTotal text-white px-4 py-6 mb-10"
+                 onClick={() => navigate('/Race')}>
                     <div className="max-w-xl mx-auto md:max-w-3xl lg:max-w-5xl xl:max-w-7xl border-t-8 border-r-8 border-red-500 rounded-tr-3xl relative
                     md:grid md:grid-cols-2 md:gap-2 xl:grid-cols-4">
                         <div>
@@ -324,9 +334,11 @@ const Calendar = () => {
                         </div>
                     </div>
                 </div>
+                
                 <div className="max-w-xl mx-auto md:max-w-3xl lg:max-w-5xl xl:max-w-7xl md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     <div className="px-4">
-                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200">
+                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200"
+                        onClick={() => navigate('/Race')}>
                             <h4 className="text-red-500 bg-white absolute -top-4 font-formula-bold pr-2 uppercase">Estágio</h4>
                             <div className="flex justify-between items-center pb-4 border-b-2 border-gray-400 mb-4">
                                 <div className="flex flex-col">
@@ -349,7 +361,8 @@ const Calendar = () => {
 
                     </div>
                     <div className="px-4">
-                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200">
+                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200"
+                        onClick={() => navigate('/Race')}>
                             <h4 className="text-red-500 bg-white absolute -top-4 font-formula-bold pr-2 uppercase">Estágio</h4>
                             <div className="flex justify-between items-center pb-4 border-b-2 border-gray-400 mb-4">
                                 <div className="flex flex-col">
@@ -372,7 +385,8 @@ const Calendar = () => {
 
                     </div>
                     <div className="px-4">
-                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200">
+                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200"
+                        onClick={() => navigate('/Race')}>
                             <h4 className="text-red-500 bg-white absolute -top-4 font-formula-bold pr-2 uppercase">Estágio</h4>
                             <div className="flex justify-between items-center pb-4 border-b-2 border-gray-400 mb-4">
                                 <div className="flex flex-col">
@@ -395,7 +409,8 @@ const Calendar = () => {
 
                     </div>
                     <div className="px-4">
-                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200">
+                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200"
+                        onClick={() => navigate('/Race')}>
                             <h4 className="text-red-500 bg-white absolute -top-4 font-formula-bold pr-2 uppercase">Estágio</h4>
                             <div className="flex justify-between items-center pb-4 border-b-2 border-gray-400 mb-4">
                                 <div className="flex flex-col">
@@ -418,7 +433,8 @@ const Calendar = () => {
 
                     </div>
                     <div className="px-4">
-                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200">
+                        <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200"
+                        onClick={() => navigate('/Race')}>
                             <h4 className="text-red-500 bg-white absolute -top-4 font-formula-bold pr-2 uppercase">Estágio</h4>
                             <div className="flex justify-between items-center pb-4 border-b-2 border-gray-400 mb-4">
                                 <div className="flex flex-col">
@@ -444,7 +460,8 @@ const Calendar = () => {
 
 
                 <div className="max-w-xl mx-auto md:max-w-3xl lg:max-w-5xl xl:max-w-7xl">
-                    <div className="cursor-pointer hover:border-red-500 flex items-center mb-10 mx-4 border-t-2 border-l-2 border-gray-300 rounded-tl-xl px-2 py-4">
+                    <div className="cursor-pointer hover:border-red-500 flex items-center mb-10 
+                    onClick={() => navigate('/Race')}mx-4 border-t-2 border-l-2 border-gray-300 rounded-tl-xl px-2 py-4">
                         <ChevronLeft color="rgb(229 57 53)" />
                         <div>
                             <h3 className="font-formula-bold uppercase text-xl">Season</h3>
@@ -452,7 +469,6 @@ const Calendar = () => {
                         </div>
                     </div>
                 </div>
-
                 <div className="bg-grayTotal px-8 py-4 text-white flex flex-col gap-4">
                     <div className="max-w-xl mx-auto md:max-w-3xl lg:max-w-5xl xl:max-w-7xl lg:flex lg:flex-rows lg:gap-4">
                         <div className="img-background-1 rounded-2xl p-2">

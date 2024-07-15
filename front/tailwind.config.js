@@ -21,7 +21,8 @@ module.exports = withMT({
       backgroundImage:{
         'grade-pattern':"url(https://www.formula1.com/etc/designs/fom-website/images/patterns/plus-x2.png)",
         'grade-pattern-gray': "url(https://www.formula1.com/assets/racing/static/images/plus-white-x2.avif)",
-        'image-schedule': "url(https://media.formula1.com/content/dam/fom-website/races/2024/race-listing/Hungary.jpg)"
+        'image-schedule': "url(https://media.formula1.com/content/dam/fom-website/races/2024/race-listing/Hungary.jpg)",
+        'image-header-race': "url(https://media.formula1.com/image/upload/f_auto,c_limit,w_1440,q_auto/f_auto/q_auto/content/dam/fom-website/2018-redesign-assets/Racehub%20header%20images%2016x9/Saudi_Arabia)"
       },
       backgroundSize:{
         '2': '8px'
