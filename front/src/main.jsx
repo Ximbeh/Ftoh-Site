@@ -7,6 +7,7 @@ import Latest from './routes/Latest.jsx'
 import News from './components/js/News/News.jsx'
 import Calendar from './components/js/Calendar/Calendar.jsx'
 import Race from './components/js/Calendar/Race.jsx'
+import Pilots from './components/js/Pilots/Pilots.jsx';
 import './components/css/index.css'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "Race",
     element: <Race />
+  },
+  {
+    path: "Pilots",
+    element: <Pilots/>
   }
 ])
 

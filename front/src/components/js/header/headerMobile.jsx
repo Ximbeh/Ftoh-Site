@@ -4,19 +4,23 @@ import f2logo from '../../../assets/f2.svg'
 import fnglogo from '../../../assets/fng.svg'
 import { Menu, X, ChevronRight } from "lucide-react"
 import { FaDiscord } from "react-icons/fa";
-import "../../css/header.css"
+import "../../css/header.css";
+import { useNavigate } from 'react-router-dom';
 
 
 const HeaderMobile = () => {
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false)
 
     const toggleNavBar = () => {
         setIsOpen(!isOpen);
     }
 
+    
+
     return (
         <div className="bg-red-600 lg:hidden">
-            <div className="flex max-w-screen-lg mx-10">
+            <div className="flex max-w-screen-lg mx-5 sm:mx-10">
                 <button onClick={toggleNavBar}>
                     {isOpen ? <X color="#fff" /> : <Menu color="#fff" />}
                 </button>
@@ -26,12 +30,17 @@ const HeaderMobile = () => {
                 <div className="h-full relative">
                     <div className="absolute w-full no-scrollbar" style={{ height: 'calc(100vh - 56px)', overflowY: 'auto'}}>
                         <div className="text-white h-92 w-full bg-red-600 font-formula pb-6 md:grid md:grid-cols-2 md:gap-x-4 md:gap-y-3 md:h-64">
-                            <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"><span>Notícias</span><ChevronRight color="#fff" /></a>
+                            <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
+                            onClick={() => navigate('/Latest')}><span>Notícias</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"><span>Video</span><ChevronRight color="#fff" /></a>
-                            <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"><span>Calendario</span><ChevronRight color="#fff" /></a>
-                            <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"><span>Resultados</span><ChevronRight color="#fff" /></a>
-                            <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"><span>Pilotos</span><ChevronRight color="#fff" /></a>
-                            <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"><span>Times</span><ChevronRight color="#fff" /></a>
+                            <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
+                            onClick={() => navigate('/Calendar')}><span>Calendario</span><ChevronRight color="#fff" /></a>
+                            <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
+                            onClick={() => navigate('/Resultados')}><span>Resultados</span><ChevronRight color="#fff" /></a>
+                            <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
+                            onClick={() => navigate('/Pilots')}><span>Pilotos</span><ChevronRight color="#fff" /></a>
+                            <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
+                            onClick={() => navigate('/Teams')}><span>Times</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"><span>Vip</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"><span>Redes Sociais</span><ChevronRight color="#fff" /></a>
                         </div>
