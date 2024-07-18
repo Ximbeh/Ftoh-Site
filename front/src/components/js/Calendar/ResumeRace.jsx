@@ -6,10 +6,10 @@ import { ChevronRight, ChevronLeft } from "lucide-react"
 
 const ResumeRace = () => {
     return (
-        <div className="px-4 py-10 bg-gray-100">
+        <div className="px-4 py-10 bg-gray-200">
             <div className="relative border-t-8 border-r-8 rounded-tr-xl border-gray-500 pr-2 m-auto max-w-lg md:max-w-5xl lg:max-w-7xl lg:grid lg:grid-cols-2 lg:gap-4">
                 <div>
-                    <p className="bg-gray-100 pr-4 text-gray-500 font-formula uppercase absolute -top-3.5 text-xs">Review da Corrida</p>
+                    <p className="bg-gray-200 pr-4 text-gray-500 font-formula uppercase absolute -top-3.5 text-xs">Review da Corrida</p>
                     <h3 className="mt-3 font-formula text-gray-900 text-lg md:text-2xl mb-3">Resumo da corrida escrito aqui</h3>
                     
                     <div className="grid gap-1 mb-4">
@@ -19,7 +19,7 @@ const ResumeRace = () => {
                                 <p className="font-formula mr-1 hidden md:flex">Max</p>
                                 <p className="font-formula-bold text-sm sm:text-base uppercase">Verstappen</p>
                             </div>
-                            <p className="text-xs px-2 bg-gray-100 rounded-xl">1:20:43.273</p>
+                            <p className="text-xs px-2 bg-gray-200 rounded-xl">1:20:43.273</p>
                         </div>
                         <div className="bg-white p-4 flex  justify-between items-center">
                             <div className="flex flex-cols">
@@ -27,7 +27,7 @@ const ResumeRace = () => {
                                 <p className="font-formula mr-1 hidden md:flex">Max</p>
                                 <p className="font-formula-bold text-sm sm:text-base uppercase">Verstappen</p>
                             </div>
-                            <p className="text-xs px-2 bg-gray-100 rounded-xl">1:20:43.273</p>
+                            <p className="text-xs px-2 bg-gray-200 rounded-xl">1:20:43.273</p>
                         </div>
                         <div className="bg-white p-4 flex  justify-between items-center">
                             <div className="flex flex-cols">
@@ -35,7 +35,7 @@ const ResumeRace = () => {
                                 <p className="font-formula mr-1 hidden md:flex">Max</p>
                                 <p className="font-formula-bold text-sm sm:text-base uppercase">Verstappen</p>
                             </div>
-                            <p className="text-xs px-2 bg-gray-100 rounded-xl">1:20:43.273</p>
+                            <p className="text-xs px-2 bg-gray-200 rounded-xl">1:20:43.273</p>
                         </div>
                     </div>
                     <div className="flex flex-col gap-1 mb-2 md:flex-row">

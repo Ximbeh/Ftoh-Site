@@ -10,6 +10,7 @@ import Race from './components/js/Calendar/Race.jsx'
 import Pilots from './components/js/Pilots/Pilots.jsx';
 import Pilot from './components/js/Pilots/Pilot.jsx';
 import Teams from './components/js/Teams/Teams.jsx';
+import Hall from './components/js/Hall.jsx';
 import './components/css/index.css'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -46,7 +47,11 @@ const router = createBrowserRouter([
   {
     path: "Teams",
     element: <Teams/>
-  }
+  },
+  {
+    path: "Hall",
+    element: <Hall/>
+  },
 ])
 
 const client = new ApolloClient({

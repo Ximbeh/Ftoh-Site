@@ -8,7 +8,7 @@ import { ChevronRight, ChevronLeft } from "lucide-react"
 
 const CalendarRace = () => {
     return (
-        <div className="px-4 py-10 bg-gray-100">
+        <div className="px-4 py-10 bg-gray-200">
             <ResumeRace/>
 
             <div className="m-auto max-w-lg md:max-w-5xl lg:max-w-7xl">

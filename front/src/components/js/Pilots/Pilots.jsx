@@ -3,7 +3,11 @@ import Header from "../header/Header"
 import Footer from "../Footer"
 import { ChevronRight} from "lucide-react"
 
+import { useNavigate } from 'react-router-dom';
+
 const Pilots = () => {
+    const navigate = useNavigate();
+
     return (
         <div >
             <Header/>
@@ -13,7 +17,7 @@ const Pilots = () => {
                 </div>
 
                 <div className="grid gap-10 mb-10 md:grid-cols-2 lg:grid-cols-3">
-                    <div className="py-2 pr-2 border-t-2 border-r-2 border-black rounded-tr-2xl hover:pt-6 hover:border-blue-700 cursor-pointer duration-200">
+                    <div onClick={() => navigate('/Pilot')} className="py-2 pr-2 border-t-2 border-r-2 border-black rounded-tr-2xl hover:pt-6 hover:border-blue-700 cursor-pointer duration-200">
                         <div className="flex justify-between items-center pb-4 border-b-2 border-gray-400">
                             <h1 className="font-formula-bold text-5xl">1</h1>
                             <div className="flex flex-col items-center">
@@ -107,7 +111,7 @@ const Pilots = () => {
                     </div>
                 </div>
 
-                <button className="flex  duration-200  mx-auto  mb-10 border-t-2 border-r-2 border-black rounded-tr-xl py-4 text-black font-formula hover:border-red-500 hover:text-red-500 cursor-pointer">Hall da fama <ChevronRight color="rgb(229 57 53)"/> </button>
+                <button  onClick={() => navigate('/Hall')} className="flex  duration-200  mx-auto  mb-10 border-t-2 border-r-2 border-black rounded-tr-xl py-4 text-black font-formula hover:border-red-500 hover:text-red-500 cursor-pointer">Hall da fama <ChevronRight color="rgb(229 57 53)"/> </button>
             </div>
             <Footer/>
         </div>
