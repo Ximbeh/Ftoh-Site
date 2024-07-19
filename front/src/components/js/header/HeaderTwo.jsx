@@ -31,7 +31,7 @@ const HeaderTwo = () => {
                     </a>
                     <a
                         className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer"
-                        onClick={() => navigate('/Resultados')}
+                        onClick={() => navigate('/Results')}
                     >
                         <span className="hover:opacity-100">Resultados</span>
                     </a>

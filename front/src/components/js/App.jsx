@@ -2,7 +2,7 @@ import { useState } from 'react'
 import viteLogo from '/vite.svg'
 import { useQuery } from '@apollo/client';
 
-import { GET_DRIVERS } from '../../queries';
+import { GET_DRIVERS } from '../../queries/queries';
 
 const App = () => {
   const {loading, error, data} = useQuery(GET_DRIVERS)

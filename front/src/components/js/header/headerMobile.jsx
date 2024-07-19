@@ -36,7 +36,7 @@ const HeaderMobile = () => {
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
                             onClick={() => navigate('/Calendar')}><span>Calendario</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
-                            onClick={() => navigate('/Resultados')}><span>Resultados</span><ChevronRight color="#fff" /></a>
+                            onClick={() => navigate('/Results')}><span>Resultados</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
                             onClick={() => navigate('/Pilots')}><span>Pilotos</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
