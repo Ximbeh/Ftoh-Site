@@ -10,6 +10,7 @@ import Race from './components/js/Calendar/Race.jsx'
 import Pilots from './components/js/Pilots/Pilots.jsx';
 import Pilot from './components/js/Pilots/Pilot.jsx';
 import Teams from './components/js/Teams/Teams.jsx';
+import Team from './components/js/Teams/Team.jsx';
 import Hall from './components/js/Hall.jsx';
 import './components/css/index.css'
 
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
   {
     path: "Hall",
     element: <Hall/>
+  },
+  {
+    path: "Team",
+    element: <Team/>
   },
 ])
 

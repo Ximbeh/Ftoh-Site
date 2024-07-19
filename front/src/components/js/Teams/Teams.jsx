@@ -2,8 +2,11 @@
 import Header from "../header/Header"
 import Footer from "../Footer"
 import { ChevronRight } from "lucide-react"
+import { useNavigate } from 'react-router-dom';
 
 const Teams = () => {
+    const navigate = useNavigate();
+
     return (
         <div >
             <Header />
@@ -13,7 +16,7 @@ const Teams = () => {
                 </div>
 
                 <div className="grid gap-10 mb-10 md:grid-cols-2 lg:grid-cols-2">
-                    <div className="py-2 pr-2 border-t-2 border-r-2 border-black rounded-tr-2xl hover:pt-6 hover:border-blue-700 cursor-pointer duration-200">
+                    <div  onClick={() => navigate('/Team')} className="py-2 pr-2 border-t-2 border-r-2 border-black rounded-tr-2xl hover:pt-6 hover:border-blue-700 cursor-pointer duration-200">
                         <div className="flex justify-between items-center pb-4 border-b-2 border-gray-400">
                             <h1 className="font-formula-bold text-5xl">1</h1>
                             <div className="flex flex-col items-center">

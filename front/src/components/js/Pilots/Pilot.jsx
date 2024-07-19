@@ -57,8 +57,27 @@ const Pilot = () => {
                                 <h5  className="font-formula-bold mb-1">Maior posição no grid</h5>
                                 <p className="font-formula text-sm">1</p>
                             </div>
+                            <div className="mb-10 md:mb-5">
+                                <h5  className="font-formula-bold mb-1">Pole Position</h5>
+                                <p className="font-formula text-sm">105</p>
+                            </div>
+                            <div className="mb-10 md:mb-5">
+                                <h5  className="font-formula-bold mb-1">Voltas mais rapidas</h5>
+                                <p className="font-formula text-sm">97</p>
+                            </div>
                         </div>
 
+                    </div>
+                    <div className="px-4 py-10 mb-4">
+                        <h2 className="mb-10 font-formula text-center text-4xl">História</h2>
+                        <div className="mb-10">
+                            <h4 className="font-formula-bold mb-1 text-2xl">2023</h4>
+                            <p className="font-titillium">História do piloto aqui blablablabla</p>
+                        </div>
+                        <div>
+                            <h4 className="font-formula-bold mb-1 text-2xl">2024</h4>
+                            <p className="font-titillium">História do piloto aqui blablablabla</p>
+                        </div>
                     </div>
                     <div className="grid md:grid-cols-2 gap-1 py-4 bg-gray-200 xl:grid-cols-4">
                         <NewsContainer />
