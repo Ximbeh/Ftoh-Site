@@ -1,6 +1,17 @@
+import React from 'react';
 import "../../css/news.css";
 
-const SecondNews = ({ championshipColorHex }) => {
+const SecondNews = ({ news, championshipColorHex }) => {
+  if (!news) {
+    return (
+      <div className="component hover:cursor-pointer max-w-xs m-auto mt-0 md:max-w-screen-md lg:">
+        <p className="text-center">Sem notícias disponíveis</p>
+      </div>
+    );
+  }
+
+  const { tags, title, image } = news;
+
   return (
     <div className="component hover:cursor-pointer max-w-xs m-auto mt-0 md:max-w-screen-md lg:">
       <div className="font-formula">
@@ -10,16 +21,16 @@ const SecondNews = ({ championshipColorHex }) => {
         >
           <img 
             className="w-full h-full duration-500 transition-transform mb-2" 
-            src="https://media.formula1.com/image/upload/t_16by9North/f_auto/q_auto/v1719156582/fom-website/2024/Spain/GettyImages-2158857659.jpg.transform/4col/image.jpg" 
+            src={image || "https://via.placeholder.com/800x400"} 
             alt="News"
           />
         </div>
         <div className="duration-300 text pt-1 pb-3 px-3 border-r border-b border-l-0 border-t-0 border-solid border-gray-300 rounded-br-3xl min-h-4" style={{ '--button-border-color': championshipColorHex }}>
           <p className="text-xs font-formula-bold mb-1 uppercase" style={{ color: championshipColorHex }}>
-            Tag
+            {tags?.[0] || 'Sem categoria'}
           </p>
           <h2 className="text-black font-titillium text-sm md:hover:underline">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            {title}
           </h2>
         </div>
       </div>

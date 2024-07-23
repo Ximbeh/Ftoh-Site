@@ -21,6 +21,7 @@ import { ChampionshipProvider } from './Context/ChampionshipContext.jsx';
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
+  { path: "/:id", element: <Home /> },
   { path: "latest", element: <Latest /> },
   { path: "News", element: <News /> },
   { path: "Calendar", element: <Calendar /> },

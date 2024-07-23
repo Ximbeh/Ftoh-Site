@@ -1,7 +1,14 @@
 import { Play } from 'lucide-react';
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { GET_ALLNEWS } from '../../queries/getAllNews';
+import { useQuery } from '@apollo/client';
+import { ChampionshipContext } from '../../Context/ChampionshipContext';
 
 const Video = () => {
+
+    const { loading, error, data } = useQuery(GET_ALLNEWS);
+    const { selectedChampionship } = useContext(ChampionshipContext);
 
 
     return (

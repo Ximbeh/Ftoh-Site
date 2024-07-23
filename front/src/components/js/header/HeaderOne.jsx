@@ -3,16 +3,19 @@ import { useQuery } from '@apollo/client';
 import { useContext } from 'react';
 import { ChampionshipContext } from "../../../Context/ChampionshipContext";
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
+import { useNavigate } from "react-router-dom";
 
 const HeaderOne = ({championshipColorHex}) => {
     const { loading, error, data } = useQuery(GET_CHAMPIONSHIPS);
     const { selectedChampionship, setChampionship } = useContext(ChampionshipContext);
+    const navigate = useNavigate();
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
     const handleChampionshipClick = (championship) => {
         setChampionship(championship.id, championship.championshipName);
+        navigate(`/${championship.id}`)
     };
 
     return (
