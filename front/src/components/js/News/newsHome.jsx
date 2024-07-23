@@ -21,40 +21,44 @@ const NewsHome = ({ championshipColorHex }) => {
   const stickyClass = 'sticky-sidebar';
   const bottomFixedClass = 'bottom-fixed-sidebar';
 
-  useEffect(() => {
+  const controlSideBarFloating = () => {
     const contentArea = contentAreaRef.current;
     const sideBar = principalHomeRef.current;
 
-    const controlSideBarFloating = () => {
-      if (!contentArea || !sideBar) return;
+    if (!contentArea || !sideBar) return;
 
-      const rectL = contentArea.getBoundingClientRect();
-      const rectR = sideBar.getBoundingClientRect();
-      if (window.innerWidth >= breakpoint) {
-        if (rectL.top - topSpace + (rectL.height - rectR.height) >= 0 && rectL.top - topSpace <= 0) {
-          sideBar.classList.add(stickyClass);
-          sideBar.classList.remove(bottomFixedClass);
-        } else if (rectL.top - topSpace + (rectL.height - rectR.height) <= 0) {
-          sideBar.classList.remove(stickyClass);
-          sideBar.classList.add(bottomFixedClass);
-        } else {
-          sideBar.classList.remove(stickyClass);
-          sideBar.classList.remove(bottomFixedClass);
-        }
+    const rectL = contentArea.getBoundingClientRect();
+    const rectR = sideBar.getBoundingClientRect();
+    if (window.innerWidth >= breakpoint) {
+      if (rectL.top - topSpace + (rectL.height - rectR.height) >= 0 && rectL.top - topSpace <= 0) {
+        sideBar.classList.add(stickyClass);
+        sideBar.classList.remove(bottomFixedClass);
+      } else if (rectL.top - topSpace + (rectL.height - rectR.height) <= 0) {
+        sideBar.classList.remove(stickyClass);
+        sideBar.classList.add(bottomFixedClass);
       } else {
         sideBar.classList.remove(stickyClass);
         sideBar.classList.remove(bottomFixedClass);
       }
+    } else {
+      sideBar.classList.remove(stickyClass);
+      sideBar.classList.remove(bottomFixedClass);
+    }
+  };
+
+  useEffect(() => {
+    const handleScrollAndResize = () => {
+      window.requestAnimationFrame(controlSideBarFloating);
     };
 
-    window.addEventListener('scroll', controlSideBarFloating);
-    window.addEventListener('resize', controlSideBarFloating);
+    window.addEventListener('scroll', handleScrollAndResize);
+    window.addEventListener('resize', handleScrollAndResize);
 
-    controlSideBarFloating();
+    handleScrollAndResize(); 
 
     return () => {
-      window.removeEventListener('scroll', controlSideBarFloating);
-      window.removeEventListener('resize', controlSideBarFloating);
+      window.removeEventListener('scroll', handleScrollAndResize);
+      window.removeEventListener('resize', handleScrollAndResize);
     };
   }, []);
 
@@ -66,8 +70,6 @@ const NewsHome = ({ championshipColorHex }) => {
   const championshipId = selectedChampionship?.id;
 
   console.log("ID do campeonato selecionado:", championshipId);
-
-  // Verificar estrutura dos dados
   console.log("Dados dos campeonatos:", championshipsData);
 
   const championship = championshipsData.championships.find(champ => champ.id === championshipId);
