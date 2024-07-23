@@ -1,10 +1,10 @@
 import { Carousel } from "@material-tailwind/react";
 import React from 'react';
 
-export function CarouselCustomNavigation() {
+export function CarouselCustomNavigation({championshipColorHex}) {
     return (
         <div className="max-w-lg mx-auto md:max-w-screen-md max-w-screen-lg-30 xl:max-w-screen-xl">
-            <div className="relative mx-2 mb-8 border-red-600 border-8 border-l-0 rounded-tr-xl rounded-br-xl">
+            <div className="relative mx-2 mb-8 border-8 border-l-0 rounded-tr-xl rounded-br-xl" style={{borderColor: championshipColorHex}}>
                 <h1 className="font-formula-bold text-xl absolute bg-white -top-5 pr-4">Highlights</h1>
                 <div className='relative w-full pr-2 xl:flex xl:gap-4'>
                     <Carousel
@@ -29,7 +29,7 @@ export function CarouselCustomNavigation() {
                                 className="h-full w-full object-cover hover:cursor-pointer"
                             />
                             <div className="absolute bottom-4 left-2 flex w-full items-end md:left-4 md:bottom-6 xl:bottom-4 xl:left-2">
-                                <span className="bg-red-600 w-1 h-11 flex"></span>
+                                <span className="w-1 h-11 flex" style={{backgroundColor: championshipColorHex}}></span>
                                 <h2 className="ml-2 text-2xl text-white truncate w-4/5 md:w-11/12 md:ml-4 md:text-3xl xl:text-xl xl:ml-2" >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
                             </div>
                         </div>
@@ -40,7 +40,7 @@ export function CarouselCustomNavigation() {
                                 className="h-full w-full object-cover hover:cursor-pointer"
                             />
                             <div className="absolute bottom-4 left-2 flex w-full items-end md:left-4 md:bottom-6 xl:bottom-4 xl:left-2">
-                                <span className="bg-red-600 w-1 h-11 flex"></span>
+                                <span className=" w-1 h-11 flex" style={{backgroundColor: championshipColorHex}}></span>
                                 <h2 className="ml-2 text-2xl text-white truncate w-4/5 md:w-11/12 md:ml-4 md:text-3xl xl:text-xl xl:ml-2" >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
                             </div>
                         </div><div className="relative">
@@ -50,7 +50,7 @@ export function CarouselCustomNavigation() {
                                 className="h-full w-full object-cover hover:cursor-pointer"
                             />
                             <div className="absolute bottom-4 left-2 flex w-full items-end md:left-4 md:bottom-6 xl:bottom-4 xl:left-2">
-                                <span className="bg-red-600 w-1 h-11 flex"></span>
+                                <span className=" w-1 h-11 flex" style={{backgroundColor: championshipColorHex}}></span>
                                 <h2 className="ml-2 text-2xl text-white truncate w-4/5 md:w-11/12 md:ml-4 md:text-3xl xl:text-xl xl:ml-2" >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
                             </div>
                         </div><div className="relative">
@@ -60,7 +60,7 @@ export function CarouselCustomNavigation() {
                                 className="h-full w-full object-cover hover:cursor-pointer"
                             />
                             <div className="absolute bottom-4 left-2 flex w-full items-end md:left-4 md:bottom-6 xl:bottom-4 xl:left-2">
-                                <span className="bg-red-600 w-1 h-11 flex"></span>
+                                <span className=" w-1 h-11 flex" style={{backgroundColor: championshipColorHex}}></span>
                                 <h2 className="ml-2 text-2xl text-white truncate w-4/5 md:w-11/12 md:ml-4 md:text-3xl xl:text-xl xl:ml-2" >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
                             </div>
                         </div>
@@ -72,7 +72,7 @@ export function CarouselCustomNavigation() {
                             </div>
                             <div className="mb-4 duration-300 text pt-1 pb-3 px-3 border-r border-b border-l-0 border-t-0 border-solid border-gray-300 rounded-br-3xl min-h-4 hover:cursor-pointer">
 
-                                <p className="text-red-600 text-xs font-formula-bold mb-1 uppercase">Tag</p>
+                                <p className=" text-xs font-formula-bold mb-1 uppercase" style={{color: championshipColorHex}}>Tag</p>
                                 <h2 className="text-black font-titillium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
                             </div>
                         </div>
@@ -82,7 +82,7 @@ export function CarouselCustomNavigation() {
                             </div>
                             <div className="mb-4 duration-300 text pt-1 pb-3 px-3 border-r border-b border-l-0 border-t-0 border-solid border-gray-300 rounded-br-3xl min-h-4 hover:cursor-pointer">
 
-                                <p className="text-red-600 text-xs font-formula-bold mb-1 uppercase">Tag</p>
+                                <p className="text-xs font-formula-bold mb-1 uppercase"  style={{color: championshipColorHex}}>Tag</p>
                                 <h2 className="text-black font-titillium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
                             </div>
                         </div> <div>
@@ -91,7 +91,7 @@ export function CarouselCustomNavigation() {
                             </div>
                             <div className="mb-4 duration-300 text pt-1 pb-3 px-3 border-r border-b border-l-0 border-t-0 border-solid border-gray-300 rounded-br-3xl min-h-4 hover:cursor-pointer">
 
-                                <p className="text-red-600 text-xs font-formula-bold mb-1 uppercase">Tag</p>
+                                <p className="text-xs font-formula-bold mb-1 uppercase"  style={{color: championshipColorHex}}>Tag</p>
                                 <h2 className="text-black font-titillium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
                             </div>
                         </div> <div>
@@ -100,7 +100,7 @@ export function CarouselCustomNavigation() {
                             </div>
                             <div className="mb-4 duration-300 text pt-1 pb-3 px-3 border-r border-b border-l-0 border-t-0 border-solid border-gray-300 rounded-br-3xl min-h-4 hover:cursor-pointer">
 
-                                <p className="text-red-600 text-xs font-formula-bold mb-1 uppercase">Tag</p>
+                                <p className=" text-xs font-formula-bold mb-1 uppercase"  style={{color: championshipColorHex}}>Tag</p>
                                 <h2 className="text-black font-titillium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
                             </div>
                         </div>

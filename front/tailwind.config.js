@@ -43,11 +43,15 @@ module.exports = withMT({
 
       backgroundColor: theme=>({
         ...theme('colors'),
-        'grayTotal': '#15151e'
+        'grayTotal': '#15151e',
+        'fórmula1': '#ef4444',
+        'fórmula2': '#3b82f6'
       }),
       borderColor: theme=>({
         ...theme('colors'),
-        'grayTotal': '#15151e'
+        'grayTotal': '#15151e',
+         'fórmula1': '#ef4444',
+        'fórmula2': '#3b82f6'
       }),
 
       gridTemplateColumns:{

@@ -1,19 +1,69 @@
-.active{
-    border-color: rgb(229 57 53) !important;
+/* Tabela.css */
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.pb-4 {
+  padding-bottom: 1rem;
+}
+
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.active {
+  border-color: var(--active-border-color) !important;
+  border-bottom-width: 4px;
+  border-bottom-style: solid;
+}
+
+.hoverTabela:hover{
+  border-color: var(--active-border-color) !important;
+  border-bottom-width: 4px;
+  border-bottom-style: solid;
+  transition: .1s;
 }
 
 .hover-text-white:hover *:not(.bg-gray-300) {
-    color: white;
-  }
+  color: white;
+}
 
-  .bg-gray-300{
-    color: black !important;
-  }
-  
-  .hover-text-white:hover .chevron-right {
-    color: white;
-  }
+.bg-gray-300 {
+  color: black !important;
+}
 
-  .text-stroke{
-    -webkit-text-stroke: 4px white
+.hover-text-white:hover .chevron-right {
+  color: white;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 4px white;
+}
+
+@media (min-width: 1024px) {
+  .text-stroke {
+    -webkit-text-stroke: 4px white;
   }
+}
+
+.tabela-completa-btn {
+  background-color: var(--championship-color);
+  border-color: var(--championship-color);
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.tabela-completa-btn:hover {
+  background-color: white;
+  color: var(--championship-color);
+  border-color: var(--championship-color);
+}
+
+.tabela-completa-btn-text {
+  color: white;
+}
+
+.tabela-completa-btn:hover .tabela-completa-btn-text {
+  color: var(--championship-color);
+}

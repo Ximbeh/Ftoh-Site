@@ -1,11 +1,13 @@
-import FtohLogo from '../../../assets/f1_logo.svg'
+import React from 'react';
+import clsx from 'clsx';
+import FtohLogo from '../../../assets/f1_logo.svg';
 import { useNavigate } from 'react-router-dom';
 
-const HeaderTwo = () => {
+const HeaderTwo = ({ championshipColorHex }) => {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-red-600 hidden lg:flex">
+        <div className="hidden lg:flex" style={{ backgroundColor: championshipColorHex }}>
             <div className="flex space-x-8 max-w-screen-lg ml-10">
                 <img className="h-8 my-5 cursor-pointer"
                     onClick={() => navigate('/')}
@@ -17,7 +19,6 @@ const HeaderTwo = () => {
                     >
                         <span className="hover:opacity-100">Notícias</span>
                     </a>
-                    
                     <a
                         className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer" href="https://www.youtube.com/channel/UCsNl4k9tn7Ao7wDiykfaHfg" target='_blank'
                     >
@@ -58,10 +59,11 @@ const HeaderTwo = () => {
                         onClick={() => navigate('/RedesSociais')}
                     >
                         <span className="hover:opacity-100">Redes Sociais</span>
-                    </a>            </div>
+                    </a>
+                </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default HeaderTwo
+export default HeaderTwo;

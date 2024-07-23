@@ -1,10 +1,10 @@
-import '../../css/Tabela.css'
+import '../../css/Tabela.css';
 import TabelaDrivers from './TablelaDrivers';
 import TabelaTeams from './TabelaTeams';
 import TabelaLastRace from './TabelaLastRace';
 import { useState } from 'react';
 
-const Tabela = () => {
+const Tabela = ({ championshipColorHex }) => {
   const [activeTab, setActiveTab] = useState('Pilotos');
 
   const handleActive = (e) => {
@@ -14,30 +14,33 @@ const Tabela = () => {
 
   return (
     <div>
-      <div className='px-6 relative w-full flex justify-center items-center gap-11 font-formula'>
+      <div 
+        className='px-6 relative w-full flex justify-center items-center gap-11 font-formula'
+        style={{ '--active-border-color': championshipColorHex }}
+      >
         <a
           onClick={handleActive}
-          className={`cursor-pointer pb-4 py-6 ${activeTab === 'Pilotos' ? 'active border-white border-b-4' : 'border-white border-b-4 hover:border-red-500'}`}
+          className={`hoverTabela cursor-pointer pb-4 py-6 ${activeTab === 'Pilotos' ? 'active' : ''}`}
         >
           Pilotos
         </a>
         <a
           onClick={handleActive}
-          className={`cursor-pointer pb-4 py-6 ${activeTab === 'Construtores' ? 'active border-white border-b-4' : 'border-white border-b-4 hover:border-red-500'}`}
+          className={`hoverTabela cursor-pointer pb-4 py-6 ${activeTab === 'Construtores' ? 'active' : ''}`}
         >
           Construtores
         </a>
         <a
           onClick={handleActive}
-          className={`cursor-pointer pb-4 py-6 ${activeTab === 'Última Corrida' ? 'active border-white border-b-4' : 'border-white border-b-4 hover:border-red-500'}`}
+          className={`hoverTabela cursor-pointer pb-4 py-6 ${activeTab === 'Última Corrida' ? 'active' : ''}`}
         >
           Última Corrida
         </a>
       </div>
 
-      {activeTab === 'Pilotos' && <TabelaDrivers />}
-      {activeTab === 'Construtores' && <TabelaTeams />}
-      {activeTab === 'Última Corrida' && <TabelaLastRace />}
+      {activeTab === 'Pilotos' && <TabelaDrivers  championshipColorHex={championshipColorHex}/>}
+      {activeTab === 'Construtores' && <TabelaTeams championshipColorHex={championshipColorHex}/>}
+      {activeTab === 'Última Corrida' && <TabelaLastRace championshipColorHex={championshipColorHex}/>}
     </div>
   );
 };

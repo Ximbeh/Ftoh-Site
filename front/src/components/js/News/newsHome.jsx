@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
 import PrincipalNewsHome from './PrincipalNewsHome';
 import SecondNews from './SecondNews';
-import {ChevronRight} from "lucide-react"
-import "../../css/news.css"
+import { ChevronRight } from "lucide-react";
+import "../../css/news.css";
 
-const NewsHome = () => {
+const NewsHome = ({ championshipColorHex }) => {
   const contentAreaRef = useRef(null);
   const principalHomeRef = useRef(null);
 
@@ -53,20 +53,27 @@ const NewsHome = () => {
   return (
     <div className='mx-auto px-2 relative lg:grid lg:grid-cols-2 gap-3 py-7 max-w-screen-lg-30 xl:max-w-screen-xl'>
       <div ref={contentAreaRef} className="content-area lg:bg-repeat lg:bg-grade-pattern lg:bg-2">
-        <PrincipalNewsHome ref={principalHomeRef} />
+        <PrincipalNewsHome championshipColorHex={championshipColorHex} ref={principalHomeRef} />
       </div>
       <div>
         <div className='grid grid-cols-2 max-w-lg mx-auto md:max-w-screen-md gap-x-5 gap-y-4'>
-            <SecondNews />
-            <SecondNews />
-            <SecondNews />
-            <SecondNews />
-            <SecondNews />
-            <SecondNews />
+          <SecondNews championshipColorHex={championshipColorHex}/>
+          <SecondNews championshipColorHex={championshipColorHex}/>
+          <SecondNews championshipColorHex={championshipColorHex}/>
+          <SecondNews championshipColorHex={championshipColorHex}/>
+          <SecondNews championshipColorHex={championshipColorHex}/>
+          <SecondNews championshipColorHex={championshipColorHex}/>
         </div>
-        <button className='flex mx-auto gap-2 mt-7 bg-red-600 px-4 py-3 rounded-md font-formula text-white border-red-600 border-2
-        hover:bg-white hover:text-red-600 duration-300 lg:mx-0
-        '>Veja as últimas notícias <ChevronRight color="#fff"/></button>
+        <button
+          className='dynamic-button flex mx-auto gap-2 mt-7 px-4 py-3 rounded-md font-formula'
+          style={{
+            '--button-bg-color': championshipColorHex,
+            '--button-text-color': championshipColorHex,
+            '--button-border-color': championshipColorHex
+          }}
+        >
+          Veja as últimas notícias <ChevronRight color="#fff" />
+        </button>
       </div>
     </div>
   );

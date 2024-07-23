@@ -1,9 +1,17 @@
 .triangulo-baixo{
  border-left: 10px solid white;
  border-right: 10px solid white;
- border-bottom: 10px solid rgb(220, 38, 38);
+ border-bottom: 10px solid currentColor;
  bottom: -12px;
  left: 100px;
+}
+
+.triangulo-baixo::before {
+    content: "";
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    background-color: currentColor; 
 }
 
 .w-calc100-62{

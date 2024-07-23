@@ -1,30 +1,19 @@
-import "../../css/header.css"
-
-import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
+import "../../css/header.css";
 import { useQuery } from '@apollo/client';
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { ChampionshipContext } from "../../../Context/ChampionshipContext";
+import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 
-const HeaderOne = () => {
-    const { loading, error, data } = useQuery(GET_CHAMPIONSHIPS)
-    const { selectedChampionshipId, setSelectedChampionshipId } = useContext(ChampionshipContext);
+const HeaderOne = ({championshipColorHex}) => {
+    const { loading, error, data } = useQuery(GET_CHAMPIONSHIPS);
+    const { selectedChampionship, setChampionship } = useContext(ChampionshipContext);
 
-
-    useEffect(() => {
-        if (data && data.championships.length > 0 && !selectedChampionshipId) {
-            setSelectedChampionshipId(data.championships[0].id);
-        }
-    }, [data, selectedChampionshipId, setSelectedChampionshipId]);
-    
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>
-
+    if (error) return <p>Error: {error.message}</p>;
 
     const handleChampionshipClick = (championship) => {
-        setSelectedChampionshipId(championship.id);
-        console.log("Selected Championship ID:", selectedChampionshipId);
-    }
-
+        setChampionship(championship.id, championship.championshipName);
+    };
 
     return (
         <div className="bg-white hidden lg:flex">
@@ -32,22 +21,23 @@ const HeaderOne = () => {
                 <img className="h-6 opacity-40 mr-6" src="https://www.formula1.com/etc/designs/fom-website/images/fia_logo.png " alt="FIA" />
                 <span className="before: absolute before: bg-black before: opacity-40 before:left-10 before: flex w-px h-6 left-12"></span>
                 <div className="flex space-x-4 items-center font-formula-bold text-xs">
-
-                {data.championships.map((championship) => (
+                    {data.championships.map((championship) => (
                         <a className="relative" key={championship.id} onClick={() => handleChampionshipClick(championship)}>
-                            <span className={`opacity-40 hover:opacity-100 hover:cursor-pointer ${selectedChampionshipId === championship.id ? 'opacity-100' : ''}`}>
+                            <span className={`opacity-40 hover:opacity-100 hover:cursor-pointer ${selectedChampionship.id === championship.id ? 'opacity-100' : ''}`}>
                                 {championship.championshipName}
                             </span>
-                            {selectedChampionshipId === championship.id && (
-                                <span className="absolute left-4 -bottom-4 before:bg-red-600 before:flex triangulo-baixo"></span>
+                            {selectedChampionship.id === championship.id && (
+                                <span
+                                className="absolute left-4 -bottom-4 triangulo-baixo"
+                                style={{ color: championshipColorHex }}
+                            ></span>
                             )}
                         </a>
                     ))}
-                      
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default HeaderOne
+export default HeaderOne;

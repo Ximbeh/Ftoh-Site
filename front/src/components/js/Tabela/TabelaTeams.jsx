@@ -6,7 +6,7 @@ import Second from '../../../assets/Second.png'
 import Third from '../../../assets/Third.svg'
 
 const TabelaTeams
-  = () => {
+  = ({ championshipColorHex }) => {
     return (
       <div>
         <div className='z-1 relative px-6 bg-gray-200'>
@@ -52,7 +52,7 @@ const TabelaTeams
                   <div className='flex items-center'>
                     <img className="w-28 mr-4 lg:w-40" src="https://media.formula1.com/content/dam/fom-website/teams/2023/teamcar-redbull.png.transform/3col/image.png"></img>
                     <p className='bg-gray-300 font-titillium rounded-2xl px-3 py-1 text-center'>237 PTS</p>
-                    <ChevronRight className="chevron-right" style={{ color: "red" }} />
+                    <ChevronRight className="chevron-right" style={{ color: championshipColorHex }} />
                   </div>
                 </div>
                 <div className='cursor-pointer w-full gap-2 p-4 bg-white hover:bg-gray-800 transition duration-500 flex justify-between items-center rounded-md mb-2 hover-text-white'>
@@ -64,7 +64,7 @@ const TabelaTeams
                   <div className='flex items-center'>
                     <img className="w-28 mr-4 lg:w-40" src="https://media.formula1.com/content/dam/fom-website/teams/2023/teamcar-redbull.png.transform/3col/image.png"></img>
                     <p className='bg-gray-300 font-titillium rounded-2xl px-3 py-1 text-center'>237 PTS</p>
-                    <ChevronRight className="chevron-right" style={{ color: "red" }} />
+                    <ChevronRight className="chevron-right" style={{ color: championshipColorHex }} />
                   </div>
                 </div>
                 <div className='cursor-pointer w-full gap-2 p-4 bg-white hover:bg-gray-800 transition duration-500 flex justify-between items-center rounded-md mb-2 hover-text-white'>
@@ -76,11 +76,13 @@ const TabelaTeams
                   <div className='flex items-center'>
                     <img className="w-28 mr-4 lg:w-40" src="https://media.formula1.com/content/dam/fom-website/teams/2023/teamcar-redbull.png.transform/3col/image.png"></img>
                     <p className='bg-gray-300 font-titillium rounded-2xl px-3 py-1 text-center'>237 PTS</p>
-                    <ChevronRight className="chevron-right" style={{ color: "red" }} />
+                    <ChevronRight className="chevron-right" style={{ color: championshipColorHex }} />
                   </div>
                 </div>
 
-                <button className='md:max-w-max md:px-4 w-full bg-red-600 text-white text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2 border-white hover:border-red-600 hover:bg-white hover:text-gray-800 transition duration-500'>Tabela completa</button>
+                <button className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': championshipColorHex }}>
+                  <span className='tabela-completa-btn-text' style={{ '--championship-color': championshipColorHex }}>Tabela Completa</span>
+                </button>
               </div>
             </div>
           </div>
