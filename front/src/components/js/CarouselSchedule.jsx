@@ -1,727 +1,166 @@
-
 import { Play } from 'lucide-react';
 import '../css/CarouselSchedule.css'
-import React, { useEffect } from 'react';
-
+import React, { useState, useContext, useEffect, useRef } from 'react';
+import { useQuery } from '@apollo/client';
+import { ChampionshipContext } from '../../Context/ChampionshipContext';
+import { GET_CHAMPIONSHIPS } from '../../queries/getChampionship';
+import { GET_ALLPHASES } from '../../queries/getAllPhases';
+import { GET_ALLRACES } from '../../queries/getAllRaces';
 
 const CarouselSchedule = () => {
+    const { selectedChampionship } = useContext(ChampionshipContext);
+
+    // Create refs for each slide
+    const slideRefs = useRef([]);
 
     useEffect(() => {
-        const initialHashCheck = () => {
-          if (!window.location.hash) {
-            window.location.hash = '#corrida1';
-          } else {
-            window.scrollTo(0, 0);
-          }
+        const scrollToHash = () => {
+            const hash = window.location.hash.slice(1); // Remove '#' from hash
+            const element = document.getElementById(hash);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         };
-    
+
+        // Scroll to the initial hash on load
+        scrollToHash();
+
         const handleHashChange = () => {
-          window.scrollTo(0, 0);
+            scrollToHash();
         };
-    
-        initialHashCheck();
+
         window.addEventListener('hashchange', handleHashChange);
-    
-        const timeoutId = setTimeout(() => {
-          window.removeEventListener('hashchange', handleHashChange);
-        }, 5000);
-    
+
         return () => {
-          clearTimeout(timeoutId);
-          window.removeEventListener('hashchange', handleHashChange);
+            window.removeEventListener('hashchange', handleHashChange);
         };
-      }, []);
-    
+    }, []);
+
+    const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
+    const { loading: raceLoading, error: raceError, data: raceData } = useQuery(GET_ALLRACES);
+    const { loading: phaseLoading, error: phaseError, data: phaseData } = useQuery(GET_ALLPHASES);
+
+    if (championshipsLoading || raceLoading || phaseLoading) return <p>Loading....</p>;
+    if (championshipsError || raceError || phaseError) return <p>Error: {championshipsError?.message || raceError?.message || phaseError?.message}</p>;
+
+    const championshipId = selectedChampionship?.id;
+    const championship = championshipsData?.championships.find(champ => champ.id === championshipId);
+
+    if (!championship) return <p>Campeonato não encontrado</p>;
+
+    const filteredRaces = raceData?.races.filter(race =>
+        race.calendar.some(calendar => calendar.season.some(season => season.championship.id === championshipId))
+    );
+
+    const raceDates = filteredRaces.map((e) => e.date);
+
+    const extractDayAndMonth = (dateString) => {
+        if (!dateString) return { day: null, month: null };
+
+        const regex = /(\d{2}) (\w{3}) \d{4}$/;
+        const match = dateString.match(regex);
+        if (match) {
+            return { day: match[1], month: match[2] };
+        }
+
+        return { day: null, month: null };
+    };
+
+    const raceDateNumbers = raceDates.map(dateString => extractDayAndMonth(dateString).day);
+    const raceDateMonths = raceDates.map(dateString => extractDayAndMonth(dateString).month);
+
+    const filteredPhases = phaseData?.phases.filter(phase => {
+        const races = Array.isArray(phase.race) ? phase.race : [phase.race];
+        return races.some(race =>
+            race.calendar.some(calendar =>
+                calendar.season.some(season =>
+                    season.championship.id === championshipId
+                )
+            )
+        );
+    });
+
+    const groupedPhases = filteredPhases.reduce((acc, phase) => {
+        const raceId = Array.isArray(phase.race) ? phase.race[0]?.id : phase.race?.id;
+
+        if (raceId) {
+            if (!acc[raceId]) {
+                acc[raceId] = [];
+            }
+            acc[raceId].push(phase);
+        }
+
+        return acc;
+    }, {});
 
     return (
         <div className='relative'>
-            <div class="slide-container">
-                <span class="corrida absolute -top-32" id="corrida1"></span>
-                <span class="corrida absolute -top-32" id="corrida2"></span>
-                <span class="corrida absolute -top-32" id="corrida3"></span>
-                <span class="corrida absolute -top-32" id="corrida4"></span>
-                <span class="corrida absolute -top-32" id="corrida5"></span>
-                <span class="corrida absolute -top-32" id="corrida6"></span>
-                <span class="corrida absolute -top-32" id="corrida7"></span>
-                <span class="corrida absolute -top-32" id="corrida8"></span>
-                <span class="corrida absolute -top-32" id="corrida9"></span>
-                <span class="corrida absolute -top-32" id="corrida10"></span>
-                <span class="corrida absolute -top-32" id="corrida11"></span>
-                <span class="corrida absolute -top-32" id="corrida12"></span>
-                <span class="corrida absolute -top-32" id="corrida13"></span>
-                <span class="corrida absolute -top-32" id="corrida14"></span>
-                <span class="corrida absolute -top-32" id="corrida15"></span>
-                <span class="corrida absolute -top-32" id="corrida16"></span>
+            <div className="slide-container">
+                {
+                    filteredRaces.map((race, index) => (
+                        <span
+                            key={race.id}
+                            id={`corrida${index + 1}`}
+                            className="corrida absolute -top-28"
+                        >
+                        </span>
+                    ))
+                }
 
-                <div class="image-slider">
-                    <div class="slides-div" id="slide-1">
-                        <div className='content' id="content1">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen1">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
+                <div className="image-slider">
+                    {
+                        filteredRaces.map((race, index) => (
+                            <div
+                                key={race.id}
+                                className='slides-div'
+                                id={`slide-${index + 1}`}
+                                ref={(el) => slideRefs.current[index] = el} // Set ref for each slide
+                            >
+                                <div className='content' id={`content${index + 1}`}>
+                                    <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
+                                    <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
+                                    <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>
+                                        {raceDateNumbers[index] || '??'}
+                                    </h2>
+                                    <h4 className='text-gray-600 text-sm uppercase font-titillium'>
+                                        {raceDateMonths[index] || '???'}
+                                    </h4>
                                 </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
+                                <div className='content open' id={`contentOpen${index + 1}`}>
+                                    <h2 className='text-white mb-2 text-center font-formula-bold text-xl px-2 md:px-0 md:text-2xl'>
+                                        {race.fullName || 'Nome Completo da Corrida'}
+                                    </h2>
+                                    <h5 className='mb-4 text-gray-600 text-sm font-titillium'>
+                                        {race.date || 'Data da Corrida'}
+                                    </h5>
+                                    <div className='flex flex-col gap-2'>
+                                        {race.phases && race.phases.length > 0 ? race.phases.map(phase => (
+                                            <div key={phase.id} className='flex items-center justify-end px-2 md:px-0'>
+                                                <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>
+                                                    {phase.name || 'Nome da Fase'}
+                                                </h3>
+                                                <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>
+                                                    {phase.dayOfWeek || 'Dia'}
+                                                </h4>
+                                                <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>
+                                                    {phase.hour || 'Hora'}
+                                                </h4>
+                                            </div>
+                                        )) : (
+                                            <div className='text-gray-600 text-xs px-2'>
+                                                Sem informações de fases disponíveis
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
+                                <a href={`#corrida${index + 1}`} className="button" id={`button-${index + 1}`}></a>
                             </div>
-                        </div>
-                        <a  href="#corrida1" class="button" id="button-1"></a>
-                    </div>
-                    <div class="slides-div" id="slide-2">
-                        <div className='content' id="content2">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen2">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <a href="#corrida2" class="button" id="button-2"></a>
-                    </div>
-                    <div class="slides-div" id="slide-3">
-                        <div className='content' id="content3">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen3">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <a href="#corrida3" class="button" id="button-3"></a>
-                    </div>
-                    
-                    <div class="slides-div" id="slide-4">
-                        <div className='content' id="content4">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen4">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <a href="#corrida4" class="button" id="button-4"></a>
-                    </div>
-
-
-
-
-
-
-
-                    <div class="slides-div" id="slide-5">
-                        <div className='content' id="content5">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen5">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <a href="#corrida5" class="button" id="button-5"></a>
-                    </div>
-                    <div class="slides-div" id="slide-6">
-                        <div className='content' id="content6">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen6">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <a href="#corrida6" class="button" id="button-6"></a>
-                    </div>
-                    <div class="slides-div" id="slide-7">
-                        <div className='content' id="content7">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen7">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <a href="#corrida7" class="button" id="button-7"></a>
-                    </div>
-                    <div class="slides-div" id="slide-8">
-                        <div className='content' id="content8">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen8">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <a href="#corrida8" class="button" id="button-8"></a>
-                    </div>
-                    <div class="slides-div" id="slide-9">
-                        <div className='content' id="content9">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen9">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <a href="#corrida9" class="button" id="button-9"></a>
-                    </div>
-                    <div class="slides-div" id="slide-10">
-                        <div className='content' id="content10">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen10">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <a href="#corrida10" class="button" id="button-10"></a>
-                    </div>
-                    <div class="slides-div" id="slide-11">
-                        <div className='content' id="content11">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen11">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <a href="#corrida11" class="button" id="button-11"></a>
-                    </div>
-                    <div class="slides-div" id="slide-12">
-                        <div className='content' id="content12">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen12">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <a href="#corrida12" class="button" id="button-12"></a>
-                    </div>
-                    <div class="slides-div" id="slide-13">
-                        <div className='content' id="content13">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen13">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <a href="#corrida13" class="button" id="button-13"></a>
-                    </div>
-                    <div class="slides-div" id="slide-14">
-                        <div className='content' id="content14">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen14">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <a href="#corrida14" class="button" id="button-14"></a>
-                    </div>
-                    <div class="slides-div" id="slide-15">
-                        <div className='content' id="content15">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen15">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <a href="#corrida15" class="button" id="button-15"></a>
-                    </div>
-                    <div class="slides-div" id="slide-16">
-                        <div className='content' id="content16">
-                            <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                            <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
-                            <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>29</h2>
-                            <h4 className='text-gray-600 text-sm uppercase font-titillium'>Jul</h4>
-                        </div>
-                        <div className='content open' id="contentOpen16">
-                            <h2 className='text-white mb-2 text-center font-formula-bold text-xl  px-2 md:px-0 md:text-2xl'>Nome completo da pista de formula-1</h2>
-                            <h5 className='mb-4 text-gray-600 text-sm font-titillium'>29 Abr 2024 - 09 Jun 2024</h5>
-                            <div className='flex flex-col gap-2'>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 1</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Ter</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 2</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qua</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Treino-Livre 3</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Qui</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Qualy</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sex</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                                <div className='flex items-center justify-between px-2 md:px-0'>
-                                    <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>Corrida</h3>
-                                    <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>Sab</h4>
-                                    <h4 className='text-white font-formula text-xs px-1 py-2 bg-gray-800 rounded-xl'>08:30 - 09:30</h4>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <a href="#corrida16" class="button" id="button-16"></a>
-                    </div>
+                        ))
+                    }
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default CarouselSchedule
+export default CarouselSchedule;

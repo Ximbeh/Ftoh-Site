@@ -69,8 +69,8 @@ const NewsHome = ({ championshipColorHex }) => {
 
   const championshipId = selectedChampionship?.id;
 
-  console.log("ID do campeonato selecionado:", championshipId);
-  console.log("Dados dos campeonatos:", championshipsData);
+  // console.log("ID do campeonato selecionado:", championshipId);
+  // console.log("Dados dos campeonatos:", championshipsData);
 
   const championship = championshipsData.championships.find(champ => champ.id === championshipId);
 
@@ -78,7 +78,7 @@ const NewsHome = ({ championshipColorHex }) => {
 
   const news = championship.seasons.flatMap(season => season.news);
 
-  console.log("Notícias associadas ao campeonato selecionado:", news);
+  // console.log("Notícias associadas ao campeonato selecionado:", news);
 
   const principalNews = news[0];
   const secondNews = news.slice(1, 7);

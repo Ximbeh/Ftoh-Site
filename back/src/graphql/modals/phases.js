@@ -14,14 +14,16 @@ export const TypeDefs = /* GraphQL */ `
 
   input NewPhaseInput {
     name: String
-    date: String
+    dayOfWeek: String
+    hour: String
     finished: Boolean
     raceId: String
   }
 
   input UpdatePhaseInput {
     name: String
-    date: String
+    dayOfWeek: String
+    hour: String
     finished: Boolean
     raceId: String
   }
@@ -29,7 +31,8 @@ export const TypeDefs = /* GraphQL */ `
   type Phase {
     id: ID
     name: String
-    date: String
+    dayOfWeek: String
+    hour: String
     finished: Boolean
     raceId: String
     phaseId: String

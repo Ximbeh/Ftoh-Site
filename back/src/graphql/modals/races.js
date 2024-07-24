@@ -18,6 +18,8 @@ export const TypeDefs = /* GraphQL */ `
     location: String
     description: String
     fullName: String
+    flag: String
+    date: String  
     calendarId: String
   }
 
@@ -28,6 +30,8 @@ export const TypeDefs = /* GraphQL */ `
     location: String
     description: String
     fullName: String
+    flag: String
+    date: String  
     calendarId: String
   }
 
@@ -39,6 +43,8 @@ export const TypeDefs = /* GraphQL */ `
     location: String
     description: String
     fullName: String
+    flag: String
+    date: String  
     calendarId: String
 
     calendar: [Calendar]

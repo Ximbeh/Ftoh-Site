@@ -64,6 +64,10 @@ const Home = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  if (!data || !data.championship) {
+    return <p>No championship data found.</p>;
+  }
+
   const newsWithVideo = data.championship.seasons
     .flatMap(season => season.news)
     .filter(news => news.video);
@@ -85,6 +89,7 @@ const Home = () => {
         <NewsHome championshipColorHex={championshipColorHex} />
         {lastVideoNews && <Video videoNews={lastVideoNews} />}
         <CarouselCustomNavigation championshipColorHex={championshipColorHex} newsItems={newsItems} />
+        {lastVideoNews && <Video videoNews={lastVideoNews} />}
         <CarouselSchedule />
         <Tabela championshipColorHex={championshipColorHex} />
         <Footer />

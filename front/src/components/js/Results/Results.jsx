@@ -34,61 +34,61 @@ const Results = () => {
                     <div className="bg-white md:px-6 md:m-auto md:max-w-5xl lg:max-w-7xl">
                         <h2 className="px-4 py-10 font-formula-bold text-xl md:px-0 md:text-3xl">2024 - Resultado das corridas</h2>
                         <div className="">
-                            <table class="min-w-full divide-y divide-gray-200 font-formula">
+                            <table className="min-w-full divide-y divide-gray-200 font-formula">
                                 <thead>
                                     <tr>
-                                        <th class="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grand Prix</th>
-                                        <th class="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Date</th>
-                                        <th class="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Winner</th>
-                                        <th class="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Car</th>
-                                        <th class="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Laps</th>
-                                        <th class="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider lg:table-cell hidden">Time</th>
+                                        <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grand Prix</th>
+                                        <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Date</th>
+                                        <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Winner</th>
+                                        <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Car</th>
+                                        <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Laps</th>
+                                        <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider lg:table-cell hidden">Time</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="bg-gray-300">
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">Monaco</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">28 May 2023</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
-                                            <span class="md:hidden">Lew</span>
-                                            <span class="hidden md:inline">Lewis Hamilton</span>
+                                    <tr className="bg-gray-300">
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">Monaco</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">28 May 2023</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                            <span className="md:hidden">Lew</span>
+                                            <span className="hidden md:inline">Lewis Hamilton</span>
                                         </td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">Mercedes</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">78</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 lg:table-cell hidden">1:31:444</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">Mercedes</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">78</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 lg:table-cell hidden">1:31:444</td>
                                     </tr>
-                                    <tr class="bg-white">
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">British</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">09 Jul 2023</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
-                                            <span class="md:hidden">Max</span>
-                                            <span class="hidden md:inline">Max Verstappen</span>
+                                    <tr className="bg-white">
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">British</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">09 Jul 2023</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                            <span className="md:hidden">Max</span>
+                                            <span className="hidden md:inline">Max Verstappen</span>
                                         </td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">Red Bull</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">52</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 lg:table-cell hidden">1:27:256</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">Red Bull</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">52</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 lg:table-cell hidden">1:27:256</td>
                                     </tr>
-                                    <tr class="bg-gray-300">
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">Italian</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">03 Sep 2023</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
-                                            <span class="md:hidden">Lec</span>
-                                            <span class="hidden md:inline">Charles Leclerc</span>
+                                    <tr className="bg-gray-300">
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">Italian</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">03 Sep 2023</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                            <span className="md:hidden">Lec</span>
+                                            <span className="hidden md:inline">Charles Leclerc</span>
                                         </td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">Ferrari</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">53</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 lg:table-cell hidden">1:21:745</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">Ferrari</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">53</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 lg:table-cell hidden">1:21:745</td>
                                     </tr>
-                                    <tr class="bg-white">
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">Japanese</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">24 Sep 2023</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
-                                            <span class="md:hidden">Per</span>
-                                            <span class="hidden md:inline">Sergio Perez</span>
+                                    <tr className="bg-white">
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">Japanese</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">24 Sep 2023</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                            <span className="md:hidden">Per</span>
+                                            <span className="hidden md:inline">Sergio Perez</span>
                                         </td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">Red Bull</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">53</td>
-                                        <td class="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 lg:table-cell hidden">1:29:552</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">Red Bull</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">53</td>
+                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 lg:table-cell hidden">1:29:552</td>
                                     </tr>
                                 </tbody>
                             </table>
