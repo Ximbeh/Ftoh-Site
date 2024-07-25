@@ -11,7 +11,7 @@ query getAllTeams{
     # chief,
     # hotLaps,
     # logo,
-    # points,
+    points,
     # poles,
     # records,
     # wins
