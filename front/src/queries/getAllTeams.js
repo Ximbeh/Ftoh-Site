@@ -6,6 +6,7 @@ query getAllTeams{
     id
     teamId
     name
+    color
     # position,
     # bestPosition,
     # chief,

@@ -10,6 +10,7 @@ const PrincipalNewsHome = forwardRef(({ news, championshipColorHex }, ref) => {
   }
 
   const { tags, title, image } = news;
+  const imagePath = image ? `../../../../img/news/capa/${image}` : "https://via.placeholder.com/800x400";
 
   return (
     <div ref={ref} className="principalHome py-6 lg:py-0 font-formula bg-white">
@@ -23,7 +24,7 @@ const PrincipalNewsHome = forwardRef(({ news, championshipColorHex }, ref) => {
         </p>
         <h2 className="text-black text-2xl font-formula-bold mb-5 hover:underline">{title}</h2>
         <div className="overflow-hidden inline-block rounded-sm w-full">
-          <img className="w-full h-full hover:scale-110 duration-500 transition-transform mb-2" src={image || "https://via.placeholder.com/800x400"} alt="News" />
+          <img className="w-full h-full hover:scale-110 duration-500 transition-transform mb-2" src={imagePath} alt="News" />
         </div>
         <span className="flex w-full h-4 bg-repeat bg-grade-pattern bg-2 lg:hidden" />
       </div>

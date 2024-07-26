@@ -11,6 +11,7 @@ const SecondNews = ({ news, championshipColorHex }) => {
   }
 
   const { tags, title, image } = news;
+  const imagePath = image ? `../../../../img/news/capa/${image}` : "https://via.placeholder.com/800x400";
 
   return (
     <div className="component hover:cursor-pointer max-w-xs m-auto mt-0 md:max-w-screen-md lg:">
@@ -21,7 +22,7 @@ const SecondNews = ({ news, championshipColorHex }) => {
         >
           <img 
             className="w-full h-full duration-500 transition-transform mb-2" 
-            src={image || "https://via.placeholder.com/800x400"} 
+            src={imagePath}
             alt="News"
           />
         </div>

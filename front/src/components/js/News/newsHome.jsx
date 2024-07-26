@@ -69,19 +69,47 @@ const NewsHome = ({ championshipColorHex }) => {
 
   const championshipId = selectedChampionship?.id;
 
-  // console.log("ID do campeonato selecionado:", championshipId);
-  // console.log("Dados dos campeonatos:", championshipsData);
-
   const championship = championshipsData.championships.find(champ => champ.id === championshipId);
 
   if (!championship) return <p>Campeonato não encontrado</p>;
 
   const news = championship.seasons.flatMap(season => season.news);
 
-  // console.log("Notícias associadas ao campeonato selecionado:", news);
+  const acceptableNews = news.map((newsItem, index, arr) => {
+    const hasTag = (item, tag) => {
+      if (Array.isArray(item.tags)) {
+        return item.tags.includes(tag);
+      }
+      return item.tags === tag;
+    };
+    
+    const videoNews = arr.filter(item => item.video != "");
+    const highlightNews = arr.filter(item => hasTag(item, 'Highlights'));
 
-  const principalNews = news[0];
-  const secondNews = news.slice(1, 7);
+    const isVideo = newsItem.video != "";
+    const isHighlight = hasTag(newsItem, 'Highlights');
+  
+    if (isVideo) {
+      if (videoNews.length > 2 && (videoNews.indexOf(newsItem) === videoNews.length - 1 || videoNews.indexOf(newsItem) === videoNews.length - 2)) {
+        return videoNews[videoNews.length - 3];
+      }
+    }
+  
+    if (isHighlight) {
+      if (highlightNews.length > 6 && (highlightNews.indexOf(newsItem) >= highlightNews.length - 6)) {
+        return highlightNews[highlightNews.length - 7] || newsItem;
+      }
+    }
+  
+    return newsItem;
+  }).filter((item, index, self) =>
+    index === self.findIndex(t => t.newsId === item.newsId)
+  );
+
+  // console.log(acceptableNews);
+  
+  const principalNews = acceptableNews[acceptableNews.length-1]
+  const secondNews = acceptableNews.slice(Math.max(news.length - 9, 0), news.length - 3);
 
   return (
     <div className='mx-auto px-2 relative lg:grid lg:grid-cols-2 gap-3 py-7 max-w-screen-lg-30 xl:max-w-screen-xl'>

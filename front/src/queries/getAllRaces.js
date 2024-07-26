@@ -6,6 +6,7 @@ query GetRaceAndCalendars {
     id
     raceId
     name
+    finished
     calendarId
     description
     fullName
@@ -15,15 +16,33 @@ query GetRaceAndCalendars {
     map
     phases{
         id
-        name 
-        dayOfWeek
-        hour   
+        name   
+         pilots {
+      pilotId
+      position
+      lapsCompleted
+      timeTaken
+      points
+      fastlapLap
+      timeFastLap
+      pitStop {
+        stops
+        lapPitStop
+        timePitStop
+        timeOfRace
+      }
+      positionStartingGrid
+      timeQ1
+      timeQ2
+      timeQ3
+    }
     }
     calendar{
         name
         id
         season{
             seasonId
+            date
             championship{
                 id
             }
@@ -35,5 +54,6 @@ query GetRaceAndCalendars {
     # }
   }
 }
+
 
 `;

@@ -23,6 +23,7 @@ const GET_CHAMPIONSHIP_BY_ID = gql`
           image
           video
           tags
+        headline
         }
       }
     }
@@ -73,23 +74,17 @@ const Home = () => {
     .filter(news => news.video);
 
   const lastVideoNews = newsWithVideo[newsWithVideo.length - 1];
+  const secondLastVideoNews = newsWithVideo[newsWithVideo.length - 2];
   const newsItems = data.championship.seasons.flatMap(season => season.news);
 
   return (
     <>
       <div>
         <Header championshipColorHex={championshipColorHex} />
-        {data && data.championship && (
-          <>
-            <p>Selected Championship ID: {data.championship.id}</p>
-            <p>Selected Championship Name: {data.championship.championshipName}</p>
-            <p>Championship Color: {championshipColorHex}</p>
-          </>
-        )}
         <NewsHome championshipColorHex={championshipColorHex} />
         {lastVideoNews && <Video videoNews={lastVideoNews} />}
         <CarouselCustomNavigation championshipColorHex={championshipColorHex} newsItems={newsItems} />
-        {lastVideoNews && <Video videoNews={lastVideoNews} />}
+        {secondLastVideoNews && <Video videoNews={secondLastVideoNews} />}
         <CarouselSchedule />
         <Tabela championshipColorHex={championshipColorHex} />
         <Footer />

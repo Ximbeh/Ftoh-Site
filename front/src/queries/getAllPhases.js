@@ -30,7 +30,27 @@ query getAllPhases{
         highlights{
             id
         }
+        pilots {
+      pilotId
+      position
+      lapsCompleted
+      timeTaken
+      points
+      fastlapLap
+      timeFastLap
+      pitStop {
+        stops
+        lapPitStop
+        timePitStop
+        timeOfRace
+      }
+      positionStartingGrid
+      timeQ1
+      timeQ2
+      timeQ3
     }
+    }
+
 
 }
 
