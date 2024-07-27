@@ -10,7 +10,6 @@ import { GET_ALLRACES } from '../../queries/getAllRaces';
 const CarouselSchedule = () => {
     const { selectedChampionship } = useContext(ChampionshipContext);
 
-    // Create refs for each slide
     const slideRefs = useRef([]);
 
     useEffect(() => {
@@ -93,6 +92,9 @@ const CarouselSchedule = () => {
         return acc;
     }, {});
 
+    // console.log(groupedPhases);
+    console.log(filteredRaces);
+
     return (
         <div className='relative'>
             <div className="slide-container">
@@ -117,8 +119,10 @@ const CarouselSchedule = () => {
                                 ref={(el) => slideRefs.current[index] = el} // Set ref for each slide
                             >
                                 <div className='content' id={`content${index + 1}`}>
-                                    <img className="rounded-md w-12 mb-2" src="https://media.formula1.com/content/dam/fom-website/manual/races/Austria/austria-flag.GIF" alt="" />
-                                    <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>Circuito</h3>
+                                    <img className="rounded-md w-12 mb-2"
+                                        src={race.flag ? `../../../img/race/${race.flag}` : "https://via.placeholder.com/800x400"}
+                                    />
+                                    <h3 className='text-gray-600 text-sm mb-3 uppercase font-formula-bold'>{race.name}</h3>
                                     <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>
                                         {raceDateNumbers[index] || '??'}
                                     </h2>

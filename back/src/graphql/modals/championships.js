@@ -14,16 +14,18 @@ export const TypeDefs = /* GraphQL */ `
 
   input NewChampionshipInput {
     championshipName: String!
+    logo: String
   }
 
   input UpdateChampionshipInput {
     championshipName: String
+    logo: String
   }
 
   type Championship {
     id: ID!
     championshipName: String!
-
+    logo: String
     seasons: [Season] 
   }
 `;

@@ -26,6 +26,8 @@ query getAllDrivers {
     bestPosition
     poles
     records
+    photo
+    flag
     news{
         id
         title

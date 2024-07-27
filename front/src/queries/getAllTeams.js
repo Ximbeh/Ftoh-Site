@@ -11,7 +11,7 @@ query getAllTeams{
     # bestPosition,
     # chief,
     # hotLaps,
-    # logo,
+    logo,
     points,
     # poles,
     # records,
@@ -24,6 +24,7 @@ query getAllTeams{
         teamId
     }
     seasonId
+    car
     season{
         seasonNumber
         championshipName

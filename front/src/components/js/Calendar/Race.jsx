@@ -17,7 +17,7 @@ const Race = () => {
         const tabName = e.target.textContent;
         setActiveTab(tabName);
     };
-    console.log(activeTab);
+    // console.log(activeTab);
 
     return (
         <div>

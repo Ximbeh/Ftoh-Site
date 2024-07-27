@@ -21,6 +21,7 @@ export const TypeDefs = /* GraphQL */ `
     flag: String
     date: String  
     calendarId: String
+    finished: Boolean
   }
 
   input UpdateRaceInput {
@@ -33,6 +34,7 @@ export const TypeDefs = /* GraphQL */ `
     flag: String
     date: String  
     calendarId: String
+    finished: Boolean
   }
 
   type Race {
@@ -46,6 +48,7 @@ export const TypeDefs = /* GraphQL */ `
     flag: String
     date: String  
     calendarId: String
+    finished: Boolean
 
     calendar: [Calendar]
     phases: [Phase]

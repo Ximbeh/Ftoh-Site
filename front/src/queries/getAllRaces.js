@@ -17,6 +17,8 @@ query GetRaceAndCalendars {
     phases{
         id
         name   
+        dayOfWeek
+        hour
          pilots {
       pilotId
       position

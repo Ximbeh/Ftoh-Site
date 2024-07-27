@@ -8,6 +8,7 @@ const GET_CHAMPIONSHIPS = gql`
     championships {
       id
       championshipName
+      logo
     }
   }
 `;
@@ -17,19 +18,23 @@ export const ChampionshipProvider = ({ children }) => {
     const [selectedChampionship, setSelectedChampionship] = useState({
         id: null,
         name: '',
-        color: ''
+        color: '',
+        logo: ''
     });
 
     useEffect(() => {
         if (data && data.championships.length > 0) {
+            // console.log('Data:', data); // Log the entire data object
             const defaultChampionship = data.championships.find(champ => champ.championshipName === 'Fórmula 1') || data.championships[0];
-            setChampionship(defaultChampionship.id, defaultChampionship.championshipName);
+            // console.log('Default Championship:', defaultChampionship); // Log the default championship
+            setChampionship(defaultChampionship.id, defaultChampionship.championshipName, defaultChampionship.logo);
         }
     }, [data]);
 
-    const setChampionship = (id, name) => {
+    const setChampionship = (id, name, logo) => {
         const color = name.toLowerCase().replace(/ /g, '');
-        setSelectedChampionship({ id, name, color });
+        // console.log('Setting championship:', { id, name, color, logo }); // Log the values being set
+        setSelectedChampionship({ id, name, color, logo });
     };
 
     if (loading) return <p>Loading...</p>;

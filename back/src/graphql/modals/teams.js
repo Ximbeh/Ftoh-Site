@@ -24,6 +24,8 @@ export const TypeDefs = /* GraphQL */ `
     points: Int
     position: Int
     seasonNumber: Int
+    color: String
+    car: String
     seasonId: String
     teamId: String
   }
@@ -40,6 +42,8 @@ export const TypeDefs = /* GraphQL */ `
     points: Int
     position: Int
     seasonNumber: Int
+    color: String
+    car: String
     seasonId: String
     teamId: String
   }
@@ -57,6 +61,8 @@ export const TypeDefs = /* GraphQL */ `
     points: Int
     position: Int
     seasonNumber: Int
+    color: String
+    car: String
     seasonId: String
     teamId: String
 

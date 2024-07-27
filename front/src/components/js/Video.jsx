@@ -2,7 +2,7 @@ import { Play } from 'lucide-react';
 import React from 'react';
 
 const Video = ({ videoNews }) => {
-  console.log(videoNews );
+  // console.log(videoNews );
   const imagePath =  videoNews.image ? `../../../../img/news/capa/${videoNews.image}` : "https://via.placeholder.com/800x400";
 
   return (
