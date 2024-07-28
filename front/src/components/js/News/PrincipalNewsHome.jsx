@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const PrincipalNewsHome = forwardRef(({ news, championshipColorHex }, ref) => {
+const PrincipalNewsHome = forwardRef(({ news, championshipColorHex, index }, ref) => {
   if (!news) {
     return (
       <div ref={ref} className="principalHome py-6 lg:py-0 font-formula bg-white">
@@ -9,15 +10,23 @@ const PrincipalNewsHome = forwardRef(({ news, championshipColorHex }, ref) => {
     );
   }
 
+  // console.log("index: " + index);
+
   const { tags, title, image } = news;
   const imagePath = image ? `../../../../img/news/capa/${image}` : "https://via.placeholder.com/800x400";
+  const navigate = useNavigate();
+
+  const handleNewsClick = (news) => {
+    navigate(`/News/${news.id}`, { state: { championshipColorHex, news} });
+  };
 
   return (
     <div ref={ref} className="principalHome py-6 lg:py-0 font-formula bg-white">
-      <div 
+      <div
         className="hover:cursor-pointer pt-3 pr-3 border-l-0 border-b-0 border-r-8 border-t-8 border-solid rounded-tr-3xl max-w-lg m-auto
         md:max-w-screen-md lg:"
         style={{ borderColor: championshipColorHex }}
+        onClick={() => handleNewsClick(news)}
       >
         <p className="text-xs font-formula-bold mb-1 uppercase" style={{ color: championshipColorHex }}>
           {tags?.[0] || 'Sem categoria'}

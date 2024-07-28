@@ -96,9 +96,8 @@ const NewsHome = ({ championshipColorHex }) => {
     }
   
     if (isHighlight) {
-      if (highlightNews.length > 6 && (highlightNews.indexOf(newsItem) >= highlightNews.length - 6)) {
-        return highlightNews[highlightNews.length - 7] || newsItem;
-      }
+      // console.log(highlightNews);
+        return highlightNews[highlightNews.length - 4] || newsItem;
     }
   
     return newsItem;
@@ -109,12 +108,22 @@ const NewsHome = ({ championshipColorHex }) => {
   // console.log(acceptableNews);
   
   const principalNews = acceptableNews[acceptableNews.length-1]
-  const secondNews = acceptableNews.slice(Math.max(news.length - 9, 0), news.length - 3);
+  const secondNews = acceptableNews.slice(Math.max(news.length - 12, 0), news.length - 6).reverse();
+
+
+  const handleNavigate = () => {
+    navigate('/latest', {
+      state: {
+        news, 
+        championshipColorHex 
+      }
+    });
+  };
 
   return (
     <div className='mx-auto px-2 relative lg:grid lg:grid-cols-2 gap-3 py-7 max-w-screen-lg-30 xl:max-w-screen-xl'>
       <div ref={contentAreaRef} className="content-area lg:bg-repeat lg:bg-grade-pattern lg:bg-2">
-        <PrincipalNewsHome news={principalNews} championshipColorHex={championshipColorHex} ref={principalHomeRef} />
+        <PrincipalNewsHome index={acceptableNews.length-1} news={principalNews} championshipColorHex={championshipColorHex} ref={principalHomeRef} />
       </div>
       <div>
         <div className='grid grid-cols-2 max-w-lg mx-auto md:max-w-screen-md gap-x-5 gap-y-4'>
@@ -129,7 +138,7 @@ const NewsHome = ({ championshipColorHex }) => {
             '--button-text-color': championshipColorHex,
             '--button-border-color': championshipColorHex
           }}
-          onClick={() => navigate('/latest')}
+          onClick={handleNavigate}
         >
           Veja as últimas notícias <ChevronRight color="#fff" />
         </button>

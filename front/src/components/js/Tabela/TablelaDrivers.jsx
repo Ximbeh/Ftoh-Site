@@ -46,7 +46,7 @@ const TabelaDrivers = ({ championshipColorHex }) => {
     return { ...driver, nome, sobrenome, teamColor };
   });
 
-  console.log(driversInfo);
+  // console.log(driversInfo);
 
   return (
     <div>

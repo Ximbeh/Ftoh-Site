@@ -1,5 +1,7 @@
 import React from 'react';
 import "../../css/news.css";
+import { useNavigate } from 'react-router-dom';
+
 
 const SecondNews = ({ news, championshipColorHex }) => {
   if (!news) {
@@ -13,8 +15,16 @@ const SecondNews = ({ news, championshipColorHex }) => {
   const { tags, title, image } = news;
   const imagePath = image ? `../../../../img/news/capa/${image}` : "https://via.placeholder.com/800x400";
 
+  const navigate = useNavigate();
+
+  const handleNewsClick = (news) => {
+    navigate(`/News/${news.id}`, { state: { championshipColorHex, news} });
+  };
+
+
   return (
-    <div className="component hover:cursor-pointer max-w-xs m-auto mt-0 md:max-w-screen-md lg:">
+    <div className="component hover:cursor-pointer max-w-xs m-auto mt-0 md:max-w-screen-md lg:"
+    onClick={() => handleNewsClick(news)}>
       <div className="font-formula">
         <div 
           className="imagem overflow-hidden inline-block rounded-sm w-full" 

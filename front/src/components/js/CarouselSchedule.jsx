@@ -93,7 +93,7 @@ const CarouselSchedule = () => {
     }, {});
 
     // console.log(groupedPhases);
-    console.log(filteredRaces);
+    // console.log(filteredRaces);
 
     return (
         <div className='relative'>
