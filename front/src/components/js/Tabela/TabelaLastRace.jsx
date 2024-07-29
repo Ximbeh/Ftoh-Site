@@ -7,9 +7,8 @@ import { useQuery } from '@apollo/client';
 import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLTEAMS } from '../../../queries/getAllTeams';
 import { GET_ALLRACES } from '../../../queries/getAllRaces';
-
 const TabelaLastRace = ({ championshipColorHex }) => {
-  const { selectedChampionship } = useContext(ChampionshipContext);
+  const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
 
   const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
   const { loading: driversLoading, error: driversError, data: driversData } = useQuery(GET_ALLDRIVERS);
@@ -24,12 +23,13 @@ const TabelaLastRace = ({ championshipColorHex }) => {
 
   if (!championship) return <p>Campeonato não encontrado</p>;
 
-  const firstSeason = championship?.seasons?.[0];
-
-  if (!firstSeason) return <p>Temporada não encontrada</p>;
+  // Usar selectedSeason em vez de firstSeason
+  const season = selectedSeason.find(season => season.seasonId === championship.seasons.find(season => season.date === "2024")?.seasonId);
+// console.log(season.seasonId);
+  if (!season) return <p>Temporada não encontrada</p>;
 
   const lastRace = racesData?.races
-    ?.filter(race => race.finished === true)
+    ?.filter(race => race.finished === true) // Filtrar pela temporada selecionada
     .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
 
   if (!lastRace) return <p>Última corrida não encontrada</p>;
@@ -67,7 +67,7 @@ const TabelaLastRace = ({ championshipColorHex }) => {
       <div className='z-1 relative px-6 bg-gray-200'>
         <div className='max-w-lg mx-auto md:max-w-2xl lg:max-w-4xl xl:max-w-5xl'>
           <h1 className='relative font-formula-bold text-white text-6xl w-full text-center justify-center pt-10 uppercase'>{lastRace.name}</h1>
-          <h2 className='text-stroke relative font-formula-bold text-transparent text-5xl w-full text-center justify-center pt-2 uppercase'>{lastRace.calendar[0]?.season[0]?.date}</h2>
+          <h2 className='text-stroke relative font-formula-bold text-transparent text-5xl w-full text-center justify-center pt-2 uppercase'>{season.date}</h2>
           <div className='cursor-pointer flex relative font-formula w-full text-center justify-center pt-4 pb-6'>
             <p className='mt-0.5 text-white text-sm uppercase'>{lastRace.fullName}</p>
             <ChevronRight className="chevron-right" style={{ color: championshipColorHex }} />

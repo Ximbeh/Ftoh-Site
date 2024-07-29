@@ -9,6 +9,11 @@ const GET_CHAMPIONSHIPS = gql`
       id
       championshipName
       logo
+      seasons {
+        seasonId
+        date
+        championshipName
+      }
     }
   }
 `;
@@ -21,27 +26,32 @@ export const ChampionshipProvider = ({ children }) => {
         color: '',
         logo: ''
     });
+    const [selectedSeason, setSelectedSeason] = useState([]);
 
     useEffect(() => {
         if (data && data.championships.length > 0) {
-            // console.log('Data:', data); // Log the entire data object
             const defaultChampionship = data.championships.find(champ => champ.championshipName === 'Fórmula 1') || data.championships[0];
-            // console.log('Default Championship:', defaultChampionship); // Log the default championship
             setChampionship(defaultChampionship.id, defaultChampionship.championshipName, defaultChampionship.logo);
+            
+            const seasons2024 = defaultChampionship.seasons.filter(season => season.date === "2024");
+            setSelectedSeason(seasons2024);
         }
     }, [data]);
 
     const setChampionship = (id, name, logo) => {
         const color = name.toLowerCase().replace(/ /g, '');
-        // console.log('Setting championship:', { id, name, color, logo }); // Log the values being set
         setSelectedChampionship({ id, name, color, logo });
     };
+
+    const setSeason = (seasons) => {
+        setSelectedSeason(seasons);
+    }
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
     return (
-        <ChampionshipContext.Provider value={{ selectedChampionship, setChampionship }}>
+        <ChampionshipContext.Provider value={{ selectedChampionship, setChampionship, selectedSeason, setSelectedSeason }}>
             {children}
         </ChampionshipContext.Provider>
     );

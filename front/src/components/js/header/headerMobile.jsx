@@ -28,6 +28,22 @@ const HeaderMobile = ({ championshipColorHex }) => {
     if (error) return <p>Error: {error.message}</p>;
 
     const selectedLogo = data.championships.find(championship => championship.id === selectedChampionship.id)?.logo;
+    
+    const handleNavigateLatest = () => {
+        navigate('/latest', {
+            state: {
+                championshipColorHex
+            }
+        })
+    }
+
+    const handleNavigateCalendar = () => {
+        navigate('/Calendar', {
+            state: {
+                championshipColorHex
+            }
+        })
+    }
 
     return (
         <div className="lg:hidden" style={{ backgroundColor: championshipColorHex }}>
@@ -48,12 +64,12 @@ const HeaderMobile = ({ championshipColorHex }) => {
                     <div className="absolute w-full no-scrollbar" style={{ height: 'calc(100vh - 56px)', overflowY: 'auto' }}>
                         <div className="text-white h-92 w-full font-formula pb-6 md:grid md:grid-cols-2 md:gap-x-4 md:gap-y-3 md:h-64" style={{ backgroundColor: championshipColorHex }}>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
-                                onClick={() => navigate('/Latest')}><span>Notícias</span><ChevronRight color="#fff" /></a>
+                                onClick={handleNavigateLatest}><span>Notícias</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"><span>Video</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
-                                onClick={() => navigate('/Calendar')}><span>Calendario</span><ChevronRight color="#fff" /></a>
+                                 onClick={handleNavigateCalendar}><span>Calendario</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
-                                onClick={() => navigate('/Results')}><span>Resultados</span><ChevronRight color="#fff" /></a>
+                               onClick={handleNavigateCalendar}><span>Resultados</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
                                 onClick={() => navigate('/Pilots')}><span>Pilotos</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"

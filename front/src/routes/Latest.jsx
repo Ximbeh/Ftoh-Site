@@ -1,18 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from "../components/js/header/Header";
 import NewsContainer from "../components/js/News/NewsContainer";
 import { ChevronDown } from "lucide-react";
+import { GET_CHAMPIONSHIPS } from '../queries/getChampionship';
+import { useQuery } from '@apollo/client';
+import { useContext } from 'react';
+import { ChampionshipContext } from "../Context/ChampionshipContext";
+import Footer from '../components/js/Footer';
 
 const Latest = () => {
+  const { loading, error, data } = useQuery(GET_CHAMPIONSHIPS);
+  const { selectedChampionship } = useContext(ChampionshipContext);
   const location = useLocation();
   const { state } = location;
-  const { news = [], championshipColorHex = '' } = state || {};
-
+  const { championshipColorHex = '' } = state || {};
 
   const [visibleNewsCount, setVisibleNewsCount] = useState(12);
+  const [championship, setChampionship] = useState(null);
 
+  useEffect(() => {
+    if (data && selectedChampionship) {
+      const champ = data.championships.find(champ => champ.id === selectedChampionship.id);
+      setChampionship(champ);
+    }
+  }, [data, selectedChampionship]);
 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+  if (!championship) return <p>Campeonato não encontrado</p>;
+
+  const news = championship.seasons.flatMap(season => season.news);
   const latestNews = [...news].reverse();
 
   const handleLoadMore = () => {
@@ -51,6 +69,7 @@ const Latest = () => {
           </button>
         )}
       </main>
+      <Footer />
     </>
   );
 };
