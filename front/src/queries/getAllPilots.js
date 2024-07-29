@@ -6,8 +6,10 @@ query getAllDrivers {
     id
     driverId
     name
+    nameAbreviado
     teamId
     team {
+      color
       id
       teamId
       name

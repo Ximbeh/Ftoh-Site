@@ -11,7 +11,7 @@ import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLTEAMS } from '../../../queries/getAllTeams';
 
 const TabelaTeams = ({ championshipColorHex }) => {
-  const { selectedChampionship } = useContext(ChampionshipContext);
+  const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
 
   const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
   const { loading: driversLoading, error: driversError, data: driversData } = useQuery(GET_ALLDRIVERS);
@@ -25,17 +25,16 @@ const TabelaTeams = ({ championshipColorHex }) => {
 
   if (!championship) return <p>Campeonato não encontrado</p>;
 
-  const firstSeason = championship?.seasons?.[0];
-
-  if (!firstSeason) return <p>Temporada não encontrada</p>;
-
   const filteredTeams = teamsData?.teams.filter(team => {
     if (team && team.seasonId) {
-      const hasSeason = team.seasonId === firstSeason.id;
+      const hasSeason = team.seasonId === selectedSeason[0]?.seasonId &&
+      team.season.championship.id == championshipId
       return hasSeason;
     }
     return false;
   });
+
+  // console.log(filteredTeams);
 
   const topTeams = filteredTeams
     ?.sort((a, b) => a.position - b.position)
@@ -51,8 +50,6 @@ const TabelaTeams = ({ championshipColorHex }) => {
 
     return { ...team, driverNames };
   });
-
-  console.log(teamDetails[0]);
 
   return (
     <div>

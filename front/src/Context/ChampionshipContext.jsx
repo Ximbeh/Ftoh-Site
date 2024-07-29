@@ -32,11 +32,13 @@ export const ChampionshipProvider = ({ children }) => {
         if (data && data.championships.length > 0) {
             const defaultChampionship = data.championships.find(champ => champ.championshipName === 'Fórmula 1') || data.championships[0];
             setChampionship(defaultChampionship.id, defaultChampionship.championshipName, defaultChampionship.logo);
-            
-            const seasons2024 = defaultChampionship.seasons.filter(season => season.date === "2024");
-            setSelectedSeason(seasons2024);
+            console.log(defaultChampionship);
+            const seasonDate = defaultChampionship.seasons.filter(season => season.date === "2023");
+            setSelectedSeason(seasonDate);
         }
     }, [data]);
+
+
 
     const setChampionship = (id, name, logo) => {
         const color = name.toLowerCase().replace(/ /g, '');

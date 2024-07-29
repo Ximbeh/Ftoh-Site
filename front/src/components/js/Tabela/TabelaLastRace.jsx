@@ -23,13 +23,12 @@ const TabelaLastRace = ({ championshipColorHex }) => {
 
   if (!championship) return <p>Campeonato não encontrado</p>;
 
-  // Usar selectedSeason em vez de firstSeason
-  const season = selectedSeason.find(season => season.seasonId === championship.seasons.find(season => season.date === "2024")?.seasonId);
-// console.log(season.seasonId);
+  const season = selectedSeason.find(season => season.seasonId === championship.seasons.find(season => season.date === selectedSeason[0].date)?.seasonId);
+
   if (!season) return <p>Temporada não encontrada</p>;
 
   const lastRace = racesData?.races
-    ?.filter(race => race.finished === true) // Filtrar pela temporada selecionada
+    ?.filter(race => race.finished === true)
     .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
 
   if (!lastRace) return <p>Última corrida não encontrada</p>;

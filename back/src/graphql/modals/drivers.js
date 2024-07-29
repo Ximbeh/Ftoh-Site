@@ -14,6 +14,7 @@ export const TypeDefs = /* GraphQL */ `
 
   input NewDriverInput {
     name: String!
+    nameAbreviado: String
     poles: Int
     wins: Int
     bestPosition: Int
@@ -29,6 +30,7 @@ export const TypeDefs = /* GraphQL */ `
 
   input UpdateDriverInput {
     name: String
+    nameAbreviado: String
     poles: Int
     wins: Int
     bestPosition: Int
@@ -46,6 +48,7 @@ export const TypeDefs = /* GraphQL */ `
   type Driver {
     id: ID!
     name: String!
+    nameAbreviado: String
     poles: Int
     wins: Int
     bestPosition: Int

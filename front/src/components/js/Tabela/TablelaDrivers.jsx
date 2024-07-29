@@ -1,8 +1,5 @@
 import '../../css/Tabela.css';
 import { ChevronRight } from 'lucide-react';
-import First from '../../../assets/First.svg';
-import Second from '../../../assets/Second.svg';
-import Third from '../../../assets/Third.svg';
 import { useContext } from 'react';
 import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
@@ -11,7 +8,7 @@ import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLTEAMS } from '../../../queries/getAllTeams';
 
 const TabelaDrivers = ({ championshipColorHex }) => {
-  const { selectedChampionship } = useContext(ChampionshipContext);
+  const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
 
   const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
   const { loading: driversLoading, error: driversError, data: driversData } = useQuery(GET_ALLDRIVERS);
@@ -25,13 +22,10 @@ const TabelaDrivers = ({ championshipColorHex }) => {
 
   if (!championship) return <p>Campeonato não encontrado</p>;
 
-  const firstSeason = championship?.seasons?.[0];
-
-  if (!firstSeason) return <p>Temporada não encontrada</p>;
 
   const filteredDrivers = driversData?.drivers.filter(driver => {
     const team = teamsData?.teams.find(team => team.id === driver.teamId);
-    return team && team.seasonId === firstSeason.id;
+    return team && team.seasonId === selectedSeason[0]?.seasonId && team.season.championship.id === championshipId;
   });
 
   const topDrivers = filteredDrivers
@@ -86,6 +80,7 @@ const TabelaDrivers = ({ championshipColorHex }) => {
                   <div className='flex gap-2 items-center'>
                     {driversInfo.length > 1 && (
                       <h4 className='font-formula'>{driversInfo[1].nome}</h4>
+
                     )}
                     <img className="w-5 h-min rounded-sm" src={driversInfo[1].flag ? `../../../../img/race/${driversInfo[1].flag}` : "https://via.placeholder.com/800x400"} alt="" />
                   </div>
@@ -156,7 +151,8 @@ const TabelaDrivers = ({ championshipColorHex }) => {
                       {index + 1}
                     </h5>
                     <h5 className='hidden md:flex font-formula mr-1'>{driver.nome}</h5>
-                    <h5 className='uppercase mr-2'>{driver.sobrenome}</h5>
+                    <h5 className='hidden sm:flex uppercase mr-2'>{driver.sobrenome}</h5>
+                    <h5 className='sm:hidden uppercase mr-2'>{driver.nameAbreviado}</h5>
                     <p className='hidden md:flex font-titillium text-sm text-gray-600'>{teamsData?.teams.find(team => team.id === driver.teamId)?.name || 'Unknown Team'}</p>
                   </div>
                   <div className='flex items-center'>

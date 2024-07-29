@@ -8,7 +8,7 @@ import { GET_ALLPHASES } from '../../queries/getAllPhases';
 import { GET_ALLRACES } from '../../queries/getAllRaces';
 
 const CarouselSchedule = () => {
-    const { selectedChampionship } = useContext(ChampionshipContext);
+    const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
 
     const slideRefs = useRef([]);
 
@@ -47,9 +47,16 @@ const CarouselSchedule = () => {
 
     if (!championship) return <p>Campeonato não encontrado</p>;
 
-    const filteredRaces = raceData?.races.filter(race =>
-        race.calendar.some(calendar => calendar.season.some(season => season.championship.id === championshipId))
-    );
+
+    const filteredRaces = raceData?.races.filter(race => 
+        race.calendar.some(calendar => 
+          calendar.season.some(season => 
+            season.championship.id == championshipId &&
+            season.seasonId == selectedSeason[0]?.seasonId
+          )
+        )
+      );
+      
 
     const raceDates = filteredRaces.map((e) => e.date);
 
@@ -73,7 +80,8 @@ const CarouselSchedule = () => {
         return races.some(race =>
             race.calendar.some(calendar =>
                 calendar.season.some(season =>
-                    season.championship.id === championshipId
+                    season.championship.id === championshipId &&
+                    season.id === selectedSeason?.seasonId
                 )
             )
         );
