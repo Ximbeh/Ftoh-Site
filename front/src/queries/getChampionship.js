@@ -6,6 +6,7 @@ export const GET_CHAMPIONSHIPS = gql`
     id
     championshipName
     logo
+    color
     seasons {
       id
       seasonId

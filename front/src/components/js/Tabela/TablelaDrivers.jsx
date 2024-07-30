@@ -7,7 +7,7 @@ import { useQuery } from '@apollo/client';
 import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLTEAMS } from '../../../queries/getAllTeams';
 
-const TabelaDrivers = ({ championshipColorHex }) => {
+const TabelaDrivers = () => {
   const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
 
   const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
@@ -144,7 +144,7 @@ const TabelaDrivers = ({ championshipColorHex }) => {
                 <div
                   key={driver.id}
                   className='cursor-pointer w-full gap-2 p-4 bg-white hover:bg-gray-800 transition duration-500 flex justify-between items-center rounded-md mb-2 hover-text-white'
-                  style={{ borderColor: championshipColorHex }}
+                  style={{ borderColor: selectedChampionship.color }}
                 >
                   <div className='flex items-center font-formula-bold'>
                     <h5 className='mr-2 pr-2 border-r-4' style={{ borderColor: (driver.teamColor) || 'gray' }}>
@@ -157,13 +157,13 @@ const TabelaDrivers = ({ championshipColorHex }) => {
                   </div>
                   <div className='flex items-center'>
                     <p className='bg-gray-300 font-titillium rounded-2xl px-3 py-1'>{driver.points} PTS</p>
-                    <ChevronRight className="chevron-right" style={{ color: championshipColorHex }} />
+                    <ChevronRight className="chevron-right" style={{ color: selectedChampionship.color }} />
                   </div>
                 </div>
               ))}
 
-              <button className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': championshipColorHex }}>
-                <span className='tabela-completa-btn-text' style={{ '--championship-color': championshipColorHex }}>Tabela Completa</span>
+              <button className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': selectedChampionship.color }}>
+                <span className='tabela-completa-btn-text' style={{ '--championship-color': selectedChampionship.color }}>Tabela Completa</span>
               </button>
             </div>
           </div>

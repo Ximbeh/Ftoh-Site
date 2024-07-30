@@ -8,12 +8,14 @@ import { ChampionshipContext } from "../../../Context/ChampionshipContext";
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 
 
-const HeaderTwo = ({ championshipColorHex }) => {
+const HeaderTwo = () => {
     const navigate = useNavigate();
 
 
     const { loading, error, data } = useQuery(GET_CHAMPIONSHIPS);
     const { selectedChampionship, setChampionship } = useContext(ChampionshipContext);
+
+    console.log(selectedChampionship.color);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -27,23 +29,15 @@ const HeaderTwo = ({ championshipColorHex }) => {
     // console.log(selectedLogo);
 
     const handleNavigateLatest = () => {
-        navigate('/latest', {
-            state: {
-                championshipColorHex
-            }
-        })
+        navigate('/latest')
     }
 
     const handleNavigateResult = () => {
-        navigate('/Calendar', {
-            state: {
-                championshipColorHex
-            }
-        })
+        navigate('/Calendar')
     }
 
     return (
-        <div className="hidden lg:flex" style={{ backgroundColor: championshipColorHex }}>
+        <div className="hidden lg:flex" style={{ backgroundColor: selectedChampionship.color }}>
             <div className="flex space-x-8 max-w-screen-lg ml-10">
                 <img className="h-8 my-5 cursor-pointer"
                     onClick={() => navigate('/')}

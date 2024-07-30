@@ -5,7 +5,7 @@ import { ChampionshipContext } from "../../../Context/ChampionshipContext";
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useNavigate } from "react-router-dom";
 
-const HeaderOne = ({championshipColorHex}) => {
+const HeaderOne = () => {
     const { loading, error, data } = useQuery(GET_CHAMPIONSHIPS);
     const { selectedChampionship, setChampionship } = useContext(ChampionshipContext);
     const navigate = useNavigate();
@@ -32,7 +32,7 @@ const HeaderOne = ({championshipColorHex}) => {
                             {selectedChampionship.id === championship.id && (
                                 <span
                                 className="absolute left-4 -bottom-4 triangulo-baixo"
-                                style={{ color: championshipColorHex }}
+                                style={{ color: selectedChampionship.color }}
                             ></span>
                             )}
                         </a>

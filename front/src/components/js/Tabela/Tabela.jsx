@@ -2,10 +2,13 @@ import '../../css/Tabela.css';
 import TabelaDrivers from './TablelaDrivers';
 import TabelaTeams from './TabelaTeams';
 import TabelaLastRace from './TabelaLastRace';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 
-const Tabela = ({ championshipColorHex }) => {
+
+const Tabela = () => {
   const [activeTab, setActiveTab] = useState('Pilotos');
+  const { selectedChampionship } = useContext(ChampionshipContext);
 
   const handleActive = (e) => {
     const tabName = e.target.textContent;
@@ -16,7 +19,7 @@ const Tabela = ({ championshipColorHex }) => {
     <div>
       <div 
         className='px-6 relative w-full flex justify-center items-center gap-11 font-formula'
-        style={{ '--active-border-color': championshipColorHex }}
+        style={{ '--active-border-color': selectedChampionship.color }}
       >
         <a
           onClick={handleActive}
@@ -38,9 +41,9 @@ const Tabela = ({ championshipColorHex }) => {
         </a>
       </div>
 
-      {activeTab === 'Pilotos' && <TabelaDrivers  championshipColorHex={championshipColorHex}/>}
-      {activeTab === 'Construtores' && <TabelaTeams championshipColorHex={championshipColorHex}/>}
-      {activeTab === 'Última Corrida' && <TabelaLastRace championshipColorHex={championshipColorHex}/>}
+      {activeTab === 'Pilotos' && <TabelaDrivers />}
+      {activeTab === 'Construtores' && <TabelaTeams/>}
+      {activeTab === 'Última Corrida' && <TabelaLastRace/>}
     </div>
   );
 };

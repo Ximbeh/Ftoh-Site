@@ -9,6 +9,7 @@ const GET_CHAMPIONSHIPS = gql`
       id
       championshipName
       logo
+      color
       seasons {
         seasonId
         date
@@ -31,8 +32,8 @@ export const ChampionshipProvider = ({ children }) => {
     useEffect(() => {
         if (data && data.championships.length > 0) {
             const defaultChampionship = data.championships.find(champ => champ.championshipName === 'Fórmula 1') || data.championships[0];
-            setChampionship(defaultChampionship.id, defaultChampionship.championshipName, defaultChampionship.logo);
-            console.log(defaultChampionship);
+            setChampionship(defaultChampionship.id, defaultChampionship.championshipName, defaultChampionship.color, defaultChampionship.logo);
+            // console.log(defaultChampionship);
             const seasonDate = defaultChampionship.seasons.filter(season => season.date === "2023");
             setSelectedSeason(seasonDate);
         }
@@ -40,8 +41,7 @@ export const ChampionshipProvider = ({ children }) => {
 
 
 
-    const setChampionship = (id, name, logo) => {
-        const color = name.toLowerCase().replace(/ /g, '');
+    const setChampionship = (id, name, color, logo) => {
         setSelectedChampionship({ id, name, color, logo });
     };
 

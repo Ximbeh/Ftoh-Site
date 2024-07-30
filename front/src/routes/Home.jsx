@@ -33,7 +33,6 @@ const GET_CHAMPIONSHIP_BY_ID = gql`
 const Home = () => {
   const { id } = useParams();
   const { selectedChampionship, setChampionship } = useContext(ChampionshipContext);
-  const [championshipColorHex, setChampionshipColorHex] = useState('');
 
   const { id: selectedChampionshipId, name: selectedChampionshipName } = selectedChampionship;
 
@@ -42,17 +41,6 @@ const Home = () => {
     skip: !id && !selectedChampionshipId,
   });
 
-  useEffect(() => {
-    const colorMapping = {
-      fórmula1: '#ef4444',
-      fórmula2: '#3b82f6',
-    };
-
-    if (selectedChampionshipName) {
-      const colorKey = selectedChampionshipName.toLowerCase().replace(/ /g, '');
-      setChampionshipColorHex(colorMapping[colorKey] || '#000000');
-    }
-  }, [selectedChampionshipName]);
 
   useEffect(() => {
     if (data && data.championship) {
@@ -80,13 +68,13 @@ const Home = () => {
   return (
     <>
       <div>
-        <Header championshipColorHex={championshipColorHex} />
-        <NewsHome championshipColorHex={championshipColorHex} />
+        <Header />
+        <NewsHome  />
         {lastVideoNews && <Video videoNews={lastVideoNews} />}
-        <CarouselCustomNavigation championshipColorHex={championshipColorHex} newsItems={newsItems} />
+        <CarouselCustomNavigation newsItems={newsItems} />
         {secondLastVideoNews && <Video videoNews={secondLastVideoNews} />}
         <CarouselSchedule />
-        <Tabela championshipColorHex={championshipColorHex} />
+        <Tabela />
         <Footer />
       </div>
     </>

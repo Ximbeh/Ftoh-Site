@@ -1,7 +1,12 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 
-const PrincipalNewsHome = forwardRef(({ news, championshipColorHex, index }, ref) => {
+
+
+const PrincipalNewsHome = forwardRef(({ news, index }, ref) => {
+  const { selectedChampionship } = useContext(ChampionshipContext);
+  
   if (!news) {
     return (
       <div ref={ref} className="principalHome py-6 lg:py-0 font-formula bg-white">
@@ -17,7 +22,7 @@ const PrincipalNewsHome = forwardRef(({ news, championshipColorHex, index }, ref
   const navigate = useNavigate();
 
   const handleNewsClick = (news) => {
-    navigate(`/News/${news.id}`, { state: { championshipColorHex, news} });
+    navigate(`/News/${news.id}`, { state: {news} });
   };
 
   return (
@@ -25,10 +30,10 @@ const PrincipalNewsHome = forwardRef(({ news, championshipColorHex, index }, ref
       <div
         className="hover:cursor-pointer pt-3 pr-3 border-l-0 border-b-0 border-r-8 border-t-8 border-solid rounded-tr-3xl max-w-lg m-auto
         md:max-w-screen-md lg:"
-        style={{ borderColor: championshipColorHex }}
+        style={{ borderColor: selectedChampionship.color }}
         onClick={() => handleNewsClick(news)}
       >
-        <p className="text-xs font-formula-bold mb-1 uppercase" style={{ color: championshipColorHex }}>
+        <p className="text-xs font-formula-bold mb-1 uppercase" style={{ color: selectedChampionship.color }}>
           {tags?.[0] || 'Sem categoria'}
         </p>
         <h2 className="text-black text-2xl font-formula-bold mb-5 hover:underline">{title}</h2>

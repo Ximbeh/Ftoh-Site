@@ -15,18 +15,22 @@ export const TypeDefs = /* GraphQL */ `
   input NewChampionshipInput {
     championshipName: String!
     logo: String
+    color: String
   }
 
   input UpdateChampionshipInput {
     championshipName: String
     logo: String
+    color: String
   }
 
   type Championship {
     id: ID!
     championshipName: String!
     logo: String
+    color: String
     seasons: [Season] 
+
   }
 `;
 

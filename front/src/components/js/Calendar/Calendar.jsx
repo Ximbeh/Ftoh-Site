@@ -22,7 +22,6 @@ import { GET_ALLRACES } from '../../../queries/getAllRaces';
 const Calendar = () => {
     const location = useLocation();
     const { state } = location;
-    const { championshipColorHex = '' } = state || {};
     const navigate = useNavigate();
     const { selectedChampionship, selectedSeason, setSeason } = useContext(ChampionshipContext);
 
@@ -142,7 +141,7 @@ const Calendar = () => {
 
     return (
         <div>
-            <Header championshipColorHex={championshipColorHex} />
+            <Header />
             <main>
                 <div className="max-w-xl mx-auto md:max-w-3xl lg:max-w-5xl xl:max-w-7xl">
                     <h1 className="mx-4 border-t-8 border-r-8 border-grayTotal rounded-tr-2xl mt-10 mb-10 pt-4 text-4xl md:text-6xl font-formula-bold">

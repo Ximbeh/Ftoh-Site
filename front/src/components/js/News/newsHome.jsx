@@ -111,11 +111,11 @@ const NewsHome = ({ championshipColorHex }) => {
   const secondNews = acceptableNews.slice(Math.max(news.length - 12, 0), news.length - 6).reverse();
 
 
+
   const handleNavigate = () => {
     navigate('/latest', {
       state: {
-        news, 
-        championshipColorHex 
+        news
       }
     });
   };
@@ -123,20 +123,20 @@ const NewsHome = ({ championshipColorHex }) => {
   return (
     <div className='mx-auto px-2 relative lg:grid lg:grid-cols-2 gap-3 py-7 max-w-screen-lg-30 xl:max-w-screen-xl'>
       <div ref={contentAreaRef} className="content-area lg:bg-repeat lg:bg-grade-pattern lg:bg-2">
-        <PrincipalNewsHome index={acceptableNews.length-1} news={principalNews} championshipColorHex={championshipColorHex} ref={principalHomeRef} />
+        <PrincipalNewsHome index={acceptableNews.length-1} news={principalNews}  ref={principalHomeRef} />
       </div>
       <div>
         <div className='grid grid-cols-2 max-w-lg mx-auto md:max-w-screen-md gap-x-5 gap-y-4'>
           {secondNews.map((news, index) => (
-            <SecondNews key={news.newsId} news={news} championshipColorHex={championshipColorHex} />
+            <SecondNews key={news.newsId} news={news}  />
           ))}
         </div>
         <button
           className='dynamic-button flex mx-auto gap-2 mt-7 px-4 py-3 rounded-md font-formula'
           style={{
-            '--button-bg-color': championshipColorHex,
-            '--button-text-color': championshipColorHex,
-            '--button-border-color': championshipColorHex
+            '--button-bg-color': selectedChampionship.color,
+            '--button-text-color': selectedChampionship.color,
+            '--button-border-color': selectedChampionship.color
           }}
           onClick={handleNavigate}
         >

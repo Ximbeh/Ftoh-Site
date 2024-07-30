@@ -10,7 +10,7 @@ import { useQuery } from '@apollo/client';
 import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLTEAMS } from '../../../queries/getAllTeams';
 
-const TabelaTeams = ({ championshipColorHex }) => {
+const TabelaTeams = () => {
   const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
 
   const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
@@ -123,12 +123,12 @@ const TabelaTeams = ({ championshipColorHex }) => {
                   <div className='flex items-center'>
                     <img className="w-28 mr-4 lg:w-40" src={team.car ? `../../../../img/cars/${team.car}.png` : "../../../../img/cars/default.png"}></img>
                     <p className='bg-gray-300 font-titillium rounded-2xl px-3 py-1 text-center'>{team.points} PTS</p>
-                    <ChevronRight className="chevron-right" style={{ color: championshipColorHex }} />
+                    <ChevronRight className="chevron-right" style={{ color: selectedChampionship.color }} />
                   </div>
                 </div>
               ))}
-              <button className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': championshipColorHex }}>
-                <span className='tabela-completa-btn-text' style={{ '--championship-color': championshipColorHex }}>Tabela Completa</span>
+              <button className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': selectedChampionship.color }}>
+                <span className='tabela-completa-btn-text' style={{ '--championship-color': selectedChampionship.color }}>Tabela Completa</span>
               </button>
             </div>
           </div>

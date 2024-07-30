@@ -1,9 +1,12 @@
 import "../../css/news.css";
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { ChampionshipContext } from "../../../Context/ChampionshipContext";
 
 
-const NewsContainer = ({ newsItem, championshipColorHex }) => {
-  // console.log("NewsContainer props:", { newsItem, championshipColorHex });
+const NewsContainer = ({ newsItem }) => {
+  // console.log("NewsContainer props:", { newsItem });
+  const { selectedChampionship } = useContext(ChampionshipContext);
 
   if (!newsItem) {
     return (
@@ -20,14 +23,15 @@ const NewsContainer = ({ newsItem, championshipColorHex }) => {
   const navigate = useNavigate();
 
   const handleNewsClick = (news) => {
-    navigate(`/News/${newsItem.id}`, { state: { championshipColorHex, news} });
+    navigate(`/News/${newsItem.id}`, { state: { news} });
   };
   return (
     <div className="overflow-hidden newsContainer bg-white py-3 hover:bg-grayTotal cursor-pointer flex flex-row gap-4 mb-2 hover:text-white transition ease-out duration-300 md:flex-col md:py-0 md:pb-4 md:gap-0 md:rounded-b-xl"
     onClick={() => handleNewsClick(newsItem)}>
       <img className="inline-block w-2/5 md:w-full object-contain duration-500 transition-transform mb-2" src={imagePath} alt="Notícia" />
       <div className="md:p-4">
-        <h5 className="text-red-500 text-sm font-formula-bold mb-2">{tags[0]}</h5>
+        <h5 className="text-sm font-formula-bold mb-2"
+           style={{color: selectedChampionship.color}}>{tags[0]}</h5>
         <p className="text-sm md:text-base md:font-formula font-titillium">{title}</p>
       </div>
     </div>

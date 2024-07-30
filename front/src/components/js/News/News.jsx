@@ -3,55 +3,56 @@ import { useLocation, useParams } from "react-router-dom";
 import NewsContainer from "./NewsContainer";
 import Footer from "../Footer";
 import Header from "../header/Header";
-
 import { useQuery } from '@apollo/client';
 import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { useNavigate } from 'react-router-dom';
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
-import { useContext } from "react";
-
+import { useContext, useEffect, useState } from "react";
+import { GET_ALLNEWS } from '../../../queries/getAllNews';
 
 const News = () => {
     const { id } = useParams();
     const location = useLocation();
-    const { championshipColorHex, news } = location.state || {};
+    const { news: initialNews = {} } = location.state || {};
     const { selectedChampionship } = useContext(ChampionshipContext);
     const navigate = useNavigate();
 
-    // console.log("Location state:", location.state);
-    // console.log("Selected Championship:", selectedChampionship);
-    // console.log("Championship Color Hex:", championshipColorHex);
-    // console.log("News:", news);
+    const [news, setNews] = useState(initialNews);
 
     const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
+    const { loading: newsLoading, error: newsError, data: newsData } = useQuery(GET_ALLNEWS);
 
-    if (championshipsLoading) return <p>Loading...</p>;
-    if (championshipsError) return <p>Error: {championshipsError.message}</p>;
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location]);
+
+    useEffect(() => {
+        if (!news.id && newsData) {
+            const fetchedNews = newsData.news.find(item => item.id === id);
+            if (fetchedNews) {
+                setNews(fetchedNews);
+            }
+        }
+    }, [newsData, id, news.id]); // Ensure to include news.id in dependencies
+
+
+    if (championshipsLoading || newsLoading) return <p>Loading....</p>;
+    if (championshipsError || newsError) return <p>Error: {championshipsError?.message || newsError?.message}</p>;
 
     const championshipId = selectedChampionship?.id;
-    // console.log("Championship ID:", championshipId);
-
-    const championship = championshipsData.championships.find(champ => champ.id === championshipId);
-    // console.log("Championship found:", championship);
+    const championship = championshipsData?.championships.find(champ => champ.id === championshipId);
 
     if (!championship) return <p>Campeonato não encontrado</p>;
 
     const newsLatest = championship.seasons.flatMap(season => season.news);
-    // console.log("All news:", newsLatest);
-
-    const newsLessActual = newsLatest.filter(news => news.id !== id);
-    // console.log("Filtered news:", newsLessActual);
-
+    const newsLessActual = newsLatest.filter(newsItem => newsItem.id !== id);
     const mostRecent = newsLessActual.slice(newsLessActual.length - 3).reverse();
-    // console.log("Most recent news:", mostRecent);
-    
     const secondMostRecente = newsLessActual.slice(newsLessActual.length - 6, newsLessActual.length - 3);
 
-
     const sameTag = newsLessActual.filter(newsItem => {
-        return news.tags.some(tag => newsItem.tags.includes(tag));
+        return news.tags?.some(tag => newsItem.tags.includes(tag));
     }).slice(-6);
-    
+
     const uniqueById = (array) => {
         const seen = new Set();
         return array.filter(item => {
@@ -60,16 +61,14 @@ const News = () => {
             return !duplicate;
         });
     };
-    
-    // Filtra duplicatas antes de mapear
+
     const sameTagPlusLastNews = uniqueById(sameTag.concat(secondMostRecente)).slice(-6).reverse();
     const sameTagPlusLastNewsFourItens = uniqueById(sameTag.concat(secondMostRecente)).slice(-4).reverse();
 
-    // console.log(sameTagPlusLastNews);
-    if (!news) {
+    if (!news.id) {
         return (
             <div>
-                <Header championshipColorHex={championshipColorHex} />
+                <Header />
                 <div className="max-w-md mx-auto px-2 my-8">
                     <h1>Notícia não encontrada</h1>
                 </div>
@@ -78,9 +77,14 @@ const News = () => {
         );
     }
 
+    const handleTagClick = (tag) => {
+        
+        navigate('/latest', { state: { tag } });
+    };
+
     return (
         <div>
-            <Header championshipColorHex={championshipColorHex} />
+            <Header />
             <div className="max-w-md mx-auto px-2 my-8 md:max-w-2xl lg:max-w-5xl xl:max-w-7xl">
                 <header className="flex flex-col gap-3 mb-16 md:mb-2">
                     <h4 className="uppercase font-formula text-sm lg:text-base text-gray-600">{news.tags?.[0] || 'Sem categoria'}</h4>
@@ -89,14 +93,19 @@ const News = () => {
                 </header>
                 <div className="hidden md:flex gap-2 py-4">
                     {news.tags?.map(tag => (
-                        <button key={tag} className="text-xs text-red-500 font-formula py-2 px-3 border-2 border-red-500 rounded-lg uppercase hover:border-4">
+                        <button
+                            key={tag}
+                            className="text-xs  font-formula py-2 px-3 border-2  rounded-lg uppercase hover:border-4"
+                            style={{color: selectedChampionship.color, borderColor: selectedChampionship.color}}
+                            onClick={() => handleTagClick(tag)}
+                        >
                             {tag}
                         </button>
                     ))}
                 </div>
                 <div className="lg:grid lg:grid-cols-news gap-4">
                     <div>
-                        <img className="w-full object-contain border-t-8 border-r-8 rounded-tr-xl" style={{ borderColor: championshipColorHex }} src={news.image ? `../../../../img/news/capa/${news.image}` : "https://via.placeholder.com/800x400"} alt="Notícia" />
+                        <img className="w-full object-contain border-t-8 border-r-8 rounded-tr-xl" style={{ borderColor: selectedChampionship.color }} src={news.image ? `../../../../img/news/capa/${news.image}` : "https://via.placeholder.com/800x400"} alt="Notícia" />
                         <p className="mt-10 font-titillium font-bold lg:text-xl">{news.headline}</p>
                         <div className="mt-5 font-titillium lg:text-xl">
                             <p>{news.text}</p>
@@ -112,14 +121,19 @@ const News = () => {
                             <NewsContainer
                                 key={newsItem.id}
                                 newsItem={newsItem}
-                                championshipColorHex={championshipColorHex} 
+                            
                             />
                         ))}
                     </div>
                 </div>
                 <div className="mt-10 flex gap-2 py-4 border-b-8 border-r-8 rounded-br-xl border-gray-400">
                     {news.tags?.map(tag => (
-                        <button key={tag} className="text-xs text-red-500 font-formula py-2 px-3 border-2 border-red-500 rounded-lg uppercase hover:border-4">
+                        <button
+                            key={tag}
+                            className="text-xs  font-formula py-2 px-3 border-2  rounded-lg uppercase hover:border-4"
+                            style={{color: selectedChampionship.color, borderColor: selectedChampionship.color}}
+                            onClick={() => handleTagClick(tag)}
+                        >
                             {tag}
                         </button>
                     ))}
@@ -131,7 +145,7 @@ const News = () => {
                             <NewsContainer
                                 key={newsItem.id}
                                 newsItem={newsItem}
-                                championshipColorHex={championshipColorHex} 
+                                
                             />
                         ))}
                     </div>
@@ -140,7 +154,7 @@ const News = () => {
                             <NewsContainer
                                 key={newsItem.id}
                                 newsItem={newsItem}
-                                championshipColorHex={championshipColorHex} 
+                                
                             />
                         ))}
                     </div>

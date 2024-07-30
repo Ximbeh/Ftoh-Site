@@ -7,7 +7,7 @@ import { useQuery } from '@apollo/client';
 import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLTEAMS } from '../../../queries/getAllTeams';
 import { GET_ALLRACES } from '../../../queries/getAllRaces';
-const TabelaLastRace = ({ championshipColorHex }) => {
+const TabelaLastRace = () => {
   const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
 
   const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
@@ -69,7 +69,7 @@ const TabelaLastRace = ({ championshipColorHex }) => {
           <h2 className='text-stroke relative font-formula-bold text-transparent text-5xl w-full text-center justify-center pt-2 uppercase'>{season.date}</h2>
           <div className='cursor-pointer flex relative font-formula w-full text-center justify-center pt-4 pb-6'>
             <p className='mt-0.5 text-white text-sm uppercase'>{lastRace.fullName}</p>
-            <ChevronRight className="chevron-right" style={{ color: championshipColorHex }} />
+            <ChevronRight className="chevron-right" style={{ color: selectedChampionship.color }} />
           </div>
           <div>
             <div className='flex flex-col items-center bg-gray-200 p-3 rounded-lg'>
@@ -88,13 +88,13 @@ const TabelaLastRace = ({ championshipColorHex }) => {
                     </div>
                     <div className='flex items-center'>
                       <p className='bg-gray-300 font-titillium rounded-2xl px-3 py-1 text-center'>{pilot.points} PTS</p>
-                      <ChevronRight className="chevron-right" style={{ color: championshipColorHex }} />
+                      <ChevronRight className="chevron-right" style={{ color: selectedChampionship.color }} />
                     </div>
                   </div>
                 );
               })}
-              <button className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': championshipColorHex }}>
-                <span className='tabela-completa-btn-text' style={{ '--championship-color': championshipColorHex }}>Resultado da Corrida</span>
+              <button className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': selectedChampionship.color }}>
+                <span className='tabela-completa-btn-text' style={{ '--championship-color': selectedChampionship.color }}>Resultado da Corrida</span>
               </button>
             </div>
           </div>
