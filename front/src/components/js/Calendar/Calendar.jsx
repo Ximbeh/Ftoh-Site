@@ -101,9 +101,9 @@ const Calendar = () => {
 
     const racesAfter = filteredRaces.slice(actualRaceIndex+2, dataRace.races.length)
 
-    console.log("antes da corrida: ", racesBefore);
-    console.log("corrida atual: ", actualRace);
-    console.log("depois da corrida: ", racesAfter);
+    // console.log("antes da corrida: ", racesBefore);
+    // console.log("corrida atual: ", actualRace);
+    // console.log("depois da corrida: ", racesAfter);
 
     const formatDateRange = (dateRange) => {
         if (!dateRange) return { dayRange: "??", monthRange: "??" };
@@ -136,7 +136,9 @@ const Calendar = () => {
         return { dayRange, monthRange };
     };
 
-
+    const handleNavigateRace = (race) => {
+        navigate(`Race/${race.id}`);
+    };
 
 
     return (
@@ -194,7 +196,7 @@ const Calendar = () => {
                             return (
                                 <div className='px-4' key={race.id}>
                                     <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200"
-                                        onClick={() => navigate('/Race')}>
+                                         onClick={() => handleNavigateRace(race)}>
                                         <h4 className="text-red-500 bg-white absolute -top-4 font-formula-bold pr-2 uppercase">
                                             {race.phases?.length > 0
                                                 ? race.phases[race.phases.length - 1]?.name || "???"

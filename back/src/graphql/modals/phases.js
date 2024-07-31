@@ -39,6 +39,8 @@ input NewPhaseInput {
   name: String
   dayOfWeek: String
   hour: String
+  dayOfMonth: String
+  Month: String
   finished: Boolean
   raceId: String
   pilots: [PilotInfoInput]
@@ -47,6 +49,8 @@ input NewPhaseInput {
 input UpdatePhaseInput {
   name: String
   dayOfWeek: String
+  dayOfMonth: String
+  Month: String
   hour: String
   finished: Boolean
   raceId: String
@@ -80,6 +84,8 @@ type Phase {
   id: ID
   name: String
   dayOfWeek: String
+  dayOfMonth: String
+  Month: String
   hour: String
   finished: Boolean
   raceId: String

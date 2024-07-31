@@ -15,7 +15,6 @@ const HeaderTwo = () => {
     const { loading, error, data } = useQuery(GET_CHAMPIONSHIPS);
     const { selectedChampionship, setChampionship } = useContext(ChampionshipContext);
 
-    console.log(selectedChampionship.color);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;

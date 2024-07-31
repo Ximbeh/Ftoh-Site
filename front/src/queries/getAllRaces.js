@@ -7,6 +7,7 @@ query GetRaceAndCalendars {
     raceId
     name
     finished
+    resume
     calendarId
     description
     fullName
@@ -18,6 +19,8 @@ query GetRaceAndCalendars {
         id
         name   
         dayOfWeek
+        dayOfMonth
+        Month
         hour
          pilots {
       pilotId

@@ -7,6 +7,8 @@ query getAllPhases{
         phaseId
         name
         dayOfWeek
+        dayOfMonth
+        Month
         hour
         finished
         raceId

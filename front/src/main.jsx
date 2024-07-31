@@ -25,7 +25,7 @@ const router = createBrowserRouter([
   { path: "latest", element: <Latest /> },
   { path: "News/:id", element: <News /> },
   { path: "Calendar", element: <Calendar /> },
-  { path: "Race", element: <Race /> },
+  { path: "Calendar/Race/:id", element: <Race /> },
   { path: "Pilots", element: <Pilots /> },
   { path: "Pilot", element: <Pilot /> },
   { path: "Teams", element: <Teams /> },

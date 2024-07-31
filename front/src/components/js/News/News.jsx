@@ -28,7 +28,7 @@ const News = () => {
 
     useEffect(() => {
         if (!news.id && newsData) {
-            const fetchedNews = newsData.news.find(item => item.id === id);
+            const fetchedNews = newsData.news.find(item => item.id == id);
             if (fetchedNews) {
                 setNews(fetchedNews);
             }

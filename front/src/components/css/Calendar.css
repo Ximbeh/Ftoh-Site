@@ -15,3 +15,39 @@
     background-size: cover;
     background-image: url("https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/Promotional_atom_images/F2_Image");
   }
+
+  /* Calendar.css */
+.bg-grayTotal {
+  background-color: var(--background-color, #f0f0f0); /* Cor padrão se --background-color não for definida */
+}
+
+.tab-hover {
+  transition: border-color 0.3s ease;
+}
+
+.tab-hover:hover {
+  border-bottom-color: var(--hover-color, #ff0000); /* Cor padrão se --hover-color não for definida */
+}
+
+.buttonResultados{
+  border-color:  var(--selected-color);
+  color: white;
+  background-color: var(--selected-color);
+  transition: .2s;
+  border-width: 2px;
+}
+
+.buttonResultados:hover{
+
+  border-color:  var(--selected-color);
+  color: var(--selected-color);
+  background-color: transparent;
+}
+
+.buttonHighlights{
+  border-color: rgb(189 189 189);
+}
+
+.buttonHighlights:hover{
+  border-color: var(--selected-color);
+}
