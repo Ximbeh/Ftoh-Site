@@ -2,6 +2,10 @@ body{
     overflow-x: hidden;
 }
 
+.text-break {
+    word-break: break-word; /* Quebra palavras longas para ajustar ao contêiner */
+    overflow-wrap: break-word; /* Suporte adicional para quebra de palavras */
+  }
 
 .slide-container {
     width: 150%;

@@ -16,10 +16,10 @@ const client = new MongoClient(uri, {
 
 export async function setupDatabase() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
-    const db = client.db('ftoh')
-   
+    console.log("Connected to MongoDB"); 
+    const db = client.db('ftoh');
+
     return {
       client,
       db,
@@ -37,10 +37,8 @@ export async function setupDatabase() {
       driverHistories: db.collection('driverHistories'),
     };
 
-  } catch(err){
-      console.log("Error connecting to database");
-
-      return{}
+  } catch (err) {
+    console.error("Error connecting to database", err); 
   }
 }
 

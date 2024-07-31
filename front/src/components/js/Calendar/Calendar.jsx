@@ -16,6 +16,7 @@ import "../../css/Calendar.css";
 import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLSEASONS } from '../../../queries/getAllSeasons';
 import { GET_ALLRACES } from '../../../queries/getAllRaces';
+import defaultCape from '../../../../img/capes/interlagosOne.jpg'
 
 
 
@@ -105,41 +106,69 @@ const Calendar = () => {
     // console.log("corrida atual: ", actualRace);
     // console.log("depois da corrida: ", racesAfter);
 
+    // console.log(racesBefore);
+
     const formatDateRange = (dateRange) => {
-        if (!dateRange) return { dayRange: "??", monthRange: "??" };
-
-        const [startDate, endDate] = dateRange.split(' - ');
-
-        const parseDate = (dateStr) => {
-            const [day, monthYear] = dateStr.split(' ');
-            const [month, year] = monthYear.split(' ');
-            return { day, month, year };
-        };
-
-        const start = parseDate(startDate);
-        const end = parseDate(endDate);
-
-        // Mapeia os meses para abreviações
+        if (!dateRange || typeof dateRange !== 'string') return { dayRange: "??", monthRange: "??" };
+    
+        // Função para mapear meses
         const monthMap = {
             'Jan': 'Jan', 'Feb': 'Feb', 'Mar': 'Mar', 'Abr': 'Abr', 'Mai': 'Mai',
             'Jun': 'Jun', 'Jul': 'Jul', 'Ago': 'Ago', 'Set': 'Set', 'Out': 'Out',
             'Nov': 'Nov', 'Dez': 'Dez'
         };
-
-        const monthStart = monthMap[start.month];
-        const monthEnd = monthMap[end.month];
-
-        // Formata os dias e meses
-        const dayRange = start.day === end.day ? start.day : `${start.day}-${end.day}`;
-        const monthRange = start.month === end.month ? monthStart : `${monthStart}-${monthEnd}`;
-
-        return { dayRange, monthRange };
+    
+        const parseDate = (dateStr) => {
+            const [day, monthYear] = dateStr.split(' ');
+            const [month, year] = monthYear ? monthYear.split(' ') : [];
+            return { day, month, year };
+        };
+    
+        const parseMonthRange = (monthRangeStr) => {
+            const [startMonth, endMonth] = monthRangeStr.split('-');
+            return {
+                startMonth: monthMap[startMonth.trim()] || startMonth.trim() || '??',
+                endMonth: monthMap[endMonth.trim()] || endMonth.trim() || '??'
+            };
+        };
+    
+        if (dateRange.includes(' - ')) {
+            const [startDate, endDate] = dateRange.split(' - ');
+    
+            if (endDate.includes(' ')) {
+                const start = parseDate(startDate);
+                const end = parseDate(endDate);
+    
+                const dayRange = start.day === end.day ? start.day : `${start.day || '??'}-${end.day || '??'}`;
+                const monthRange = start.month === end.month ? monthMap[start.month] : `${monthMap[start.month]}-${monthMap[end.month]}`;
+    
+                return { dayRange, monthRange };
+            } else {
+                const { startMonth, endMonth } = parseMonthRange(endDate);
+    
+                return {
+                    dayRange: `${parseDate(startDate).day || '??'}-${parseDate(endDate).day || '??'}`,
+                    monthRange: `${monthMap[startDate.split(' ')[1]]}-${endMonth}`
+                };
+            }
+        } else {
+            const date = parseDate(dateRange);
+            return {
+                dayRange: date.day || '??',
+                monthRange: monthMap[date.month] || '??'
+            };
+        }
     };
+    
 
     const handleNavigateRace = (race) => {
         navigate(`Race/${race.id}`);
     };
 
+  
+    const imageCape = actualRace?.capeOne
+        ? (`../../../../img/capes/${actualRace.capeOne}`)
+        : defaultCape;
 
     return (
         <div>
@@ -155,22 +184,36 @@ const Calendar = () => {
                         const { dayRange, monthRange } = formatDateRange(race.date);
                         const lastPhase = race.phases[race.phases.length - 1];
 
+                     
+
                         if (!lastPhase || !lastPhase.pilots) {
                             console.log(undefined);
                         } else {
                             const pilotsInLastPhase = lastPhase.pilots;
+
+                          
+
                             const pilotIdsInLastPhase = pilotsInLastPhase.map(pilot => pilot.pilotId);
+
+                           
 
                             // Filtrar pilotos do raceData que estão na última fase
                             const pilotInfo = driversData?.drivers?.filter(driver =>
                                 pilotIdsInLastPhase.includes(driver.driverId)
                             );
 
+                          
+
                             // Filtrar pilotos com posições de 1 a 3
                             const topPilots = pilotInfo?.filter(driver => {
-                                const pilotPosition = pilotsInLastPhase.find(pilot => pilot.pilotId === driver.driverId)?.position;
+
+                                const pilotPosition = pilotsInLastPhase.find(pilot => pilot.pilotId == driver.driverId)?.position;
+                                
                                 return pilotPosition >= 1 && pilotPosition <= 3;
                             }) || [];
+
+                            // console.log(topPilots);
+
 
                             // Garantir que topPilots tem pelo menos 3 elementos
                             const [firstPilot, secondPilot, thirdPilot] = [
@@ -192,7 +235,7 @@ const Calendar = () => {
                             const secondPilotColor = secondPilot.team.color || 'gray'
                             const thirdPilotColor = thirdPilot.team.color || 'gray'
 
-                            console.log(firstPilot);
+                            // console.log(firstPilot);
                             return (
                                 <div className='px-4' key={race.id}>
                                     <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200"
@@ -317,7 +360,7 @@ const Calendar = () => {
 
 
 </div>
-<div className="md:bg-image-schedule md:bg-cover md:rounded-xl md:m-4 md:mb-0 md:ml-0 md:p-4 md:flex md:item-center xl:col-span-3 md:justify-end">
+<div className="md:bg-cover md:rounded-xl md:m-4 md:mb-0 md:ml-0 md:p-4 md:flex md:item-center xl:col-span-3 md:justify-end" style={{ backgroundImage: `url(${imageCape})` }}>
                                         <div className='flex flex-col gap-2 bg-gray-800 md:bg-grayTotal md:justify-center mr-2 rounded-xl px-2 py-4 lg:pl-4 xl:pl-6 md:m-0'>
                                             
                                         {actualRace.phases.map((phase) => (

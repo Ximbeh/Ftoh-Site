@@ -32,7 +32,7 @@ const GET_CHAMPIONSHIP_BY_ID = gql`
 
 const Home = () => {
   const { id } = useParams();
-  const { selectedChampionship, setChampionship } = useContext(ChampionshipContext);
+  const { selectedChampionship, setChampionship, selectedSeason } = useContext(ChampionshipContext);
 
   const { id: selectedChampionshipId, name: selectedChampionshipName } = selectedChampionship;
 

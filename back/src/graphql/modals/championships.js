@@ -2,18 +2,18 @@ import { ObjectId } from 'mongodb';
 
 export const TypeDefs = /* GraphQL */ `
   type Query {
-    championships: [Championship!]!
-    championship(id: ID!): Championship
+    championships: [Championship]
+    championship(id: ID): Championship
   }
 
   type Mutation {
-    createChampionship(championship: NewChampionshipInput!): Championship
-    deleteChampionship(id: ID!): Boolean
-    updateChampionship(id: ID!, update: UpdateChampionshipInput!): Championship
+    createChampionship(championship: NewChampionshipInput): Championship
+    deleteChampionship(id: ID): Boolean
+    updateChampionship(id: ID, update: UpdateChampionshipInput): Championship
   }
 
   input NewChampionshipInput {
-    championshipName: String!
+    championshipName: String
     logo: String
     color: String
   }
@@ -25,8 +25,8 @@ export const TypeDefs = /* GraphQL */ `
   }
 
   type Championship {
-    id: ID!
-    championshipName: String!
+    id: ID
+    championshipName: String
     logo: String
     color: String
     seasons: [Season] 

@@ -78,7 +78,7 @@ const TabelaLastRace = () => {
                 return (
                   <div
                     key={driverInfo.id}
-                    className='cursor-pointer w-full gap-2 p-4 bg-white hover:bg-gray-800 transition duration-500 flex justify-between items-center rounded-md mb-2 hover-text-white'
+                    className='cursor-pointer w-full gap-2 p-4 bg-white hover:bg-grayTotal transition duration-500 flex justify-between items-center rounded-md mb-2 hover-text-white'
                     style={{ borderColor: driverInfo.teamColor }}>
                     <div className='flex items-center font-formula-bold'>
                       <h5 className='mr-2 pr-2 border-r-4' style={{ borderColor: driverInfo.teamColor }}>{pilot.position}</h5>
