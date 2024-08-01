@@ -97,9 +97,9 @@ const Calendar = () => {
 
     const racesAfter = filteredRaces.slice(actualRaceIndex+2, dataRace.races.length)
 
-    console.log("antes da corrida: ", racesBefore);
-    console.log("corrida atual: ", actualRace);
-    console.log("depois da corrida: ", racesAfter);
+    // console.log("antes da corrida: ", racesBefore);
+    // console.log("corrida atual: ", actualRace);
+    // console.log("depois da corrida: ", racesAfter);
 
     // console.log(racesBefore);
 

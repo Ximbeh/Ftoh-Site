@@ -35,6 +35,10 @@ module.exports = withMT({
         '1/2': '50%'
       },
 
+      width: {
+        '450vw': '450vw',
+      },
+
       zIndex:{
         'm1': -1,
         '1': 1,

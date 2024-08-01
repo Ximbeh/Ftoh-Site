@@ -24,7 +24,7 @@ export function CarouselCustomNavigation({newsItems}) {
                 <h1 className="font-formula-bold text-xl absolute bg-white -top-5 pr-4">Highlights</h1>
                 <div className='relative w-full pr-2 xl:flex xl:gap-4'>
                     <Carousel
-                        className="rounded-xl py-4 md: py-6 pb-"
+                        className="rounded-xl py-4 md: py-6 xl:w-450vw"
 
                         navigation={({ setActiveIndex, activeIndex, length }) => (
                             <div className="absolute bottom-8 left-2/4 z-10 flex -translate-x-2/4 gap-2">

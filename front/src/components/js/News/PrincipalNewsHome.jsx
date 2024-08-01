@@ -25,6 +25,10 @@ const PrincipalNewsHome = forwardRef(({ news, index }, ref) => {
     navigate(`/News/${news.id}`, { state: {news} });
   };
 
+  const tagsString = tags[0];
+  const tagArray = tagsString.split(', ');
+  const firstTag = tagArray[0];
+
   return (
     <div ref={ref} className="principalHome py-6 lg:py-0 font-formula bg-white">
       <div
@@ -34,7 +38,7 @@ const PrincipalNewsHome = forwardRef(({ news, index }, ref) => {
         onClick={() => handleNewsClick(news)}
       >
         <p className="text-xs font-formula-bold mb-1 uppercase" style={{ color: selectedChampionship.color }}>
-          {tags?.[0] || 'Sem categoria'}
+          {firstTag || 'Sem categoria'}
         </p>
         <h2 className="text-black text-2xl font-formula-bold mb-5 hover:underline">{title}</h2>
         <div className="overflow-hidden inline-block rounded-sm w-full">

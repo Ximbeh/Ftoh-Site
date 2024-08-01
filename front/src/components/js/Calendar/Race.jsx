@@ -45,7 +45,7 @@ const Race = () => {
             <Header />
             <header 
                 style={{ backgroundImage: `url(${imageHeader})` }} 
-                className="bg-cover text-white"
+                className="bg-cover bg-center text-white"
             >
                 <div className="bg-grayTotal bg-opacity-70 w-full h-full p-10 md:p-20 flex flex-col items-center">
                     <h1 className="font-formula-bold text-4xl md:text-7xl text-center">{race.name}</h1>

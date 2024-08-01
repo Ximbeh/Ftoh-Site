@@ -7,7 +7,7 @@ import thirdLogo from "../../../assets/Third.svg"
 import { ChevronRight, ChevronLeft } from "lucide-react"
 import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { } from "@apollo/client"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 
 
 
@@ -16,7 +16,10 @@ const CalendarRace = (raceObj) => {
 
     const race = raceObj.race
 
-    console.log(race.phases[1].pilots);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location]);
+
 
     return (
         <div className="px-4 py-10 bg-gray-200">
