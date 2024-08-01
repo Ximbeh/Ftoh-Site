@@ -16,6 +16,8 @@ const CalendarRace = (raceObj) => {
 
     const race = raceObj.race
 
+    console.log(race.phases[1].pilots);
+
     return (
         <div className="px-4 py-10 bg-gray-200">
             {race.finished && <ResumeRace race={race} selectedChampionship={selectedChampionship} />}

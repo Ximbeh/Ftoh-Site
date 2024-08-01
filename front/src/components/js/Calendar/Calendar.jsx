@@ -2,10 +2,6 @@ import { useState, useEffect } from 'react';
 import Header from "../header/Header";
 import Footer from "../Footer";
 import { ChevronRight, ChevronLeft } from "lucide-react";
-import firstLogo from "../../../assets/First.svg";
-import secondLogo from "../../../assets/Second.png";
-import thirdLogo from "../../../assets/Third.svg";
-import formulaLogo from "../../../assets/f1_logo.svg";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
@@ -85,7 +81,6 @@ const Calendar = () => {
     )
 
 
-
     const actualRaceIndex = filteredRaces.map((race, idx) => ({
         ...race,
         index: idx
@@ -98,13 +93,13 @@ const Calendar = () => {
         ? filteredRaces[actualRaceIndex + 1]
         : null; 
 
-    const racesBefore = dataRace.races.slice(0, actualRaceIndex-1);
+    const racesBefore = dataRace.races.slice(0, actualRaceIndex+1);
 
     const racesAfter = filteredRaces.slice(actualRaceIndex+2, dataRace.races.length)
 
-    // console.log("antes da corrida: ", racesBefore);
-    // console.log("corrida atual: ", actualRace);
-    // console.log("depois da corrida: ", racesAfter);
+    console.log("antes da corrida: ", racesBefore);
+    console.log("corrida atual: ", actualRace);
+    console.log("depois da corrida: ", racesAfter);
 
     // console.log(racesBefore);
 
@@ -183,57 +178,34 @@ const Calendar = () => {
                     {racesBefore.map((race, index) => {
                         const { dayRange, monthRange } = formatDateRange(race.date);
                         const lastPhase = race.phases[race.phases.length - 1];
-
+                        
                      
 
                         if (!lastPhase || !lastPhase.pilots) {
                             console.log(undefined);
                         } else {
-                            const pilotsInLastPhase = lastPhase.pilots;
-
-                          
-
-                            const pilotIdsInLastPhase = pilotsInLastPhase.map(pilot => pilot.pilotId);
-
-                           
-
-                            // Filtrar pilotos do raceData que estão na última fase
-                            const pilotInfo = driversData?.drivers?.filter(driver =>
-                                pilotIdsInLastPhase.includes(driver.driverId)
-                            );
-
-                          
-
-                            // Filtrar pilotos com posições de 1 a 3
-                            const topPilots = pilotInfo?.filter(driver => {
-
-                                const pilotPosition = pilotsInLastPhase.find(pilot => pilot.pilotId == driver.driverId)?.position;
-                                
-                                return pilotPosition >= 1 && pilotPosition <= 3;
-                            }) || [];
-
-                            // console.log(topPilots);
-
-
-                            // Garantir que topPilots tem pelo menos 3 elementos
-                            const [firstPilot, secondPilot, thirdPilot] = [
-                                topPilots[0],
-                                topPilots[1],
-                                topPilots[2]
-                            ];
+                            const firstPilot = race.phases[race.phases.length - 1].pilots.find((pilot) => pilot.position == 1);
+                            const secondPilot = race.phases[race.phases.length - 1].pilots.find((pilot) => pilot.position == 2);
+                            const thirdPilot = race.phases[race.phases.length - 1].pilots.find((pilot) => pilot.position == 3);
+                        
+                        
+                            const firstPilotInfo = driversData.drivers.find((driver) => driver.id == firstPilot.pilotId)
+                            const secondPilotInfo = driversData.drivers.find((driver) => driver.id == secondPilot.pilotId)
+                            const thirdPilotInfo = driversData.drivers.find((driver) => driver.id == thirdPilot.pilotId)
+                        
 
                             // Verificar se algum piloto foi encontrado e preparar mensagens padrão caso não tenha encontrado
-                            const firstPilotName = firstPilot.nameAbreviado || '???';
-                            const secondPilotName = secondPilot.nameAbreviado || '???';
-                            const thirdPilotName = thirdPilot.nameAbreviado || '???';
+                            const firstPilotName = firstPilotInfo.nameAbreviado || '???';
+                            const secondPilotName = secondPilotInfo.nameAbreviado || '???';
+                            const thirdPilotName = thirdPilotInfo && thirdPilotInfo.nameAbreviado ? thirdPilotInfo.nameAbreviado : '???';
 
-                            const firstPilotPhoto = firstPilot.photo || '../../../../img/drivers/default.png'
-                            const secondPilotPhoto = secondPilot.photo || '../../../../img/drivers/default.png'
-                            const thirdPilotPhoto = thirdPilot.photo || 'default.png'
+                            const firstPilotPhoto = firstPilotInfo.photo || '../../../../img/drivers/default.png'
+                            const secondPilotPhoto = secondPilotInfo.photo || '../../../../img/drivers/default.png'
+                            const thirdPilotPhoto = thirdPilotInfo && thirdPilotInfo.photo ? thirdPilotInfo.photo : 'default.png'
 
-                            const firstPilotColor = firstPilot.team.color || 'gray';
-                            const secondPilotColor = secondPilot.team.color || 'gray'
-                            const thirdPilotColor = thirdPilot.team.color || 'gray'
+                            const firstPilotColor = firstPilotInfo.team.color || 'gray';
+                            const secondPilotColor = secondPilotInfo.team.color || 'gray'
+                            const thirdPilotColor = thirdPilotInfo && thirdPilotInfo.team.color ? thirdPilotInfo.team.color : 'gray'
 
                             // console.log(firstPilot);
                             return (
@@ -274,7 +246,7 @@ const Calendar = () => {
                                                             <path d="M13 24C26.3333 16.3333 42.4 1 0 1H59L35 24H13Z" />
                                                             <path d="M64 0H65H87L62 25H39L64 0Z" />
                                                         </mask>
-                                                        <path d="M13 24L0.0397506 1.46044L-84.3769 50L13 50V24ZM35 24V50H45.447L52.9895 42.7717L35 24ZM59 1L76.9895 19.7717L123.708 -25L59 -25V1ZM64 0V-26H53.2304L45.6152 -18.3848L64 0ZM39 25L20.6152 6.61522L-23.7696 51H39V25ZM62 25V51H72.7696L80.3848 43.3848L62 25ZM87 0L105.385 18.3848L149.77 -26H87V0ZM0 27C9.80063 27 13.008 27.9869 12.8445 27.9269C12.6463 27.8542 9.64078 26.7803 6.60522 23.2741C2.93812 19.0386 1.02308 13.2982 1.4828 7.55162C1.86589 2.76308 3.73938 -0.237707 4.28158 -1.05233C4.93183 -2.02931 5.31146 -2.29435 4.8982 -1.91198C4.06303 -1.1392 2.31653 0.151289 0.0397506 1.46044L25.9602 46.5396C30.3501 44.0154 35.612 40.5142 40.2143 36.2557C42.5198 34.1225 45.2255 31.2819 47.57 27.7594C49.8064 24.3992 52.7424 18.8828 53.3172 11.6984C53.9686 3.55597 51.3744 -4.46044 45.9182 -10.7624C41.0936 -16.335 35.1891 -19.2657 30.743 -20.8957C22.0836 -24.0702 11.3994 -25 0 -25V27ZM13 50H35V-2H13V50ZM52.9895 42.7717L76.9895 19.7717L41.0105 -17.7717L17.0105 5.22831L52.9895 42.7717ZM59 -25H0V27H59V-25ZM65 -26H64V26H65V-26ZM45.6152 -18.3848L20.6152 6.61522L57.3848 43.3848L82.3848 18.3848L45.6152 -18.3848ZM39 51H62V-1H39V51ZM80.3848 43.3848L105.385 18.3848L68.6152 -18.3848L43.6152 6.61522L80.3848 43.3848ZM87 -26H65V26H87V-26Z" fill={(firstPilotColor) || 'gray'} mask="url(#path-1-inside-1_653_17)" />
+                                                        <path d="M13 24L0.0397506 1.46044L-84.3769 50L13 50V24ZM35 24V50H45.447L52.9895 42.7717L35 24ZM59 1L76.9895 19.7717L123.708 -25L59 -25V1ZM64 0V-26H53.2304L45.6152 -18.3848L64 0ZM39 25L20.6152 6.61522L-23.7696 51H39V25ZM62 25V51H72.7696L80.3848 43.3848L62 25ZM87 0L105.385 18.3848L149.77 -26H87V0ZM0 27C9.80063 27 13.008 27.9869 12.8445 27.9269C12.6463 27.8542 9.64078 26.7803 6.60522 23.2741C2.93812 19.0386 1.02308 13.2982 1.4828 7.55162C1.86589 2.76308 3.73938 -0.237707 4.28158 -1.05233C4.93183 -2.02931 5.31146 -2.29435 4.8982 -1.91198C4.06303 -1.1392 2.31653 0.151289 0.0397506 1.46044L25.9602 46.5396C30.3501 44.0154 35.612 40.5142 40.2143 36.2557C42.5198 34.1225 45.2255 31.2819 47.57 27.7594C49.8064 24.3992 52.7424 18.8828 53.3172 11.6984C53.9686 3.55597 51.3744 -4.46044 45.9182 -10.7624C41.0936 -16.335 35.1891 -19.2657 30.743 -20.8957C22.0836 -24.0702 11.3994 -25 0 -25V27ZM13 50H35V-2H13V50ZM52.9895 42.7717L76.9895 19.7717L41.0105 -17.7717L17.0105 5.22831L52.9895 42.7717ZM59 -25H0V27H59V-25ZM65 -26H64V26H65V-26ZM45.6152 -18.3848L20.6152 6.61522L57.3848 43.3848L82.3848 18.3848L45.6152 -18.3848ZM39 51H62V-1H39V51ZM80.3848 43.3848L105.385 18.3848L68.6152 -18.3848L43.6152 6.61522L80.3848 43.3848ZM87 -26H65V26H87V-26Z" fill={(secondPilotColor) || 'gray'} mask="url(#path-1-inside-1_653_17)" />
                                                     </svg>
                                                     <h2 className="font-formula-bold text-sm uppercase">
                                                         {secondPilotName}
@@ -290,7 +262,7 @@ const Calendar = () => {
                                                         <mask id="path-1-inside-1_660_7" fill="white">
                                                             <path d="M44.5 23.5C60.1667 15.8333 73.3 0.5 0.5 0.5H91.5L67.5 23.5H44.5Z" />
                                                         </mask>
-                                                        <path d="M44.5 23.5L14.6104 -37.5787L44.5 91.5V23.5ZM67.5 23.5V91.5H94.8228L114.55 72.5952L67.5 23.5ZM91.5 0.5L138.55 49.5952L260.736 -67.5H91.5V0.5ZM0.5 68.5C16.9655 68.5 25.2847 69.4142 28.3906 69.9663C29.9469 70.2429 28.1867 70.0883 24.6589 68.636C21.8949 67.4981 11.8256 63.092 2.71099 51.7725C-8.5485 37.7894 -13.854 18.6616 -10.0187 -0.495504C-6.88672 -16.1392 1.12077 -25.7459 4.25487 -29.1784C7.93971 -33.2142 11.0991 -35.4131 12.1734 -36.1348C13.5058 -37.0299 14.363 -37.4577 14.6104 -37.5787L74.3896 84.5787C81.1421 81.2743 93.8674 74.3743 104.689 62.5222C110.12 56.574 119.693 44.3918 123.335 26.2025C127.68 4.49983 121.828 -17.1435 108.639 -33.5225C97.5952 -47.2379 84.2145 -53.92 76.431 -57.1243C67.8836 -60.643 59.3958 -62.6544 52.1907 -63.935C37.7736 -66.4976 20.4345 -67.5 0.5 -67.5V68.5ZM44.5 91.5H67.5V-44.5H44.5V91.5ZM114.55 72.5952L138.55 49.5952L44.4504 -48.5952L20.4504 -25.5952L114.55 72.5952ZM91.5 -67.5H0.5V68.5H91.5V-67.5Z" fill={(secondPilotColor) || 'gray'} mask="url(#path-1-inside-1_660_7)" />
+                                                        <path d="M44.5 23.5L14.6104 -37.5787L44.5 91.5V23.5ZM67.5 23.5V91.5H94.8228L114.55 72.5952L67.5 23.5ZM91.5 0.5L138.55 49.5952L260.736 -67.5H91.5V0.5ZM0.5 68.5C16.9655 68.5 25.2847 69.4142 28.3906 69.9663C29.9469 70.2429 28.1867 70.0883 24.6589 68.636C21.8949 67.4981 11.8256 63.092 2.71099 51.7725C-8.5485 37.7894 -13.854 18.6616 -10.0187 -0.495504C-6.88672 -16.1392 1.12077 -25.7459 4.25487 -29.1784C7.93971 -33.2142 11.0991 -35.4131 12.1734 -36.1348C13.5058 -37.0299 14.363 -37.4577 14.6104 -37.5787L74.3896 84.5787C81.1421 81.2743 93.8674 74.3743 104.689 62.5222C110.12 56.574 119.693 44.3918 123.335 26.2025C127.68 4.49983 121.828 -17.1435 108.639 -33.5225C97.5952 -47.2379 84.2145 -53.92 76.431 -57.1243C67.8836 -60.643 59.3958 -62.6544 52.1907 -63.935C37.7736 -66.4976 20.4345 -67.5 0.5 -67.5V68.5ZM44.5 91.5H67.5V-44.5H44.5V91.5ZM114.55 72.5952L138.55 49.5952L44.4504 -48.5952L20.4504 -25.5952L114.55 72.5952ZM91.5 -67.5H0.5V68.5H91.5V-67.5Z" fill={(firstPilotColor) || 'gray'} mask="url(#path-1-inside-1_660_7)" />
                                                     </svg>                                                    <h2 className="font-formula-bold text-sm uppercase">
                                                         {firstPilotName}
                                                     </h2>
@@ -323,7 +295,7 @@ const Calendar = () => {
 
                 {actualRace &&
                  <div className="cursor-pointer bg-grayTotal text-white px-4 py-6 mb-10"
-                 onClick={() => navigate('/Race')}>
+                 onClick={() => handleNavigateRace(actualRace)}>
                  <div className="max-w-xl mx-auto md:max-w-3xl lg:max-w-5xl xl:max-w-7xl border-t-8 border-r-8 border-red-500 rounded-tr-3xl relative
                  md:grid md:grid-cols-2 md:gap-2 xl:grid-cols-4">
 
@@ -398,7 +370,7 @@ const Calendar = () => {
                         return (
                             <div className='px-4' key={race.id}>
                                 <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200"
-                                    onClick={() => navigate('/Race')}>
+                                    onClick={() => handleNavigateRace(race)}>
                                     <h4 className="text-red-500 bg-white absolute -top-4 font-formula-bold pr-2 uppercase">
                                         {race.phases?.length > 0
                                             ? race.phases[race.phases.length - 1]?.name || "???"

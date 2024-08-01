@@ -15,6 +15,7 @@ const ResumeRace = ({ race, selectedChampionship }) => {
     if (newsError) return <p>Error: {newsError?.message}</p>;
 
 
+
     const firstPilot = race.phases[race.phases.length - 1].pilots.find((pilot) => pilot.position == 1);
     const secondPilot = race.phases[race.phases.length - 1].pilots.find((pilot) => pilot.position == 2);
     const thirdPilot = race.phases[race.phases.length - 1].pilots.find((pilot) => pilot.position == 3);
@@ -48,12 +49,11 @@ const ResumeRace = ({ race, selectedChampionship }) => {
                     <div className="grid gap-1 mb-4">
                         <div className="bg-white p-4 flex  justify-between items-center">
                             <div className="flex items-center flex-cols">
-                                <svg className="max-w-5 mr-4 sm:max-w-8" width="87" height="25" viewBox="0 0 87 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <mask id="path-1-inside-1_653_17" fill="white">
-                                        <path d="M13 24C26.3333 16.3333 42.4 1 0 1H59L35 24H13Z" />
-                                        <path d="M64 0H65H87L62 25H39L64 0Z" />
+                                <svg className="max-w-5 mr-4 sm:max-w-8" width="92" height="24" viewBox="0 0 92 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <mask id="path-1-inside-1_660_7" fill="white">
+                                        <path d="M44.5 23.5C60.1667 15.8333 73.3 0.5 0.5 0.5H91.5L67.5 23.5H44.5Z" />
                                     </mask>
-                                    <path d="M13 24L0.0397506 1.46044L-84.3769 50L13 50V24ZM35 24V50H45.447L52.9895 42.7717L35 24ZM59 1L76.9895 19.7717L123.708 -25L59 -25V1ZM64 0V-26H53.2304L45.6152 -18.3848L64 0ZM39 25L20.6152 6.61522L-23.7696 51H39V25ZM62 25V51H72.7696L80.3848 43.3848L62 25ZM87 0L105.385 18.3848L149.77 -26H87V0ZM0 27C9.80063 27 13.008 27.9869 12.8445 27.9269C12.6463 27.8542 9.64078 26.7803 6.60522 23.2741C2.93812 19.0386 1.02308 13.2982 1.4828 7.55162C1.86589 2.76308 3.73938 -0.237707 4.28158 -1.05233C4.93183 -2.02931 5.31146 -2.29435 4.8982 -1.91198C4.06303 -1.1392 2.31653 0.151289 0.0397506 1.46044L25.9602 46.5396C30.3501 44.0154 35.612 40.5142 40.2143 36.2557C42.5198 34.1225 45.2255 31.2819 47.57 27.7594C49.8064 24.3992 52.7424 18.8828 53.3172 11.6984C53.9686 3.55597 51.3744 -4.46044 45.9182 -10.7624C41.0936 -16.335 35.1891 -19.2657 30.743 -20.8957C22.0836 -24.0702 11.3994 -25 0 -25V27ZM13 50H35V-2H13V50ZM52.9895 42.7717L76.9895 19.7717L41.0105 -17.7717L17.0105 5.22831L52.9895 42.7717ZM59 -25H0V27H59V-25ZM65 -26H64V26H65V-26ZM45.6152 -18.3848L20.6152 6.61522L57.3848 43.3848L82.3848 18.3848L45.6152 -18.3848ZM39 51H62V-1H39V51ZM80.3848 43.3848L105.385 18.3848L68.6152 -18.3848L43.6152 6.61522L80.3848 43.3848ZM87 -26H65V26H87V-26Z" fill={(firstPilotInfo.team.color) || 'gray'} mask="url(#path-1-inside-1_653_17)" />
+                                    <path d="M44.5 23.5L14.6104 -37.5787L44.5 91.5V23.5ZM67.5 23.5V91.5H94.8228L114.55 72.5952L67.5 23.5ZM91.5 0.5L138.55 49.5952L260.736 -67.5H91.5V0.5ZM0.5 68.5C16.9655 68.5 25.2847 69.4142 28.3906 69.9663C29.9469 70.2429 28.1867 70.0883 24.6589 68.636C21.8949 67.4981 11.8256 63.092 2.71099 51.7725C-8.5485 37.7894 -13.854 18.6616 -10.0187 -0.495504C-6.88672 -16.1392 1.12077 -25.7459 4.25487 -29.1784C7.93971 -33.2142 11.0991 -35.4131 12.1734 -36.1348C13.5058 -37.0299 14.363 -37.4577 14.6104 -37.5787L74.3896 84.5787C81.1421 81.2743 93.8674 74.3743 104.689 62.5222C110.12 56.574 119.693 44.3918 123.335 26.2025C127.68 4.49983 121.828 -17.1435 108.639 -33.5225C97.5952 -47.2379 84.2145 -53.92 76.431 -57.1243C67.8836 -60.643 59.3958 -62.6544 52.1907 -63.935C37.7736 -66.4976 20.4345 -67.5 0.5 -67.5V68.5ZM44.5 91.5H67.5V-44.5H44.5V91.5ZM114.55 72.5952L138.55 49.5952L44.4504 -48.5952L20.4504 -25.5952L114.55 72.5952ZM91.5 -67.5H0.5V68.5H91.5V-67.5Z" fill={(firstPilotInfo.team.color) || 'gray'} mask="url(#path-1-inside-1_660_7)" />
                                 </svg>
 
                                 <p className="font-formula mr-1 hidden md:flex">{firstNome}</p>
@@ -94,10 +94,10 @@ const ResumeRace = ({ race, selectedChampionship }) => {
                     <div className="flex flex-col gap-1 mb-2 md:flex-row">
                         <button
                             className="buttonResultados w-full md:w-min flex justify-between items-center hover:bg-gray-200 text-white rounded-md text-start px-4 py-3 font-formula text-xs uppercase"
-                            style={{ '--selected-color':selectedChampionship.color}}
+                            style={{ '--selected-color': selectedChampionship.color }}
                         >Resultados <ChevronRight color="white" /></button>
                         <button className="buttonHighlights w-full md:w-min flex justify-between items-center border-2  rounded-md text-start px-4 py-3 font-formula text-xs duration-200 uppercase"
-                         style={{ '--selected-color':selectedChampionship.color}}>Highlights <ChevronRight color="rgb(229 57 53)" /></button>
+                            style={{ '--selected-color': selectedChampionship.color }}>Highlights <ChevronRight color="rgb(229 57 53)" /></button>
                     </div>
 
                 </div>

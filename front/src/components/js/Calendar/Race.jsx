@@ -32,7 +32,7 @@ const Race = () => {
 
     // Verifique se a imagem é importada corretamente
     const imageHeader = race && race.capeTwo 
-        ? require(`../../../../img/capes/${race.capeTwo}`).default
+        ? (`../../../../img/capes/${race.capeTwo}`)
         : defaultCape;
 
     const handleActive = (e) => {
