@@ -48,32 +48,36 @@ const CarouselSchedule = () => {
     if (!championship) return <p>Campeonato não encontrado</p>;
 
 
-    const filteredRaces = raceData?.races.filter(race => 
-        race.calendar.some(calendar => 
-          calendar.season.some(season => 
-            season.championship.id == championshipId &&
-            season.seasonId == selectedSeason[0]?.seasonId
-          )
+    const filteredRaces = raceData?.races.filter(race =>
+        race.calendar.some(calendar =>
+            calendar.season.some(season =>
+                season.championship.id == championshipId &&
+                season.seasonId == selectedSeason[0]?.seasonId
+            )
         )
-      );
-      
+    );
+
 
     const raceDates = filteredRaces.map((e) => e.date);
 
+
     const extractDayAndMonth = (dateString) => {
         if (!dateString) return { day: null, month: null };
-
-        const regex = /(\d{2}) (\w{3}) \d{4}$/;
+    
+        // Ajuste a expressão regular para lidar com diferentes meses e formatos
+        const regex = /^(\d{2}) ([A-Za-záéíóúüãõç]{3})/;
         const match = dateString.match(regex);
         if (match) {
             return { day: match[1], month: match[2] };
         }
-
+    
         return { day: null, month: null };
     };
 
     const raceDateNumbers = raceDates.map(dateString => extractDayAndMonth(dateString).day);
     const raceDateMonths = raceDates.map(dateString => extractDayAndMonth(dateString).month);
+
+    
 
     const filteredPhases = phaseData?.phases.filter(phase => {
         const races = Array.isArray(phase.race) ? phase.race : [phase.race];
@@ -101,7 +105,7 @@ const CarouselSchedule = () => {
     }, {});
 
     // console.log(groupedPhases);
-    // console.log(filteredRaces);
+    console.log(filteredRaces);
 
     return (
         <div className='relative'>
@@ -147,10 +151,9 @@ const CarouselSchedule = () => {
                                     </h5>
                                     <div className='flex flex-col gap-2'>
                                         {race.phases && race.phases.length > 0 ? race.phases.map(phase => (
-                                            <div key={phase.id} className='flex items-center justify-end px-2 md:px-0'>
-                                                <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>
-                                                    {phase.name || 'Nome da Fase'}
-                                                </h3>
+                                            <div key={phase.id} className='flex items-center justify-end px-2 md:px-0'>                                                <h3 className='text-gray-400 font-formula text-xs md:text-sm mr-4 uppercase'>
+                                                {phase.name || 'Nome da Fase'}
+                                            </h3>
                                                 <h4 className='text-gray-600 font-formula-bold text-xs mr-2 uppercase'>
                                                     {phase.dayOfWeek || 'Dia'}
                                                 </h4>

@@ -17,6 +17,7 @@ export const TypeDefs = /* GraphQL */ `
     name: [String]
     nacionality: String
     text: String
+    photo: String
     championships: Int
   }
 
@@ -24,6 +25,7 @@ export const TypeDefs = /* GraphQL */ `
     name: [String]
     nacionality: String
     text: String
+    photo: String
     championships: Int
   }
 
@@ -32,6 +34,7 @@ export const TypeDefs = /* GraphQL */ `
     driverHistoryId: String
     nacionality: String
     text: String
+    photo: String
     championships: Int
     name: [String]
 

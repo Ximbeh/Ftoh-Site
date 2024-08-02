@@ -67,3 +67,12 @@
 .tabela-completa-btn:hover .tabela-completa-btn-text {
   color: var(--championship-color);
 }
+
+.containerPilot:hover{
+  border-color: var(--selected-color);
+}
+
+.hallDaFama:hover{
+  border-color: var(--selected-color);
+  color: var(--selected-color)
+}

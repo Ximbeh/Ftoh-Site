@@ -7,7 +7,7 @@ query getAllTeams{
     teamId
     name
     color
-    # position,
+    position,
     # bestPosition,
     # chief,
     # hotLaps,
@@ -22,6 +22,8 @@ query getAllTeams{
     drivers{
         name
         teamId
+        number
+        id
     }
     seasonId
     car

@@ -15,6 +15,8 @@ query GetRaceAndCalendars {
     date
     location
     map
+    mapDetalhes
+    laps
     capeOne
     capeTwo
     phases{

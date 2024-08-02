@@ -15,6 +15,8 @@ export const TypeDefs = /* GraphQL */ `
   input NewRaceInput {
     name: String
     map: String
+    mapDetalhes: String
+    laps: Int
     location: String
     description: String
     fullName: String
@@ -31,6 +33,8 @@ export const TypeDefs = /* GraphQL */ `
     raceId: String
     name: String
     map: String
+    mapDetalhes: String
+    laps: Int
     location: String
     description: String
     fullName: String
@@ -48,6 +52,8 @@ export const TypeDefs = /* GraphQL */ `
     raceId: String
     name: String
     map: String
+    mapDetalhes: String
+    laps: Int
     location: String
     description: String
     fullName: String

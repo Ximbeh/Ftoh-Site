@@ -6,6 +6,7 @@ import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useQuery } from '@apollo/client';
 import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLTEAMS } from '../../../queries/getAllTeams';
+import { useNavigate } from 'react-router-dom';
 
 const TabelaTeams = () => {
   const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
@@ -13,6 +14,7 @@ const TabelaTeams = () => {
   const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
   const { loading: driversLoading, error: driversError, data: driversData } = useQuery(GET_ALLDRIVERS);
   const { loading: teamsLoading, error: teamsError, data: teamsData } = useQuery(GET_ALLTEAMS);
+  const navigate = useNavigate();
 
   if (championshipsLoading || driversLoading || teamsLoading) return <p>Loading....</p>;
   if (championshipsError || driversError || teamsError) return <p>Error: {championshipsError?.message || driversError?.message || teamsError?.message}</p>;
@@ -48,13 +50,17 @@ const TabelaTeams = () => {
     return { ...team, driverNames };
   });
 
+  const handleNavigateTeam = (team) => {
+    navigate(`Teams/Team/${team.id}`)
+}
+
   return (
     <div>
       <div className='z-1 relative px-6 bg-gray-200'>
         <div className='max-w-lg mx-auto md:max-w-2xl lg:max-w-4xl xl:max-w-5xl'>
           <h1 className='relative font-formula-bold text-white text-3xl w-full text-center justify-center pt-10 pb-28'>Campeonato de Construtores</h1>
           <div>
-            <div className='py-4 flex flex-col bg-white shadow-lg relative w-full rounded-t-2xl flex items-center md:hidden'>
+            <div onClick={() => handleNavigateTeam(teamDetails[0])} className='py-4 flex flex-col bg-white shadow-lg relative w-full rounded-t-2xl flex items-center md:hidden'>
               <img className="w-48 mb-4" src={teamDetails[0].logo ? `../../../../img/logo/${teamDetails[0].logo}` : "../../../../img/cars/default.png"}></img>
               <svg className="ml-4 mt-4 w-20 h-20" width="93" height="24" viewBox="0 0 93 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <mask id="path-1-inside-1_642_14" fill="white">
@@ -66,7 +72,7 @@ const TabelaTeams = () => {
               <span className='absolute w-full h-3 bottom-0' style={{ backgroundColor: (teamDetails[0] && teamDetails[0].color) || 'gray' }}></span>
             </div>
             <div className='flex gap-8 items-end'>
-              <div className='relative w-4/12 hidden md:flex flex-col'>
+              <div onClick={() => handleNavigateTeam(teamDetails[1])} className='cursor-pointer relative w-4/12 hidden md:flex flex-col'>
                 <div className='flex items-center flex-col bg-white relative rounded-t-2xl flex p-4 mb-6'>
                   <img className="w-48 mb-4" src={teamDetails[1].logo ? `../../../../img/logo/${teamDetails[1].logo}` : "../../../../img/cars/default.png"}></img>
                   <svg className="w-24 mb-10" width="87" height="25" viewBox="0 0 87 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,7 +86,7 @@ const TabelaTeams = () => {
                   <img className="w-60 lg:w-72 max-w-none absolute -bottom-4 -left-6 lg:-left-4 xl:left-2" src={teamDetails[1].car ? `../../../../img/cars/${teamDetails[1].car}` : "../../../../img/cars/default.png"}></img>
                 </div>
               </div>
-              <div className='relative w-5/12 hidden md:flex flex-col'>
+              <div onClick={() => handleNavigateTeam(teamDetails[0])} className='cursor-pointer relative w-5/12 hidden md:flex flex-col'>
                 <div className='flex items-center flex-col bg-white relative rounded-t-2xl flex p-4 mb-6'>
                   <img className="w-64 mb-4" src={teamDetails[0].logo ? `../../../../img/logo/${teamDetails[0].logo}` : "../../../../img/cars/default.png"}></img>
                   <svg className="w-24 mb-10" width="92" height="24" viewBox="0 0 92 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -93,7 +99,7 @@ const TabelaTeams = () => {
                   <img className="w-72 lg:w-80 max-w-none absolute -bottom-4 -left-5 lg:left-0 xl:left-6" src={teamDetails[0].car ? `../../../../img/cars/${teamDetails[0].car}` : "../../../../img/cars/default.png"}></img>
                 </div>
               </div>
-              <div className='relative w-4/12 hidden md:flex flex-col'>
+              <div onClick={() => handleNavigateTeam(teamDetails[2])} className='cursor-pointer relative w-4/12 hidden md:flex flex-col'>
                 <div className='flex items-center flex-col bg-white relative rounded-t-2xl flex p-4 mb-6'>
                   <img className="w-48 mb-4" src={teamDetails[2].logo ? `../../../../img/logo/${teamDetails[2].logo}` : "../../../../img/cars/default.png"}></img>
                   <svg className="w-24 mb-10" width="102" height="26" viewBox="0 0 102 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,9 +117,9 @@ const TabelaTeams = () => {
             </div>
             <div className='flex flex-col items-center'>
               {teamDetails.map((team, index) => (
-                <div key={team.id} className='cursor-pointer w-full gap-2 p-4 bg-white hover:bg-grayTotal transition duration-500 flex justify-between items-center rounded-md mb-2 hover-text-white'>
+                <div onClick={() => handleNavigateTeam(team)} key={team.id} className='cursor-pointer w-full gap-2 p-4 bg-white hover:bg-grayTotal transition duration-500 flex justify-between items-center rounded-md mb-2 hover-text-white'>
                   <div className='flex items-center font-formula-bold'>
-                    <h5 className='mr-2 pr-2 border-r-4 border-blue-900'>{team.position}</h5>
+                    <h5 className='mr-2 pr-2 border-r-4' style={{ borderColor: (team.color) || 'gray' }}>{team.position}</h5>
                     <h5 className='uppercase mr-2'>{team.name}</h5>
                     <p className='hidden md:flex font-titillium text-sm text-gray-600'>{team.driverNames?.join(' / ')}</p>
                   </div>
@@ -124,7 +130,7 @@ const TabelaTeams = () => {
                   </div>
                 </div>
               ))}
-              <button className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': selectedChampionship.color }}>
+              <button onClick={() => navigate('/Teams')} className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': selectedChampionship.color }}>
                 <span className='tabela-completa-btn-text' style={{ '--championship-color': selectedChampionship.color }}>Tabela Completa</span>
               </button>
             </div>

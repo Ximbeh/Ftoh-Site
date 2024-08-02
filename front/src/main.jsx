@@ -27,10 +27,10 @@ const router = createBrowserRouter([
   { path: "Calendar", element: <Calendar /> },
   { path: "Calendar/Race/:id", element: <Race /> },
   { path: "Pilots", element: <Pilots /> },
-  { path: "Pilot", element: <Pilot /> },
+  { path: "/Pilots/Pilot/:id", element: <Pilot /> },
   { path: "Teams", element: <Teams /> },
   { path: "Hall", element: <Hall /> },
-  { path: "Team", element: <Team /> },
+  { path: "/Teams/Team/:id", element: <Team /> },
   { path: "Results", element: <Results /> },
 ]);
 

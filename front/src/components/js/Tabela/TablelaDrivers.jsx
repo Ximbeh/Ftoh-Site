@@ -10,6 +10,7 @@ import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useQuery } from '@apollo/client';
 import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLTEAMS } from '../../../queries/getAllTeams';
+import { useNavigate } from 'react-router-dom';
 
 const TabelaDrivers = () => {
   const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
@@ -17,6 +18,9 @@ const TabelaDrivers = () => {
   const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
   const { loading: driversLoading, error: driversError, data: driversData } = useQuery(GET_ALLDRIVERS);
   const { loading: teamsLoading, error: teamsError, data: teamsData } = useQuery(GET_ALLTEAMS);
+
+  const navigate = useNavigate();
+
 
   if (championshipsLoading || driversLoading || teamsLoading) return <p>Loading....</p>;
   if (championshipsError || driversError || teamsError) return <p>Error: {championshipsError?.message || driversError?.message || teamsError?.message}</p>;
@@ -43,6 +47,10 @@ const TabelaDrivers = () => {
     return { ...driver, nome, sobrenome, teamColor };
   }) || [];
 
+  const handleNavigatePilot = (driver) => {
+    navigate(`Pilots/Pilot/${driver.id}`)
+}
+
   return (
     <div>
       <div className='z-1 relative px-6 bg-gray-200'>
@@ -50,7 +58,7 @@ const TabelaDrivers = () => {
           <img className="z-m1 bg-g absolute w-full h-72 left-0 top-0 " src="https://www.formula1.com/etc/designs/fom-website/images/homepage/standings/bg.jpg" alt="Background" />
           <h1 className='relative font-formula-bold text-white text-3xl w-full text-center justify-center pt-10 pb-28'>Campeonato de pilotos</h1>
           <div>
-            <div className='bg-white shadow-lg relative w-full h-36 rounded-t-2xl flex items-center md:hidden'>
+            <div onClick={() => handleNavigatePilot(driversInfo[0])} className='bg-white shadow-lg relative w-full h-36 rounded-t-2xl flex items-center md:hidden'>
               <svg className="ml-4 mt-4 w-12 h-12" width="93" height="24" viewBox="0 0 93 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <mask id="path-1-inside-1_642_14" fill="white">
                   <path d="M69 24H46C61.6667 16 74.4 0 0 0H93L69 24Z" />
@@ -70,7 +78,7 @@ const TabelaDrivers = () => {
               />
             </div>
             <div className='flex gap-4 items-end'>
-              <div className='relative w-4/12 hidden md:flex flex-col'>
+              <div onClick={() => handleNavigatePilot(driversInfo[1])} className='cursor-pointer relative w-4/12 hidden md:flex flex-col'>
                 <div className='bg-white relative h-24 rounded-t-2xl flex'>
                   <svg className="ml-4 mt-4 w-12 h-12 object-contain" width="87" height="25" viewBox="0 0 87 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <mask id="path-1-inside-1_653_17" fill="white">
@@ -94,7 +102,7 @@ const TabelaDrivers = () => {
                   )}
                 </div>
               </div>
-              <div className='relative w-5/12 hidden md:flex flex-col'>
+              <div onClick={() => handleNavigatePilot(driversInfo[0])} className='cursor-pointer relative w-5/12 hidden md:flex flex-col'>
                 <div className='bg-white relative h-32 rounded-t-2xl flex'>
                   <svg className="ml-4 mt-4 w-12 h-12" width="92" height="24" viewBox="0 0 92 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <mask id="path-1-inside-1_660_7" fill="white">
@@ -117,7 +125,7 @@ const TabelaDrivers = () => {
                   )}
                 </div>
               </div>
-              <div className='relative w-4/12 hidden md:flex flex-col'>
+              <div onClick={() => handleNavigatePilot(driversInfo[2])}className='cursor-pointer relative w-4/12 hidden md:flex flex-col'>
                 <div className='bg-white relative h-24 rounded-t-2xl flex'>
                   <svg className="ml-4 mt-4 w-12 h-12" width="102" height="26" viewBox="0 0 102 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <mask id="path-1-inside-1_642_20" fill="white">
@@ -148,6 +156,7 @@ const TabelaDrivers = () => {
               {driversInfo.map((driver, index) => (
                 <div
                   key={driver.id}
+                  onClick={() => handleNavigatePilot(driver)}
                   className='cursor-pointer w-full gap-2 p-4 bg-white hover:bg-grayTotal transition duration-500 flex justify-between items-center rounded-md mb-2 hover-text-white'
                   style={{ borderColor: selectedChampionship.color }}
                 >
@@ -166,7 +175,7 @@ const TabelaDrivers = () => {
                   </div>
                 </div>
               ))}
-               <button className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': selectedChampionship.color }}>
+               <button onClick={() => navigate('/Pilots')} className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': selectedChampionship.color }}>
                 <span className='tabela-completa-btn-text' style={{ '--championship-color': selectedChampionship.color }}>Tabela Completa</span>
               </button>
             </div>

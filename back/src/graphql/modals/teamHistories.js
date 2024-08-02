@@ -18,6 +18,10 @@ export const TypeDefs = /* GraphQL */ `
     text: String
     logo: String
     championships: Int
+    chefe: String
+    pilotsIds: [String]
+    motor: String
+    primeiraAparicao: String
   }
 
   input UpdateTeamHistoryInput {
@@ -26,6 +30,10 @@ export const TypeDefs = /* GraphQL */ `
     text: String
     logo: String
     championships: Int
+    chefe: String
+    pilotsIds: [String]
+    motor: String
+    primeiraAparicao: String
   }
 
   type TeamHistory {
@@ -36,6 +44,10 @@ export const TypeDefs = /* GraphQL */ `
     text: String
     logo: String
     championships: Int
+    chefe: String
+    pilotsIds: [String]
+    motor: String
+    primeiraAparicao: String
 
     team: [Team]
   }
