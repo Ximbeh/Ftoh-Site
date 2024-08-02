@@ -28,6 +28,7 @@ query GetRaceAndCalendars {
         hour
          pilots {
       pilotId
+      teamId
       position
       lapsCompleted
       timeTaken

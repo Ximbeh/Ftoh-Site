@@ -35,7 +35,7 @@ const Teams = () => {
 
     if (!championship) return <p>Campeonato não encontrado</p>;
 
-    const filteredTeams = teamsData.teams.filter(team => team.seasonId === selectedSeason[0].seasonId);
+    const filteredTeams = teamsData.teams.filter(team => team.seasonId === selectedSeason[0].seasonId).sort((a, b) => a.position - b.position);;
 
     // Function to split name and surname
     const getNomeESobrenome = (name) => {

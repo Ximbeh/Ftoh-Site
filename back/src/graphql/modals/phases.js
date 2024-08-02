@@ -14,6 +14,7 @@ export const TypeDefs = /* GraphQL */ `
 
 input PilotInfoInput {
   pilotId: String
+  teamId: String
   position: Int
   lapsCompleted: Int
   timeTaken: String
@@ -59,6 +60,7 @@ input UpdatePhaseInput {
 
 type PilotInfo {
   pilotId: String
+  teamId: String
   position: Int
   lapsCompleted: Int
   timeTaken: String

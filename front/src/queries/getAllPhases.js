@@ -34,6 +34,7 @@ query getAllPhases{
         }
         pilots {
       pilotId
+      teamId
       position
       lapsCompleted
       timeTaken
