@@ -184,11 +184,14 @@ const Calendar = () => {
                         if (!lastPhase || !lastPhase.pilots) {
                             console.log(undefined);
                         } else {
+                            console.log("a", race);
                             const firstPilot = race.phases[race.phases.length - 1].pilots.find((pilot) => pilot.position == 1);
                             const secondPilot = race.phases[race.phases.length - 1].pilots.find((pilot) => pilot.position == 2);
                             const thirdPilot = race.phases[race.phases.length - 1].pilots.find((pilot) => pilot.position == 3);
                         
                         
+                         
+                            
                             const firstPilotInfo = driversData.drivers.find((driver) => driver.id == firstPilot.pilotId)
                             const secondPilotInfo = driversData.drivers.find((driver) => driver.id == secondPilot.pilotId)
                             const thirdPilotInfo = driversData.drivers.find((driver) => driver.id == thirdPilot.pilotId)

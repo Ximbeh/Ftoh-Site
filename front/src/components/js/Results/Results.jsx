@@ -15,21 +15,19 @@ import { GET_ALLSEASONS } from "../../../queries/getAllSeasons"
 import { GET_ALLRACES } from "../../../queries/getAllRaces"
 
 
-
 const Results = () => {
     const { selectedChampionship, selectedSeason, setSeason } = useContext(ChampionshipContext);
     const { loading: loadingChampionships, error: errorChampionships, data: dataChampionships } = useQuery(GET_CHAMPIONSHIPS);
-    const { loading: seasonLoading, error: seasonError, data: seasonData } = useQuery(GET_ALLSEASONS)
+    const { loading: seasonLoading, error: seasonError, data: seasonData } = useQuery(GET_ALLSEASONS);
     const { loading: driversLoading, error: driversError, data: driversData } = useQuery(GET_ALLDRIVERS);
     const { loading: teamsLoading, error: teamsError, data: teamsData } = useQuery(GET_ALLTEAMS);
-    const { loading: racesLoading, error: racesError, data: racesData } = useQuery(GET_ALLRACES)
-
-
+    const { loading: racesLoading, error: racesError, data: racesData } = useQuery(GET_ALLRACES);
 
     const [championship, setChampionship] = useState(null);
     const [temporarySeason, setTemporarySeason] = useState(null);
     const [midSelect, setMidSelect] = useState('Corridas');
     const [finalSelect, setFinalSelect] = useState('All');
+    const [raceSelect, setRaceSelect] = useState('Resultado da corrida');
 
     useEffect(() => {
         if (dataChampionships && selectedChampionship) {
@@ -55,7 +53,7 @@ const Results = () => {
         if (selectedSeasonObj) {
             setTemporarySeason(selectedSeasonObj);
         } else {
-            setTemporarySeason('');
+            setTemporarySeason(null);  // Use `null` instead of an empty string
         }
     };
 
@@ -68,74 +66,66 @@ const Results = () => {
 
     if (!championship) return <p>Campeonato não encontrado</p>;
 
-
-    const filteredSeasons = seasonData.seasons.filter(season => season.championshipName == championship.championshipName);
-    const filteredRaces = racesData.races.filter(race => race.calendar[0].season[0].seasonId == temporarySeason.seasonId)
+    const filteredSeasons = seasonData.seasons.filter(season => season.championshipName === championship.championshipName);
+    const filteredRaces = racesData.races.filter(race => race.calendar[0].season[0].seasonId === temporarySeason?.seasonId);
     const filteredDrivers = driversData.drivers
-        .filter(driver => driver.team.seasonId === temporarySeason.seasonId)
+        .filter(driver => driver.team.seasonId === temporarySeason?.seasonId)
         .sort((a, b) => a.position - b.position);
-    const filteredTeams = teamsData.teams.filter(team => team.seasonId == temporarySeason.seasonId).sort((a, b) => a.position - b.position);
-
-    // console.log(temporarySeason);
-    // console.log(filteredSeasons);
+    const filteredTeams = teamsData.teams.filter(team => team.seasonId === temporarySeason?.seasonId).sort((a, b) => a.position - b.position);
 
     const handleMidSelectChange = (event) => {
         const selectedMid = event.target.value;
         setMidSelect(selectedMid);
-    
-        // Redefine finalSelect para "All" quando midSelect mudar
-        setFinalSelect('All');
+        setFinalSelect('All');  // Reset `finalSelect` when `midSelect` changes
     };
 
     const handleFinalSelectChange = (event) => {
-        const selectedFinal = event.target.value
-        setFinalSelect(selectedFinal)
-    }
+        const selectedFinal = event.target.value;
+        setFinalSelect(selectedFinal === 'all' ? 'All' : selectedFinal); // Ajuste para garantir que 'all' se torne 'All'
+    };
 
     const raceOptions = filteredRaces.map(race => (
         <option key={race.id} value={race.id}>{race.name}</option>
     ));
     const driversOption = filteredDrivers.map(driver => (
         <option key={driver.id} value={driver.id}>{driver.name}</option>
-    ))
+    ));
     const teamsOption = filteredTeams.map(team => (
         <option key={team.id} value={team.id}>{team.name}</option>
-    ))
-
-
-    console.log(filteredDrivers);
-    console.log(filteredRaces);
-    console.log(filteredTeams);
-
-
-    console.log(finalSelect);
+    ));
 
     const getName = (id) => {
-        // Tenta encontrar o nome do piloto
         const driver = filteredDrivers.find(driver => driver.id === id);
         if (driver) return driver.name;
-        
-        // Tenta encontrar o nome da equipe
+
         const team = filteredTeams.find(team => team.id === id);
         if (team) return team.name;
-        
-        // Retorna 'N/A' se nada for encontrado
+
+        const race = filteredRaces.find(race => race.id === id);
+        if (race) return race.name;
+
         return 'N/A';
     };
-    
+
     const nameFinal = finalSelect !== 'All'
-        ? ` - ${getName(finalSelect)}`
-        : '';
+    ? ` - ${getName(finalSelect)}`
+    : ''; 
 
+    const getClassName = (value) => {
+        return `font-formula hover:bg-gray-200 cursor-pointer p-3 border-l-4 mb-1 ${raceSelect === value ? 'bg-gray-400 border-gray-500' : 'border-gray-300'}`;
+    };
 
+    const raceSelected = midSelect === 'Corridas' && finalSelect !== 'All'
+    ? filteredRaces.find(race => race.id === finalSelect)
+    : null; 
 
 
     return (
-        <div >
+        <div>
             <Header />
             <div className="bg-gray-200 pb-10">
                 <div className="m-auto max-w-lg md:max-w-5xl lg:max-w-7xl pt-4">
-                    <div className="px-4  flex flex-col gap-4 pb-10">
+                    <div className="px-4 flex flex-col gap-4 pb-10">
                         <select className="rounded-t-sm border-b-2 border-gray-400 font-formula px-2 py-4" name="year" id="year"
                             onChange={handleSeasonChange}>
                             {filteredSeasons.slice().reverse().map(season => (
@@ -161,92 +151,337 @@ const Results = () => {
                         </select>
                     </div>
                     <div className="bg-white md:px-6 md:m-auto md:max-w-5xl lg:max-w-7xl">
-                        <h2 className="px-4 py-10 font-formula-bold text-xl md:px-0 md:text-3xl">{temporarySeason.date} - {midSelect}{nameFinal} </h2>
-                        <div className="">
-
-                            {/* Corrida All */}
-                            {midSelect === 'Corridas' && finalSelect === 'All' && (
-                                <table className="min-w-full divide-y divide-gray-200 font-formula">
-                                    <thead>
-                                        <tr>
-                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grand Prix</th>
-                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Date</th>
-                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Winner</th>
-                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Car</th>
-                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Laps</th>
-                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider lg:table-cell hidden">Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {filteredRaces.map((race, index) => (
-                                            <tr key={race.id} className={index % 2 === 0 ? 'bg-gray-300' : 'bg-white'}>
-                                                <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">{race.name}</td>
-                                                <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">{race.phases[race.phases.length - 1].dayOfMonth} {race.phases[race.phases.length - 1].Month}</td>
-                                                <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
-                                                    <span className="sm:hidden">
-                                                        {filteredDrivers.find(driver => driver.id === (race.phases[race.phases.length - 1].pilots.find(pilot => pilot.position === 1)?.pilotId))?.nameAbreviado ?? 'N/A'}
-                                                    </span>
-                                                    <span className="hidden sm:flex">
-                                                        {filteredDrivers.find(driver => driver.id === (race.phases[race.phases.length - 1].pilots.find(pilot => pilot.position === 1)?.pilotId))?.name ?? 'N/A'}
-                                                    </span>
-                                                </td>
-                                                <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
-                                                    {filteredDrivers.find(driver => driver.id === (race.phases[race.phases.length - 1].pilots.find(pilot => pilot.position === 1)?.pilotId))?.team.name ?? 'N/A'}
-
-                                                </td>
-                                                <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">{race.laps}</td>
-                                                <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 lg:table-cell hidden">
-                                                    {race.phases[race.phases.length - 1].pilots
-                                                        .find(pilot => pilot.position === 1)?.timeTaken ?? 'N/A'}
-                                                </td>
-                                            </tr>
-
-                                        ))}
-                                    </tbody>
-                                </table>
-                             )}
-
+                        <h2 className="px-4 py-10 font-formula-bold text-xl md:px-0 md:text-3xl">{temporarySeason?.date} - {midSelect}{nameFinal} </h2>
+                        <div>
                             {/* Corrida Escolhida */}
-                            {midSelect === 'Corridas' && finalSelect !== 'All' && (
-                                <table className="min-w-full divide-y divide-gray-200 font-formula">
-                                    <thead>
-                                        <tr>
-                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grand Prix</th>
-                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Date</th>
-                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Winner</th>
-                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Car</th>
-                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Laps</th>
-                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider lg:table-cell hidden">Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {filteredRaces.map((race, index) => (
-                                            <tr key={race.id} className={index % 2 === 0 ? 'bg-gray-300' : 'bg-white'}>
-                                                <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">{race.name}</td>
-                                                <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">{race.phases[race.phases.length - 1].dayOfMonth} {race.phases[race.phases.length - 1].Month}</td>
-                                                <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
-                                                    <span className="sm:hidden">
-                                                        {filteredDrivers.find(driver => driver.id === (race.phases[race.phases.length - 1].pilots.find(pilot => pilot.position === 1)?.pilotId))?.nameAbreviado ?? 'N/A'}
-                                                    </span>
-                                                    <span className="hidden sm:flex">
-                                                        {filteredDrivers.find(driver => driver.id === (race.phases[race.phases.length - 1].pilots.find(pilot => pilot.position === 1)?.pilotId))?.name ?? 'N/A'}
-                                                    </span>
-                                                </td>
-                                                <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
-                                                    {filteredDrivers.find(driver => driver.id === (race.phases[race.phases.length - 1].pilots.find(pilot => pilot.position === 1)?.pilotId))?.team.name ?? 'N/A'}
+                            {midSelect === 'Corridas' && finalSelect !== 'All' && raceSelected ? (
+                                <div>
+                                    <h4 className="pl-4 font-formula text-sm">{raceSelected.date}</h4>
+                                    <p className="pl-4 mb-4 font-formula text-xs text-gray-600">{raceSelected.location}</p>
+                                    <div>
+                                        <div>
+                                            <p onClick={() => setRaceSelect('Resultado da corrida')} className={getClassName('Resultado da corrida')}>Resultado da corrida</p>
+                                            <p onClick={() => setRaceSelect('Voltas mais rapidas')} className={getClassName('Voltas mais rapidas')}>Voltas mais rapidas</p>
+                                            <p onClick={() => setRaceSelect('Pit-Stops')} className={getClassName('Pit-Stops')}>Pit-Stops</p>
+                                            <p onClick={() => setRaceSelect('Grid Inicial')} className={getClassName('Grid Inicial')}>Grid Inicial</p>
+                                            {raceSelected.phases
+                                                .slice(0, -1) // Obtém todas as fases, exceto a última
+                                                .map(phase => (
+                                                    <p key={phase.id} onClick={() => setRaceSelect(phase.name)} className={getClassName(phase.name)}>
+                                                        {phase.name}
+                                                    </p>
+                                                ))}
+                                        </div>
+                                        {raceSelect === 'Resultado da corrida' && (
+                                            <div>
+                                                <table className="min-w-full divide-y divide-gray-200 font-formula">
+                                                    <thead>
+                                                        <tr>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Posição</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Número</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Piloto</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Carro</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Laps</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pontos</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {
+                                                            raceSelected.phases[raceSelected.phases.length - 1].pilots
+                                                                .slice()
+                                                                .sort((a, b) => a.position - b.position)
+                                                                .map((pilot, index) => (
+                                                                    <tr key={pilot.id} className={index % 2 === 0 ? 'bg-gray-300' : 'bg-white'}>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">{pilot.position ?? 'N/A'}</td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">
+                                                                            {filteredDrivers.find(driver => driver.id == pilot.pilotId)?.number}
+                                                                        </td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                                                            <span className="sm:hidden">
+                                                                                {filteredDrivers.find(driver => driver.id == pilot.pilotId)?.nameAbreviado}
+                                                                            </span>
+                                                                            <span className="hidden sm:flex">
+                                                                                {filteredDrivers.find(driver => driver.id == pilot.pilotId)?.name}
+                                                                            </span>
+                                                                        </td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">
+                                                                            {filteredTeams.find(team => team.id == pilot.teamId)?.name}
+                                                                        </td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">
+                                                                            {pilot.lapsCompleted ?? 'DSQ'}
+                                                                        </td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                                                            {pilot.points ?? 'N/A'}
+                                                                        </td>
+                                                                    </tr>
+                                                                ))
+                                                        }
+                                                    </tbody>
+                                                </table>
 
-                                                </td>
-                                                <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">{race.laps}</td>
-                                                <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 lg:table-cell hidden">
-                                                    {race.phases[race.phases.length - 1].pilots
-                                                        .find(pilot => pilot.position === 1)?.timeTaken ?? 'N/A'}
-                                                </td>
+                                            </div>
+                                        )}
+                                        {raceSelect === 'Voltas mais rapidas' && (
+                                            <div>
+                                                <table className="min-w-full divide-y divide-gray-200 font-formula">
+                                                    <thead>
+                                                        <tr>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Posição</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Piloto</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Volta</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tempo</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {
+                                                            raceSelected.phases[raceSelected.phases.length - 1].pilots.
+                                                                slice()
+                                                                .sort((a, b) => a.timeFastLap - b.timeFastLap).
+                                                                map((pilot, index) => (
+                                                                    <tr key={pilot.id} className={index % 2 === 0 ? 'bg-gray-300' : 'bg-white'}>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">{index + 1}</td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                                                            <span className="sm:hidden">
+                                                                                {filteredDrivers.find(driver => driver.id == pilot.pilotId).nameAbreviado}
+
+                                                                            </span>
+                                                                            <span className="hidden sm:flex">
+                                                                                {filteredDrivers.find(driver => driver.id == pilot.pilotId).name}
+
+                                                                            </span>
+                                                                        </td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                                                            {pilot.fastlapLap ?? 'N/A'}
+                                                                        </td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                                                            {pilot.timeFastLap ?? 'N/A'}
+                                                                        </td>
+                                                                    </tr>
+                                                                ))
+                                                        }
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        )}
+                                        {raceSelect === 'Pit-Stops' && (
+                                            <div>
+                                                <table className="min-w-full divide-y divide-gray-200 font-formula">
+                                                    <thead>
+                                                        <tr>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Parada</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Número</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Piloto</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Carro</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lap</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Horário</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tempo</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {raceSelected.phases[raceSelected.phases.length - 1].pilots.some(pilot => Array.isArray(pilot.pitStop))
+                                                            ? raceSelected.phases[raceSelected.phases.length - 1].pilots
+                                                                .flatMap(pilot =>
+                                                                    Array.isArray(pilot.pitStop) ? pilot.pitStop.map(pitStop => ({
+                                                                        ...pitStop,
+                                                                        pilot: pilot // Adiciona o piloto ao pit stop para referência posterior
+                                                                    })) : []
+                                                                )
+                                                                .slice()
+                                                                .sort((a, b) => {
+                                                                    // Ordena por timeOfRace se disponível, senão por pilot.position, senão por pilot.pilotId
+                                                                    const timeA = a.timeOfRace ?? a.pilot.position ?? a.pilot.pilotId;
+                                                                    const timeB = b.timeOfRace ?? b.pilot.position ?? b.pilot.pilotId;
+                                                                    return timeA - timeB;
+                                                                })
+                                                                .map((pitStop, index) => (
+                                                                    <tr key={index} className={index % 2 === 0 ? 'bg-gray-300' : 'bg-white'}>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">
+                                                                            {pitStop.stops ?? 'N/A'}
+                                                                        </td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">
+                                                                            {pitStop.pilot.numero ?? 'N/A'}
+                                                                        </td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                                                            <span className="sm:hidden">
+                                                                                {pitStop.pilot.nameAbreviado ?? 'N/A'}
+                                                                            </span>
+                                                                            <span className="hidden sm:flex">
+                                                                                {pitStop.pilot.name ?? 'N/A'}
+                                                                            </span>
+                                                                        </td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                                                            {filteredTeams.find(team => team.id === pitStop.pilot.teamId)?.name ?? 'N/A'}
+                                                                        </td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">
+                                                                            {pitStop.lapPitStop ?? 'N/A'}
+                                                                        </td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                                                            {pitStop.timeOfRace ?? 'N/A'}
+                                                                        </td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">
+                                                                            {pitStop.timePitStop ?? 'N/A'}
+                                                                        </td>
+                                                                    </tr>
+                                                                ))
+                                                            : <tr>
+                                                                <td colSpan="7" className="text-center py-4 text-gray-500">Não houve pitStops nesta corrida</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        )}
+                                        {raceSelect === 'Grid Inicial' && (
+                                            <div>
+                                                <table className="min-w-full divide-y divide-gray-200 font-formula">
+                                                    <thead>
+                                                        <tr>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Posição</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Número</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Piloto</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Carro</th>
+                                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tempo</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {
+                                                            raceSelected.phases[raceSelected.phases.length - 2].pilots
+                                                                .slice()
+                                                                .sort((a, b) => a.position - b.position)
+                                                                .map((pilot, index) => (
+                                                                    <tr key={pilot.id} className={index % 2 === 0 ? 'bg-gray-300' : 'bg-white'}>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">{pilot.position ?? 'N/A'}</td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">
+                                                                            {filteredDrivers.find(driver => driver.id == pilot.pilotId)?.number}
+                                                                        </td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                                                            <span className="sm:hidden">
+                                                                                {filteredDrivers.find(driver => driver.id == pilot.pilotId)?.nameAbreviado}
+                                                                            </span>
+                                                                            <span className="hidden sm:flex">
+                                                                                {filteredDrivers.find(driver => driver.id == pilot.pilotId)?.name}
+                                                                            </span>
+                                                                        </td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">
+                                                                            {filteredTeams.find(team => team.id == pilot.teamId)?.name ?? 'N/A'}
+                                                                        </td>
+                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 ">
+                                                                            {pilot.timeFastLap ?? 'N/A'}
+                                                                        </td>
+
+                                                                    </tr>
+                                                                ))
+                                                        }
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        )}
+                                        {raceSelected.phases
+                                            .filter(phase => phase.name === raceSelect) // Filtra a fase selecionada
+                                            .map(phase => (
+                                                <div key={phase.id}>
+                                                    <table className="min-w-full divide-y divide-gray-200 font-formula">
+                                                        <thead>
+                                                            <tr>
+                                                                <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Posição</th>
+                                                                <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Número</th>
+                                                                <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Piloto</th>
+                                                                <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Carro</th>
+                                                                <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Laps</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {
+                                                                raceSelected.phases.find(p => p.name === raceSelect)?.pilots
+                                                                    .slice()
+                                                                    .sort((a, b) => a.position - b.position)
+                                                                    .map((pilot, index) => (
+                                                                        <tr key={pilot.id} className={index % 2 === 0 ? 'bg-gray-300' : 'bg-white'}>
+                                                                            <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">{pilot.position ?? 'N/A'}</td>
+                                                                            <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">
+                                                                                {filteredDrivers.find(driver => driver.id == pilot.pilotId)?.number}
+                                                                            </td>
+                                                                            <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                                                                <span className="sm:hidden">
+                                                                                    {filteredDrivers.find(driver => driver.id == pilot.pilotId)?.nameAbreviado}
+                                                                                </span>
+                                                                                <span className="hidden sm:flex">
+                                                                                    {filteredDrivers.find(driver => driver.id == pilot.pilotId)?.name}
+                                                                                </span>
+                                                                            </td>
+                                                                            <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">
+                                                                                {filteredTeams.find(team => team.id == pilot.teamId)?.name}
+                                                                            </td>
+                                                                            <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                                                                {pilot.lapsCompleted ?? 'DSQ'}
+                                                                            </td>
+
+                                                                        </tr>
+                                                                    ))
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            ))}
+                                    </div>
+                                </div>
+
+                            ) : (
+                                // Corrida All
+                                midSelect === 'Corridas' && finalSelect === 'All' && (
+                                    <table className="min-w-full divide-y divide-gray-200 font-formula">
+                                        <thead>
+                                            <tr>
+                                                <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grand Prix</th>
+                                                <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Date</th>
+                                                <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Winner</th>
+                                                <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Car</th>
+                                                <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Laps</th>
+                                                <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider lg:table-cell hidden">Time</th>
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                            {filteredRaces.map((race, index) => {
+                                                const lastPhase = race.phases[race.phases.length - 1];
+                                                const winningPilotId = lastPhase?.pilots.find(pilot => pilot.position === 1)?.pilotId;
+                                                const winningDriver = filteredDrivers.find(driver => driver.id === winningPilotId);
 
-                                        ))}
-                                    </tbody>
-                                </table>
-                             )}
+                                                return (
+                                                    <tr key={race.id} className={index % 2 === 0 ? 'bg-gray-300' : 'bg-white'}>
+                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">{race.name}</td>
+                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">
+                                                            {lastPhase?.dayOfMonth} {lastPhase?.Month}
+                                                        </td>
+                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                                            <span className="sm:hidden">
+                                                                {winningDriver?.nameAbreviado ?? 'N/A'}
+                                                            </span>
+                                                            <span className="hidden sm:flex">
+                                                                {winningDriver?.name ?? 'N/A'}
+                                                            </span>
+                                                        </td>
+                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                                                            {winningDriver?.team.name ?? 'N/A'}
+                                                        </td>
+                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">
+                                                            {race.laps ?? 'N/A'}
+                                                        </td>
+                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 lg:table-cell hidden">
+                                                            {lastPhase?.pilots.find(pilot => pilot.position === 1)?.timeTaken ?? 'N/A'}
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
+                                )
+                            )}
+
 
 
                             {/* Pilotos All */}
@@ -276,7 +511,7 @@ const Results = () => {
                                         ))}
                                     </tbody>
                                 </table>
-                             )}
+                            )}
 
                             {/* Pilotos Escolhido */}
                             {midSelect === 'Pilotos' && finalSelect !== 'All' && (
@@ -304,7 +539,7 @@ const Results = () => {
                                                 const position = pilot?.position ?? 'N/A';
                                                 const points = pilot?.points ?? 'N/A'
                                                 console.log(points);
-                                                
+
                                                 return (
                                                     <tr key={race.id} className={index % 2 === 0 ? 'bg-gray-300' : 'bg-white'}>
                                                         <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">{race.name}</td>
@@ -373,7 +608,7 @@ const Results = () => {
                                                 // Filtra os pilotos com o teamId e calcula a soma dos pontos
                                                 const pilots = lastPhase?.pilots.filter(pilot => pilot.teamId === finalSelect);
                                                 // console.log("pilots", pilots);
-                                                
+
                                                 const points = pilots?.reduce((sum, pilot) => sum + (pilot.points || 0), 0);
 
                                                 return (
@@ -400,7 +635,7 @@ const Results = () => {
                                             <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grand Prix</th>
                                             <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Piloto</th>
                                             <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
-                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tempo</th>
+                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Tempo</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -436,7 +671,7 @@ const Results = () => {
                                                                     null)?.pilotId
                                                         )?.team.name ?? 'N/A'}
                                                 </td>
-                                                <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 lg:table-cell hidden">
+                                                <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">
                                                     {race.phases[race.phases.length - 1].pilots
                                                         .reduce((fastestPilot, currentPilot) =>
                                                             (currentPilot.timeFastLap < (fastestPilot?.timeFastLap || Infinity)) ? currentPilot : fastestPilot,
@@ -447,7 +682,7 @@ const Results = () => {
                                         ))}
                                     </tbody>
                                 </table>
-                             )}
+                            )}
                         </div>
                     </div>
                 </div>
