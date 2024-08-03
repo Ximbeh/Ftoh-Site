@@ -13,6 +13,7 @@ import Teams from './components/js/Teams/Teams.jsx';
 import Team from './components/js/Teams/Team.jsx';
 import Hall from './components/js/Hall.jsx';
 import Results from './components/js/Results/Results.jsx';
+import ErrorPage from './components/js/Boundary/ErrorBoundary.jsx';
 import './components/css/index.css'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -20,18 +21,19 @@ import { ChampionshipProvider } from './Context/ChampionshipContext.jsx';
 
 
 const router = createBrowserRouter([
-  { path: "/", element: <Home /> },
-  { path: "/:id", element: <Home /> },
-  { path: "latest", element: <Latest /> },
-  { path: "News/:id", element: <News /> },
-  { path: "Calendar", element: <Calendar /> },
-  { path: "Calendar/Race/:id", element: <Race /> },
-  { path: "Pilots", element: <Pilots /> },
-  { path: "/Pilots/Pilot/:id", element: <Pilot /> },
-  { path: "Teams", element: <Teams /> },
-  { path: "Hall", element: <Hall /> },
-  { path: "/Teams/Team/:id", element: <Team /> },
-  { path: "Results", element: <Results /> },
+  { path: "/", element: <Home />, errorElement: <ErrorPage /> },
+  { path: "/:id", element: <Home />, errorElement: <ErrorPage /> },
+  { path: "latest", element: <Latest />, errorElement: <ErrorPage /> },
+  { path: "News/:id", element: <News />, errorElement: <ErrorPage /> },
+  { path: "Calendar", element: <Calendar />, errorElement: <ErrorPage /> },
+  { path: "Calendar/Race/:id", element: <Race />, errorElement: <ErrorPage /> },
+  { path: "Pilots", element: <Pilots />, errorElement: <ErrorPage /> },
+  { path: "/Pilots/Pilot/:id", element: <Pilot />, errorElement: <ErrorPage /> },
+  { path: "Teams", element: <Teams />, errorElement: <ErrorPage /> },
+  { path: "Hall", element: <Hall />, errorElement: <ErrorPage /> },
+  { path: "/Teams/Team/:id", element: <Team />, errorElement: <ErrorPage /> },
+  { path: "Results", element: <Results />, errorElement: <ErrorPage /> },
+  { path: "*", element: <ErrorPage /> },
 ]);
 
 const client = new ApolloClient({
@@ -39,13 +41,12 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-  <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
       <ChampionshipProvider>
-          <RouterProvider router={router} />
+        <RouterProvider router={router} />
       </ChampionshipProvider>
-  </ApolloProvider>
-</React.StrictMode>,
-)
+    </ApolloProvider>
+  </React.StrictMode>,
+);

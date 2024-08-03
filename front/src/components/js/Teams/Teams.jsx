@@ -8,6 +8,7 @@ import { useQuery } from "@apollo/client";
 import { GET_ALLDRIVERS } from "../../../queries/getAllPilots";
 import { GET_CHAMPIONSHIPS } from "../../../queries/getChampionship";
 import { GET_ALLTEAMS } from "../../../queries/getAllTeams";
+import LoadingPage from '../Boundary/Loading'
 
 import '../../css/Tabela.css'
 
@@ -28,7 +29,7 @@ const Teams = () => {
         }
     }, [dataChampionships, selectedChampionship]);
 
-    if (loadingChampionships || driversLoading || teamsLoading) return <p>Loading...</p>;
+    if (loadingChampionships || driversLoading || teamsLoading) return <LoadingPage/>;
     if (errorChampionships) return <p>Error: {errorChampionships.message}</p>;
     if (teamsError) return <p>Error: {teamsError.message}</p>;
     if (driversError) return <p>Error: {driversError.message}</p>;

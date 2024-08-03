@@ -3,11 +3,11 @@ import PrincipalNewsHome from './PrincipalNewsHome';
 import SecondNews from './SecondNews';
 import { ChevronRight } from "lucide-react";
 import "../../css/news.css";
-
 import { useQuery } from '@apollo/client';
 import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { useNavigate } from 'react-router-dom';
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
+import LoadingPage from '../Boundary/Loading';
 
 const NewsHome = ({ championshipColorHex }) => {
   const { selectedChampionship } = useContext(ChampionshipContext);
@@ -64,7 +64,7 @@ const NewsHome = ({ championshipColorHex }) => {
 
   const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
 
-  if (championshipsLoading) return <p>Loading...</p>;
+  if (championshipsLoading) return <LoadingPage/>;
   if (championshipsError) return <p>Error: {championshipsError.message}</p>;
 
   const championshipId = selectedChampionship?.id;

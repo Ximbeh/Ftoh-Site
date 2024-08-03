@@ -4,13 +4,14 @@ import { ChevronRight, ChevronLeft } from "lucide-react"
 import { useQuery } from "@apollo/client"
 import { GET_ALLDRIVERS } from "../../../queries/getAllPilots"
 import { GET_ALLNEWS } from "../../../queries/getAllNews"
+import LoadingPage from "../Boundary/Loading"
 
 
 const ResumeRace = ({ race, selectedChampionship }) => {
     const { loading: driverLoading, error: driverError, data: driverData } = useQuery(GET_ALLDRIVERS);
     const { loading: newsLoading, error: newsError, data: newsData } = useQuery(GET_ALLNEWS);
 
-    if (driverLoading || newsLoading) return <p>Loading....</p>;
+    if (driverLoading || newsLoading) return <LoadingPage/>;
     if (driverError) return <p>Error: {driverError?.message}</p>;
     if (newsError) return <p>Error: {newsError?.message}</p>;
 

@@ -1,5 +1,6 @@
 
-
+import tohaxLogo from '../../../img/logo/tohax.png'
+import '../css/Calendar.css'
 const Footer = () => {
 
 
@@ -10,17 +11,9 @@ const Footer = () => {
         <h3 className="text-lg text-white font-formula-bold">Nossos parceiros</h3>
       </div>
       <div className="flex justify-center items-center gap-8 flex-wrap text-white text-2xl">
-        <h1>TESTE</h1>
-        <h1>TESTE</h1>
-        <h1>TESTE</h1>
-        <h1>TESTE</h1>
-        <h1>TESTE</h1>
-        <h1>TESTE</h1>
-        <h1>TESTE</h1>
-        <h1>TESTE</h1>
-        <h1>TESTE</h1>
-        <h1>TESTE</h1>
-        <h1>TESTE</h1>
+        <a href="https://discord.gg/28JutpeCjX" target="_blank">
+          <img src={tohaxLogo} className='gray cursor-pointer w-32' alt="tohax" />
+        </a>
       </div>
     </div>
   )

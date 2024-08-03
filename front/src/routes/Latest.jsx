@@ -8,6 +8,8 @@ import { useQuery } from '@apollo/client';
 import { useContext } from 'react';
 import { ChampionshipContext } from "../Context/ChampionshipContext";
 import Footer from '../components/js/Footer';
+import LoadingPage from '../components/js/Boundary/Loading';
+
 
 const Latest = () => {
   const location = useLocation();
@@ -31,7 +33,7 @@ const Latest = () => {
 
   console.log(selectedChampionship.color);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingPage/>;
   if (error) return <p>Error: {error.message}</p>;
   if (!championship) return <p>Campeonato não encontrado</p>;
 

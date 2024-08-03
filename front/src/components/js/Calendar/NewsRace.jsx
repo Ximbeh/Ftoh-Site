@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client"
 import NewsContainer from "../News/NewsContainer"
 import { GET_ALLNEWS } from "../../../queries/getAllNews"
 import { useState } from "react";
+import LoadingPage from '../Boundary/Loading'
 
 
 const NewsRace = (race) => {
@@ -9,7 +10,7 @@ const NewsRace = (race) => {
     const {loading: newsLoading, error: newsError, data: newsData} = useQuery(GET_ALLNEWS)
     const [visibleCount, setVisibleCount] = useState(16);
 
-    if (newsLoading) return <p>Loading....</p>;
+    if (newsLoading) return <LoadingPage/>;
     if (newsError) return <p>Error: {championshipsError?.message || newsError?.message}</p>;
 
     const filteredNews = newsData.news.filter((news => news.raceId == race.race.id)).reverse()

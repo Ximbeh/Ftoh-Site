@@ -11,6 +11,8 @@ import { useQuery } from '@apollo/client';
 import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLTEAMS } from '../../../queries/getAllTeams';
 import { useNavigate } from 'react-router-dom';
+import LoadingPage from '../Boundary/Loading';
+
 
 const TabelaDrivers = () => {
   const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
@@ -22,7 +24,7 @@ const TabelaDrivers = () => {
   const navigate = useNavigate();
 
 
-  if (championshipsLoading || driversLoading || teamsLoading) return <p>Loading....</p>;
+  if (championshipsLoading || driversLoading || teamsLoading) return <LoadingPage/>;
   if (championshipsError || driversError || teamsError) return <p>Error: {championshipsError?.message || driversError?.message || teamsError?.message}</p>;
 
   const championshipId = selectedChampionship?.id;

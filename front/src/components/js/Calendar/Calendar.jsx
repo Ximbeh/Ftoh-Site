@@ -12,7 +12,9 @@ import "../../css/Calendar.css";
 import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLSEASONS } from '../../../queries/getAllSeasons';
 import { GET_ALLRACES } from '../../../queries/getAllRaces';
-import defaultCape from '../../../../img/capes/interlagosOne.jpg'
+import defaultCape from '../../../../img/capes/interlagosOne.jpg';
+import LoadingPage from '../Boundary/Loading';
+
 
 
 
@@ -42,7 +44,7 @@ const Calendar = () => {
         }
     }, [dataSeason]);
 
-    if (loadingChampionships || loadingSeasons || loadingRaces || driversLoading) return <p>Loading...</p>;
+    if (loadingChampionships || loadingSeasons || loadingRaces || driversLoading) return <LoadingPage/>;
     if (errorChampionships) return <p>Error: {errorChampionships.message}</p>;
     if (errorSeasons) return <p>Error: {errorSeasons.message}</p>;
     if (errorRaces) return <p>Error: {errorRaces.message}</p>;

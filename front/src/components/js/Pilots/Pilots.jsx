@@ -7,8 +7,8 @@ import { useContext, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_ALLDRIVERS } from "../../../queries/getAllPilots";
 import { GET_CHAMPIONSHIPS } from "../../../queries/getChampionship";
-
 import '../../css/Tabela.css'
+import LoadingPage from "../Boundary/Loading";
 
 const Pilots = () => {
     const { selectedChampionship, selectedSeason, setSeason } = useContext(ChampionshipContext);
@@ -27,7 +27,7 @@ const Pilots = () => {
         }
     }, [dataChampionships, selectedChampionship]);
 
-    if (loadingChampionships || driversLoading) return <p>Loading...</p>;
+    if (loadingChampionships || driversLoading) return <LoadingPage/>;
     if (errorChampionships) return <p>Error: {errorChampionships.message}</p>;
     if (driversError) return <p>Error: {driversError.message}</p>;
 

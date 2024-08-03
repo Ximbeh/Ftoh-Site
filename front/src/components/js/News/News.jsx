@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useContext, useEffect, useState } from "react";
 import { GET_ALLNEWS } from '../../../queries/getAllNews';
+import LoadingPage from '../Boundary/Loading'
 
 const News = () => {
     const { id } = useParams();
@@ -36,7 +37,7 @@ const News = () => {
     }, [newsData, id, news.id]); // Ensure to include news.id in dependencies
 
 
-    if (championshipsLoading || newsLoading) return <p>Loading....</p>;
+    if (championshipsLoading || newsLoading) return <LoadingPage/>;
     if (championshipsError || newsError) return <p>Error: {championshipsError?.message || newsError?.message}</p>;
 
     const championshipId = selectedChampionship?.id;

@@ -7,6 +7,8 @@ import { useQuery } from '@apollo/client';
 import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLTEAMS } from '../../../queries/getAllTeams';
 import { GET_ALLRACES } from '../../../queries/getAllRaces';
+import LoadingPage from '../Boundary/Loading';
+
 const TabelaLastRace = () => {
   const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
 
@@ -15,7 +17,7 @@ const TabelaLastRace = () => {
   const { loading: teamsLoading, error: teamsError, data: teamsData } = useQuery(GET_ALLTEAMS);
   const { loading: racesLoading, error: racesError, data: racesData } = useQuery(GET_ALLRACES);
 
-  if (championshipsLoading || driversLoading || teamsLoading || racesLoading) return <p>Loading....</p>;
+  if (championshipsLoading || driversLoading || teamsLoading || racesLoading) return <LoadingPage/>;
   if (championshipsError || driversError || teamsError || racesError) return <p>Error: {championshipsError?.message || driversError?.message || teamsError?.message}</p>;
 
   const championshipId = selectedChampionship?.id;

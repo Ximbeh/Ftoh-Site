@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
+import LoadingPage from '../components/js/Boundary/Loading'
 
 export const ChampionshipContext = createContext();
 
@@ -49,7 +50,7 @@ export const ChampionshipProvider = ({ children }) => {
         setSelectedSeason(seasons);
     }
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <LoadingPage/>;
     if (error) return <p>Error: {error.message}</p>;
 
     return (

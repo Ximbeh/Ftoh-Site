@@ -13,6 +13,8 @@ import { GET_ALLDRIVERSH } from "../../../queries/getAllDriverH";
 import { GET_ALLNEWS } from "../../../queries/getAllNews"
 import { GET_ALLSEASONS } from "../../../queries/getAllSeasons"
 import { GET_ALLRACES } from "../../../queries/getAllRaces"
+import LoadingPage from "../Boundary/Loading";
+
 
 
 const Results = () => {
@@ -57,7 +59,7 @@ const Results = () => {
         }
     };
 
-    if (loadingChampionships || driversLoading || teamsLoading || seasonLoading || racesLoading) return <p>Loading...</p>;
+    if (loadingChampionships || driversLoading || teamsLoading || seasonLoading || racesLoading) return <LoadingPage/>;
     if (errorChampionships) return <p>Error: {errorChampionships.message}</p>;
     if (driversError) return <p>Error: {driversError.message}</p>;
     if (teamsError) return <p>Error: {teamsError.message}</p>;

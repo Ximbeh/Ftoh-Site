@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import viteLogo from '/vite.svg'
 import { useQuery } from '@apollo/client';
+import LoadingPage from './Boundary/Loading';
+
 
 import { GET_DRIVERS } from '../../queries/queries';
 
 const App = () => {
   const {loading, error, data} = useQuery(GET_DRIVERS)
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingPage/>;
   if (error) return <p>Error: {error.message}</p>
 
   return (

@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/client';
 import { useContext } from 'react';
 import { ChampionshipContext } from "../../../Context/ChampionshipContext";
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
-
+import LoadingPage from '../Boundary/Loading'
 
 const HeaderTwo = () => {
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ const HeaderTwo = () => {
     const { selectedChampionship, setChampionship } = useContext(ChampionshipContext);
 
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <LoadingPage/>;
     if (error) return <p>Error: {error.message}</p>;
 
     // console.log(selectedChampionship);
@@ -78,7 +78,7 @@ const HeaderTwo = () => {
                     >
                         <span className="hover:opacity-100">Times</span>
                     </a>
-                    <a
+                    {/* <a
                         className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer"
                         onClick={() => navigate('/Vip')}
                     >
@@ -89,7 +89,7 @@ const HeaderTwo = () => {
                         onClick={() => navigate('/RedesSociais')}
                     >
                         <span className="hover:opacity-100">Redes Sociais</span>
-                    </a>
+                    </a> */}
                 </div>
             </div>
         </div>

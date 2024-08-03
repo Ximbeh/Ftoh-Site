@@ -12,6 +12,8 @@ import { GET_CHAMPIONSHIPS } from "../../../queries/getChampionship";
 import { GET_ALLPHASES } from "../../../queries/getAllPhases";
 import { GET_ALLDRIVERSH } from "../../../queries/getAllDriverH";
 import { GET_ALLNEWS } from "../../../queries/getAllNews"
+import LoadingPage from "../Boundary/Loading";
+
 
 const Pilot = () => {
     const { selectedChampionship, selectedSeason, setSeason } = useContext(ChampionshipContext);
@@ -37,7 +39,7 @@ const Pilot = () => {
         }
     }, [dataChampionships, selectedChampionship]);
 
-    if (loadingChampionships || newsLoading || driversLoading || phasesLoading || loadingdriverH) return <p>Loading...</p>;
+    if (loadingChampionships || newsLoading || driversLoading || phasesLoading || loadingdriverH) return <LoadingPage/>;
     if (errorChampionships) return <p>Error: {errorChampionships.message}</p>;
     if (driversError) return <p>Error: {driversError.message}</p>;
     if (phasesError) return <p>Error: {phasesError.message}</p>;

@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Menu, X, ChevronRight } from "lucide-react";
 import { FaDiscord } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
+import { FaTiktok } from "react-icons/fa";
 import "../../css/header.css";
 import { useQuery } from '@apollo/client';
 import { useContext } from 'react';
 import { ChampionshipContext } from "../../../Context/ChampionshipContext";
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useNavigate } from 'react-router-dom';
+import LoadingPage from "../Boundary/Loading";
+
 
 const HeaderMobile = () => {
     const navigate = useNavigate();
@@ -24,11 +28,11 @@ const HeaderMobile = () => {
     const { loading, error, data } = useQuery(GET_CHAMPIONSHIPS);
     const { selectedChampionship, setChampionship } = useContext(ChampionshipContext);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <LoadingPage/>;
     if (error) return <p>Error: {error.message}</p>;
 
     const selectedLogo = data.championships.find(championship => championship.id === selectedChampionship.id)?.logo;
-    
+
     const handleNavigateLatest = () => {
         navigate('/latest')
     }
@@ -59,15 +63,31 @@ const HeaderMobile = () => {
                                 onClick={handleNavigateLatest}><span>Notícias</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"><span>Video</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
-                                 onClick={handleNavigateCalendar}><span>Calendario</span><ChevronRight color="#fff" /></a>
+                                onClick={handleNavigateCalendar}><span>Calendario</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
-                               onClick={handleNavigateCalendar}><span>Resultados</span><ChevronRight color="#fff" /></a>
+                                onClick={handleNavigateCalendar}><span>Resultados</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
                                 onClick={() => navigate('/Pilots')}><span>Pilotos</span><ChevronRight color="#fff" /></a>
                             <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"
                                 onClick={() => navigate('/Teams')}><span>Times</span><ChevronRight color="#fff" /></a>
-                            <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"><span>Vip</span><ChevronRight color="#fff" /></a>
-                            <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"><span>Redes Sociais</span><ChevronRight color="#fff" /></a>
+                            {/* <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"><span>Vip</span><ChevronRight color="#fff" /></a>
+                            <a className="flex items-center hover:cursor-pointer flex justify-between pr-4 border-r border-t-0 border-l-0 border-b border-solid border-white rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"><span>Redes Sociais</span><ChevronRight color="#fff" /></a> */}
+                        </div>
+                        <div className="flex flex-col sm:flex-row bg-white gap-2 sm:gap-8 py-4 items-center justify-center ">
+                            <div target="_blank" href="https://www.youtube.com/channel/UCsNl4k9tn7Ao7wDiykfaHfg" className="flex font-formula-bold cursor-pointer text-gray-500 hover:text-black text-xs items-center gap-2">
+                                <p>YouTohbe</p>
+                                <FaYoutube size="2em" color="red" />
+
+                            </div>
+                            <div target="_blank" href="https://www.tiktok.com/@formulatoh" className="flex font-formula-bold cursor-pointer text-gray-500 hover:text-black text-xs items-center gap-2">
+                                <p>Tik-Tohk</p>
+                                <FaTiktok size="2em" color="black" />
+
+                            </div>
+                            <div target="_blank" href="https://discord.com/invite/MuQ7QX6cPr" className="flex font-formula-bold cursor-pointer text-gray-500 hover:text-black text-xs items-center gap-2">
+                                <p>Distohrd</p>
+                                <FaDiscord size="2em" color="#7289da"></FaDiscord>
+                            </div>
                         </div>
                         <div className="h-72 w-full bg-white font-formula py-6 md:grid md:grid-cols-2 md:gap-x-4 md:gap-y-3 md:h-40">
                             {data.championships.map((championship) => (
@@ -76,11 +96,11 @@ const HeaderMobile = () => {
                                     {championship.championshipName}
                                 </a>
                             ))}
-                            <a className="flex items-center hover:cursor-pointer opacity-40 flex pr-4 border-r border-gray-500 border-t-0 border-l-0 border-b border-solid rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0"><FaDiscord className="w-14" />Discord</a>
                         </div>
                     </div>
                 </div>
             )}
+
         </div>
     );
 };

@@ -6,6 +6,8 @@ import { ChampionshipContext } from '../../Context/ChampionshipContext';
 import { GET_CHAMPIONSHIPS } from '../../queries/getChampionship';
 import { GET_ALLPHASES } from '../../queries/getAllPhases';
 import { GET_ALLRACES } from '../../queries/getAllRaces';
+import LoadingPage from './Boundary/Loading';
+LoadingPage
 
 const CarouselSchedule = () => {
     const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
@@ -39,7 +41,7 @@ const CarouselSchedule = () => {
     const { loading: raceLoading, error: raceError, data: raceData } = useQuery(GET_ALLRACES);
     const { loading: phaseLoading, error: phaseError, data: phaseData } = useQuery(GET_ALLPHASES);
 
-    if (championshipsLoading || raceLoading || phaseLoading) return <p>Loading....</p>;
+    if (championshipsLoading || raceLoading || phaseLoading) return <LoadingPage/>;
     if (championshipsError || raceError || phaseError) return <p>Error: {championshipsError?.message || raceError?.message || phaseError?.message}</p>;
 
     const championshipId = selectedChampionship?.id;

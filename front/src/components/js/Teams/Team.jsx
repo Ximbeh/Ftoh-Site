@@ -13,6 +13,7 @@ import { GET_ALLTEAMH } from "../../../queries/getAllTeamH";
 import { GET_ALLTEAMS } from "../../../queries/getAllTeams";
 import { GET_ALLDRIVERSH } from "../../../queries/getAllDriverH";
 import { GET_ALLNEWS } from "../../../queries/getAllNews"
+import LoadingPage from "../Boundary/Loading";
 
 
 
@@ -45,7 +46,7 @@ const Team = () => {
         }
     }, [dataChampionships, selectedChampionship]);
 
-    if (loadingChampionships || newsLoading || driversLoading || teamsLoading || loadingteamH || loadingdriverH) return <p>Loading...</p>;
+    if (loadingChampionships || newsLoading || driversLoading || teamsLoading || loadingteamH || loadingdriverH) return <LoadingPage/>;
     if (errorChampionships) return <p>Error: {errorChampionships.message}</p>;
     if (driversError) return <p>Error: {driversError.message}</p>;
     if (teamsError) return <p>Error: {teamsError.message}</p>;

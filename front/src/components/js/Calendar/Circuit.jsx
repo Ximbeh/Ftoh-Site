@@ -2,13 +2,14 @@ import { useQuery } from "@apollo/client"
 import { GET_CIRCUIT } from "../../../queries/getCircuit"
 import NewsContainer from "../News/NewsContainer"
 import { GET_ALLDRIVERS } from "../../../queries/getAllPilots"
+import LoadingPage from '../Boundary/Loading'
 
 const Circuit = (race) => {
 
     const { loading: circuitLoading, error: circuitError, data: circuitData } = useQuery(GET_CIRCUIT)
     const { loading: driverLoading, error: driverError, data: driverData } = useQuery(GET_ALLDRIVERS)
 
-    if (circuitLoading || driverLoading) return <p>Loading....</p>;
+    if (circuitLoading || driverLoading) return <LoadingPage/>;
     if (circuitError || driverError) return <p>Error: {driverError?.message || newsError?.message}</p>;
 
     race = race.race

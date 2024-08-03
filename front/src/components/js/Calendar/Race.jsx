@@ -10,8 +10,8 @@ import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { GET_ALLRACES } from '../../../queries/getAllRaces';
 import { useQuery } from '@apollo/client';
 
-// Importe suas imagens
 import defaultCape from '../../../../img/capes/defaultHeader.jpg';
+import LoadingPage from '../Boundary/Loading';
 
 const Race = () => {
     const { id } = useParams();
@@ -19,7 +19,7 @@ const Race = () => {
     const { selectedChampionship } = useContext(ChampionshipContext);
     const { loading: raceLoading, error: raceError, data: raceData } = useQuery(GET_ALLRACES);
 
-    if (raceLoading) return <p>Loading....</p>;
+    if (raceLoading) return <LoadingPage/>;
     if (raceError) return <p>Error: {raceError?.message}</p>;
     
     // Encontrar a corrida com base no id
