@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import Home from './routes/home.jsx'
-import Latest from './routes/latest.jsx'
+import Home from './routes/Home.jsx'
+import Latest from './routes/Latest.jsx'
 import News from './components/js/News/news.jsx'
 import Calendar from './components/js/Calendar/calendar.jsx'
 import Race from './components/js/Calendar/race.jsx'
