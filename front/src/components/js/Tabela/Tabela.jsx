@@ -1,9 +1,9 @@
 import '../../css/Tabela.css';
-import TabelaDrivers from './TablelaDrivers';
-import TabelaTeams from './TabelaTeams';
-import TabelaLastRace from './TabelaLastRace';
+import TabelaDrivers from './tableladrivers';
+import TabelaTeams from './tabelateams';
+import TabelaLastRace from './tabelalastrace';
 import { useContext, useState } from 'react';
-import { ChampionshipContext } from '../../../Context/ChampionshipContext';
+import { ChampionshipContext } from '../../../Context/championshipContext';
 
 
 const Tabela = () => {

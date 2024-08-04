@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
-import Header from "../header/Header";
-import Footer from "../Footer";
+import Header from "../header/header";
+import Footer from "../footer";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useQuery } from '@apollo/client';
 import { useContext } from 'react';
-import { ChampionshipContext } from "../../../Context/ChampionshipContext";
+import { ChampionshipContext } from "../../../Context/championshipContext";
 import "../../css/Calendar.css";
 import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLSEASONS } from '../../../queries/getAllSeasons';
 import { GET_ALLRACES } from '../../../queries/getAllRaces';
 import defaultCape from '../../../../img/capes/interlagosOne.jpg';
-import LoadingPage from '../Boundary/Loading';
+import LoadingPage from '../Boundary/loading';
 
 
 

@@ -1,15 +1,15 @@
 import "../../css/news.css";
 import { useLocation, useParams } from "react-router-dom";
-import NewsContainer from "./NewsContainer";
-import Footer from "../Footer";
-import Header from "../header/Header";
+import NewsContainer from "./newscontainer";
+import Footer from "../footer";
+import Header from "../header/header";
 import { useQuery } from '@apollo/client';
-import { ChampionshipContext } from '../../../Context/ChampionshipContext';
+import { ChampionshipContext } from '../../../Context/championshipContext';
 import { useNavigate } from 'react-router-dom';
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useContext, useEffect, useState } from "react";
 import { GET_ALLNEWS } from '../../../queries/getAllNews';
-import LoadingPage from '../Boundary/Loading'
+import LoadingPage from '../Boundary/loading'
 
 const News = () => {
     const { id } = useParams();

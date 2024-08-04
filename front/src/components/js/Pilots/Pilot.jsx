@@ -1,10 +1,10 @@
 
-import Header from "../header/Header"
-import Footer from "../Footer"
-import NewsContainer from "../News/NewsContainer"
+import Header from "../header/header"
+import Footer from "../footer"
+import NewsContainer from "../News/newscontainer"
 import { ChevronRight } from "lucide-react"
 import { useParams } from 'react-router-dom';
-import { ChampionshipContext } from '../../../Context/ChampionshipContext';
+import { ChampionshipContext } from '../../../Context/championshipContext';
 import { useContext, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_ALLDRIVERS } from "../../../queries/getAllPilots";
@@ -12,7 +12,7 @@ import { GET_CHAMPIONSHIPS } from "../../../queries/getChampionship";
 import { GET_ALLPHASES } from "../../../queries/getAllPhases";
 import { GET_ALLDRIVERSH } from "../../../queries/getAllDriverH";
 import { GET_ALLNEWS } from "../../../queries/getAllNews"
-import LoadingPage from "../Boundary/Loading";
+import LoadingPage from "../Boundary/loading";
 
 
 const Pilot = () => {

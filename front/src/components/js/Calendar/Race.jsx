@@ -1,17 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Header from "../header/Header";
-import Footer from "../Footer";
-import CalendarRace from "./CalendarRace";
-import NewsRace from "./NewsRace";
-import Circuit from "./Circuit";
+import Header from "../header/header";
+import Footer from "../footer";
+import CalendarRace from "./calendarrace";
+import NewsRace from "./newsrace";
+import Circuit from "./circuit";
 import "../../css/Calendar.css";
-import { ChampionshipContext } from '../../../Context/ChampionshipContext';
+import { ChampionshipContext } from '../../../Context/championshipContext';
 import { GET_ALLRACES } from '../../../queries/getAllRaces';
 import { useQuery } from '@apollo/client';
 
 import defaultCape from '../../../../img/capes/defaultHeader.jpg';
-import LoadingPage from '../Boundary/Loading';
+import LoadingPage from '../Boundary/loading';
 
 const Race = () => {
     const { id } = useParams();

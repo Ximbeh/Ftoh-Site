@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import viteLogo from '/vite.svg'
 import { useQuery } from '@apollo/client';
-import LoadingPage from './Boundary/Loading';
+import LoadingPage from './Boundary/loading';
 
 
 import { GET_DRIVERS } from '../../queries/queries';

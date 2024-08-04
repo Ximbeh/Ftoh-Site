@@ -1,15 +1,15 @@
 import { useContext, useState, useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
-import Header from '../components/js/header/Header';
+import Header from '../components/js/header/header';
 import NewsHome from '../components/js/News/home';
-import Video from '../components/js/Video';
-import { CarouselCustomNavigation } from '../components/js/Carousel';
-import CarouselSchedule from '../components/js/CarouselSchedule';
-import Tabela from '../components/js/Tabela/Tabela';
-import Footer from '../components/js/Footer';
-import { ChampionshipContext } from '../Context/ChampionshipContext';
+import Video from '../components/js/video';
+import { CarouselCustomNavigation } from '../components/js/carousel';
+import CarouselSchedule from '../components/js/carouselschedule';
+import Tabela from '../components/js/Tabela/tabela';
+import Footer from '../components/js/footer';
+import { ChampionshipContext } from '../Context/championshipContext';
 import { useParams } from 'react-router-dom';
-import LoadingPage from '../components/js/Boundary/Loading';
+import LoadingPage from '../components/js/Boundary/loading';
 
 
 const GET_CHAMPIONSHIP_BY_ID = gql`

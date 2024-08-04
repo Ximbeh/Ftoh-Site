@@ -1,23 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import App from './components/js/App.jsx'
-import Home from './routes/Home.jsx'
-import Latest from './routes/Latest.jsx'
-import News from './components/js/News/News.jsx'
-import Calendar from './components/js/Calendar/Calendar.jsx'
-import Race from './components/js/Calendar/Race.jsx'
-import Pilots from './components/js/Pilots/Pilots.jsx';
-import Pilot from './components/js/Pilots/Pilot.jsx';
-import Teams from './components/js/Teams/Teams.jsx';
-import Team from './components/js/Teams/Team.jsx';
-import Hall from './components/js/Hall.jsx';
-import Results from './components/js/Results/Results.jsx';
-import ErrorPage from './components/js/Boundary/ErrorBoundary.jsx';
+import App from './components/js/app.jsx'
+import Home from './routes/home.jsx'
+import Latest from './routes/latest.jsx'
+import News from './components/js/News/news.jsx'
+import Calendar from './components/js/Calendar/calendar.jsx'
+import Race from './components/js/Calendar/race.jsx'
+import Pilots from './components/js/Pilots/pilots.jsx';
+import Pilot from './components/js/Pilots/pilot.jsx';
+import Teams from './components/js/Teams/teams.jsx';
+import Team from './components/js/Teams/team.jsx';
+import Hall from './components/js/hall.jsx';
+import Results from './components/js/Results/results.jsx';
+import ErrorPage from './components/js/Boundary/errorboundary.jsx';
 import './components/css/index.css'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ChampionshipProvider } from './Context/ChampionshipContext.jsx';
+import { ChampionshipProvider } from './Context/championshipContext.jsx';
 
 
 const router = createBrowserRouter([

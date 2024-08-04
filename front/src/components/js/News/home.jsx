@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from 'react';
-import PrincipalNewsHome from './PrincipalNewsHome';
-import SecondNews from './SecondNews';
+import PrincipalNewsHome from './principalNewsHome';
+import SecondNews from './secondNews';
 import { ChevronRight } from "lucide-react";
 import "../../css/news.css";
 import { useQuery } from '@apollo/client';

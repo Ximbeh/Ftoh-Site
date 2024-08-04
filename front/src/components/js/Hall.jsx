@@ -1,6 +1,6 @@
 
-import Header from "./header/Header"
-import Footer from "./Footer"
+import Header from "./header/header"
+import Footer from "./footer"
 
 const Hall = () => {
     return (

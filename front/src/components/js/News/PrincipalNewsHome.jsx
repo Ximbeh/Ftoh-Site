@@ -1,6 +1,6 @@
 import React, { forwardRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChampionshipContext } from '../../../Context/ChampionshipContext';
+import { ChampionshipContext } from '../../../Context/championshipContext';
 
 
 

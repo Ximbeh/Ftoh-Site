@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client"
-import NewsContainer from "../News/NewsContainer"
+import NewsContainer from "../News/newscontainer"
 import { GET_ALLNEWS } from "../../../queries/getAllNews"
 import { useState } from "react";
-import LoadingPage from '../Boundary/Loading'
+import LoadingPage from '../Boundary/loading'
 
 
 const NewsRace = (race) => {
