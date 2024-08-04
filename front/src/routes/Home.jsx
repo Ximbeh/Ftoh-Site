@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import Header from '../components/js/header/Header';
-import NewsHome from '@components/js/News/NewsHome';
+import NewsHome from '../components/js/News/home';
 import Video from '../components/js/Video';
 import { CarouselCustomNavigation } from '../components/js/Carousel';
 import CarouselSchedule from '../components/js/CarouselSchedule';
