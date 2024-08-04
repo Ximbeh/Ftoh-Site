@@ -4,19 +4,19 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import Home from './routes/Home.jsx'
 import Latest from './routes/Latest.jsx'
 import './components/css/index.css'
-import News from './components/js/news/news.jsx';
-import Calendar from './components/js/calendar/calendar.jsx'
-import Race from './components/js/calendar/race.jsx'
-import Pilots from './components/js/pilots/pilots.jsx';
-import Pilot from './components/js/pilots/pilot.jsx';
-import Teams from './components/js/teams/teams.jsx';
-import Team from './components/js/teams/team.jsx';
-import Hall from './components/js/hall.jsx';
-import Results from './components/js/results/results.jsx';
-import ErrorPage from './components/js/boundary/errorboundary.jsx';
+import News from './components/js/News/News.jsx';
+import Calendar from './components/js/Calendar/Calendar.jsx'
+import Race from './components/js/Calendar/Race.jsx'
+import Pilots from './components/js/Pilots/Pilots.jsx';
+import Pilot from './components/js/Pilots/Pilot.jsx';
+import Teams from './components/js/Teams/Teams.jsx';
+import Team from './components/js/Teams/Team.jsx';
+import Hall from './components/js/Hall.jsx';
+import Results from './components/js/Results/Results.jsx';
+import ErrorPage from './components/js/Boundary/ErrorBoundary.jsx';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ChampionshipProvider } from './context/championshipContext.jsx';
+import { ChampionshipProvider } from './context/ChampionshipContext.jsx';
 
 
 const router = createBrowserRouter([

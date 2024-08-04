@@ -1,8 +1,8 @@
 import { useState } from "react"
-import HeaderOne from "./headerOne"
-import HeaderTwo from "./headertwo"
+import HeaderOne from "./HeaderOne"
+import HeaderTwo from "./Headertwo"
 import React from "react"
-import HeaderMobile from "./headerMobile"
+import HeaderMobile from "./HeaderMobile"
 
 const Header= () => {
 

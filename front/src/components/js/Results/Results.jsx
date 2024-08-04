@@ -1,8 +1,8 @@
 
-import Header from "../header/header"
-import Footer from "../footer"
+import Header from "../header/Header"
+import Footer from "../Footer"
 import { ChevronRight } from "lucide-react"
-import { ChampionshipContext } from '../../../context/championshipContext';
+import { ChampionshipContext } from '../../../context/ChampionshipContext';
 import { useContext, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_ALLDRIVERS } from "../../../queries/getAllPilots";
@@ -13,7 +13,7 @@ import { GET_ALLDRIVERSH } from "../../../queries/getAllDriverH";
 import { GET_ALLNEWS } from "../../../queries/getAllNews"
 import { GET_ALLSEASONS } from "../../../queries/getAllSeasons"
 import { GET_ALLRACES } from "../../../queries/getAllRaces"
-import LoadingPage from "../boundary/loading";
+import LoadingPage from "../Boundary/Loading";
 
 
 

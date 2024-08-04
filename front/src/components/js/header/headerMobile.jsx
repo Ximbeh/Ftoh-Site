@@ -6,10 +6,10 @@ import { FaTiktok } from "react-icons/fa";
 import "../../css/header.css";
 import { useQuery } from '@apollo/client';
 import { useContext } from 'react';
-import { ChampionshipContext } from "../../../context/championshipContext";
+import { ChampionshipContext } from "../../../context/ChampionshipContext";
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useNavigate } from 'react-router-dom';
-import LoadingPage from "../boundary/loading";
+import LoadingPage from "../Boundary/Loading";
 
 
 const HeaderMobile = () => {

@@ -1,13 +1,13 @@
 import { useContext, useEffect, useRef } from 'react';
-import PrincipalNewsHome from './principalNewsHome';
-import SecondNews from './secondNews';
+import PrincipalNewsHome from './PrincipalNewsHome';
+import SecondNews from './SecondNews';
 import { ChevronRight } from "lucide-react";
 import "../../css/news.css";
 import { useQuery } from '@apollo/client';
-import { ChampionshipContext } from '../../../context/championshipContext';
+import { ChampionshipContext } from '../../../context/ChampionshipContext';
 import { useNavigate } from 'react-router-dom';
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
-import LoadingPage from '../boundary/loading';
+import LoadingPage from '../Boundary/Loading';
 
 const NewsHome = ({ championshipColorHex }) => {
   const { selectedChampionship } = useContext(ChampionshipContext);

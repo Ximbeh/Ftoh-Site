@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client"
 import { GET_CIRCUIT } from "../../../queries/getCircuit"
-import NewsContainer from "../news/newscontainer"
+import NewsContainer from "../News/NewsContainer"
 import { GET_ALLDRIVERS } from "../../../queries/getAllPilots"
-import LoadingPage from '../boundary/loading'
+import LoadingPage from '../Boundary/Loading'
 
 const Circuit = (race) => {
 

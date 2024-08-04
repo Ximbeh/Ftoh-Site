@@ -1,7 +1,7 @@
 import "../../css/news.css";
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { ChampionshipContext } from "../../../context/championshipContext";
+import { ChampionshipContext } from "../../../context/ChampionshipContext";
 
 
 const NewsContainer = ({ newsItem }) => {

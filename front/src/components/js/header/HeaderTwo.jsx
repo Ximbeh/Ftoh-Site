@@ -4,9 +4,9 @@ import FtohLogo from '../../../assets/f1_logo.svg';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useContext } from 'react';
-import { ChampionshipContext } from "../../../context/championshipContext";
+import { ChampionshipContext } from "../../../context/ChampionshipContext";
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
-import LoadingPage from '../boundary/loading'
+import LoadingPage from '../Boundary/Loading'
 
 const HeaderTwo = () => {
     const navigate = useNavigate();

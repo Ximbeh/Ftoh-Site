@@ -1,14 +1,14 @@
-import Header from "../header/header";
-import Footer from "../footer";
+import Header from "../header/Header";
+import Footer from "../Footer";
 import { ChevronRight } from "lucide-react";
-import { ChampionshipContext } from '../../../context/championshipContext';
+import { ChampionshipContext } from '../../../context/ChampionshipContext';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_ALLDRIVERS } from "../../../queries/getAllPilots";
 import { GET_CHAMPIONSHIPS } from "../../../queries/getChampionship";
 import '../../css/Tabela.css'
-import LoadingPage from "../boundary/loading";
+import LoadingPage from "../Boundary/Loading";
 
 const Pilots = () => {
     const { selectedChampionship, selectedSeason, setSeason } = useContext(ChampionshipContext);

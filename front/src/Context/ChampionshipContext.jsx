@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
-import LoadingPage from '../components/js/boundary/loading'
+import LoadingPage from '../components/js/Boundary/Loading'
 
 export const ChampionshipContext = createContext();
 
