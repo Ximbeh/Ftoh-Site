@@ -2,7 +2,7 @@ import { useState } from "react"
 import HeaderOne from "./HeaderOne"
 import HeaderTwo from "./HeaderTwo"
 import React from "react"
-import HeaderMobile from "./HeaderMobile"
+import HeaderMobile from "./headerMobile"
 
 const Header= () => {
 
