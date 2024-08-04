@@ -3,7 +3,7 @@ import TabelaDrivers from './tableladrivers';
 import TabelaTeams from './tabelateams';
 import TabelaLastRace from './tabelalastrace';
 import { useContext, useState } from 'react';
-import { ChampionshipContext } from '../../../Context/championshipContext';
+import { ChampionshipContext } from '../../../context/championshipContext';
 
 
 const Tabela = () => {

@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from "../components/js/header/header";
-import NewsContainer from "../components/js/News/newscontainer";
+import NewsContainer from "../components/js/news/newscontainer";
 import { ChevronDown } from "lucide-react";
 import { GET_CHAMPIONSHIPS } from '../queries/getChampionship';
 import { useQuery } from '@apollo/client';
 import { useContext } from 'react';
-import { ChampionshipContext } from "../Context/championshipContext";
+import { ChampionshipContext } from "../context/championshipContext";
 import Footer from '../components/js/footer';
-import LoadingPage from '../components/js/Boundary/loading';
+import LoadingPage from '../components/js/boundary/loading';
 
 
 const Latest = () => {

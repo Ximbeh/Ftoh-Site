@@ -1,10 +1,10 @@
-import NewsContainer from "../News/newscontainer"
+import NewsContainer from "../news/newscontainer"
 import "../../css/Calendar.css"
 import { ChevronRight, ChevronLeft } from "lucide-react"
 import { useQuery } from "@apollo/client"
 import { GET_ALLDRIVERS } from "../../../queries/getAllPilots"
 import { GET_ALLNEWS } from "../../../queries/getAllNews"
-import LoadingPage from "../Boundary/loading"
+import LoadingPage from "../boundary/loading"
 
 
 const ResumeRace = ({ race, selectedChampionship }) => {

@@ -6,12 +6,12 @@ import CalendarRace from "./calendarrace";
 import NewsRace from "./newsrace";
 import Circuit from "./circuit";
 import "../../css/Calendar.css";
-import { ChampionshipContext } from '../../../Context/championshipContext';
+import { ChampionshipContext } from '../../../context/championshipContext';
 import { GET_ALLRACES } from '../../../queries/getAllRaces';
 import { useQuery } from '@apollo/client';
 
 import defaultCape from '../../../../img/capes/defaultHeader.jpg';
-import LoadingPage from '../Boundary/loading';
+import LoadingPage from '../boundary/loading';
 
 const Race = () => {
     const { id } = useParams();

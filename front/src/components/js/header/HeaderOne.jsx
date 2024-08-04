@@ -1,13 +1,13 @@
 import "../../css/header.css";
 import { useQuery } from '@apollo/client';
 import { useContext } from 'react';
-import { ChampionshipContext } from "../../../Context/championshipContext";
+import { ChampionshipContext } from "../../../context/championshipContext";
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useNavigate } from "react-router-dom";
 import { FaDiscord } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa";
-import LoadingPage from "../Boundary/loading";
+import LoadingPage from "../boundary/loading";
 
 
 const HeaderOne = () => {
