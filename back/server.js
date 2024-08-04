@@ -24,8 +24,7 @@ app.get("/", (_req, res) => {
   res.end(ruruHTML({ endpoint: "/graphql" }));
 });
 
-app.listen(4000);
-console.log(`
-    Api running on: http://localhost:4000
-    Test: http://localhost:4000/graphql?query={users}
-`);
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Api running on: http://localhost:${PORT}`);
+});
