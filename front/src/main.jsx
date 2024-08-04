@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import App from './components/js/app.jsx'
 import Home from './routes/home.jsx'
 import Latest from './routes/latest.jsx'
 import News from './components/js/News/news.jsx'
