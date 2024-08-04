@@ -6,7 +6,7 @@ import { ChevronDown } from "lucide-react";
 import { GET_CHAMPIONSHIPS } from '../queries/getChampionship';
 import { useQuery } from '@apollo/client';
 import { useContext } from 'react';
-import { ChampionshipContext } from "../context/ChampionshipContext";
+import { ChampionshipContext } from "../Context/ChampionshipContext";
 import Footer from '../components/js/Footer';
 import LoadingPage from '../components/js/Boundary/Loading';
 

@@ -4,7 +4,7 @@ import NewsContainer from "./NewsContainer";
 import Footer from "../Footer";
 import Header from "../header/Header";
 import { useQuery } from '@apollo/client';
-import { ChampionshipContext } from '../../../context/ChampionshipContext';
+import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { useNavigate } from 'react-router-dom';
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useContext, useEffect, useState } from "react";

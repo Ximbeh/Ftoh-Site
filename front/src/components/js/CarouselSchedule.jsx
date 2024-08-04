@@ -2,7 +2,7 @@ import { Play } from 'lucide-react';
 import '../css/CarouselSchedule.css'
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { useQuery } from '@apollo/client';
-import { ChampionshipContext } from '../../context/ChampionshipContext';
+import { ChampionshipContext } from '../../Context/ChampionshipContext';
 import { GET_CHAMPIONSHIPS } from '../../queries/getChampionship';
 import { GET_ALLPHASES } from '../../queries/getAllPhases';
 import { GET_ALLRACES } from '../../queries/getAllRaces';

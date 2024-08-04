@@ -5,7 +5,7 @@ import firstLogo from "../../../assets/First.svg"
 import secondLogo from "../../../assets/Second.png"
 import thirdLogo from "../../../assets/Third.svg"
 import { ChevronRight, ChevronLeft } from "lucide-react"
-import { ChampionshipContext } from '../../../context/ChampionshipContext';
+import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { } from "@apollo/client"
 import { useContext, useEffect } from "react"
 

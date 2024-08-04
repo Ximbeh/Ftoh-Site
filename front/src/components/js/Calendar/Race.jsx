@@ -6,7 +6,7 @@ import CalendarRace from "./CalendarRace";
 import NewsRace from "./NewsRace";
 import Circuit from "./Circuit";
 import "../../css/Calendar.css";
-import { ChampionshipContext } from '../../../context/ChampionshipContext';
+import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { GET_ALLRACES } from '../../../queries/getAllRaces';
 import { useQuery } from '@apollo/client';
 

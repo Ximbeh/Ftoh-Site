@@ -6,7 +6,7 @@ import { FaTiktok } from "react-icons/fa";
 import "../../css/header.css";
 import { useQuery } from '@apollo/client';
 import { useContext } from 'react';
-import { ChampionshipContext } from "../../../context/ChampionshipContext";
+import { ChampionshipContext } from "../../../Context/ChampionshipContext";
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useNavigate } from 'react-router-dom';
 import LoadingPage from "../Boundary/Loading";

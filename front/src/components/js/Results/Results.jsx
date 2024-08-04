@@ -2,7 +2,7 @@
 import Header from "../header/Header"
 import Footer from "../Footer"
 import { ChevronRight } from "lucide-react"
-import { ChampionshipContext } from '../../../context/ChampionshipContext';
+import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { useContext, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_ALLDRIVERS } from "../../../queries/getAllPilots";

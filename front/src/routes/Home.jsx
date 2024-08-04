@@ -7,7 +7,7 @@ import { CarouselCustomNavigation } from '../components/js/Carousel';
 import CarouselSchedule from '../components/js/CarouselSchedule';
 import Tabela from '../components/js/Tabela/Tabela';
 import Footer from '../components/js/Footer';
-import { ChampionshipContext } from '../context/ChampionshipContext';
+import { ChampionshipContext } from '../Context/ChampionshipContext';
 import { useParams } from 'react-router-dom';
 import LoadingPage from '../components/js/Boundary/Loading';
 

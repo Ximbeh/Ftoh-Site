@@ -1,7 +1,7 @@
 import { Carousel } from "@material-tailwind/react";
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChampionshipContext } from "../../context/ChampionshipContext";
+import { ChampionshipContext } from "../../Context/ChampionshipContext";
 
 
 export function CarouselCustomNavigation({newsItems}) {

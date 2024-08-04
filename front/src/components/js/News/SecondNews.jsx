@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import "../../css/news.css";
 import { useNavigate } from 'react-router-dom';
-import { ChampionshipContext } from '../../../context/ChampionshipContext';
+import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 
 
 const SecondNews = (news) => {

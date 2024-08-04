@@ -5,7 +5,7 @@
 import '../../css/Tabela.css';
 import { ChevronRight } from 'lucide-react';
 import { useContext } from 'react';
-import { ChampionshipContext } from '../../../context/ChampionshipContext';
+import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useQuery } from '@apollo/client';
 import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';

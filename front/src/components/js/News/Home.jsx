@@ -4,7 +4,7 @@ import SecondNews from './SecondNews';
 import { ChevronRight } from "lucide-react";
 import "../../css/news.css";
 import { useQuery } from '@apollo/client';
-import { ChampionshipContext } from '../../../context/ChampionshipContext';
+import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { useNavigate } from 'react-router-dom';
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import LoadingPage from '../Boundary/Loading';

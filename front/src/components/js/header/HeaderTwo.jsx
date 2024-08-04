@@ -4,7 +4,7 @@ import FtohLogo from '../../../assets/f1_logo.svg';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useContext } from 'react';
-import { ChampionshipContext } from "../../../context/ChampionshipContext";
+import { ChampionshipContext } from "../../../Context/ChampionshipContext";
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import LoadingPage from '../Boundary/Loading'
 

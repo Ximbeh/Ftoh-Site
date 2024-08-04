@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useQuery } from '@apollo/client';
 import { useContext } from 'react';
-import { ChampionshipContext } from "../../../context/ChampionshipContext";
+import { ChampionshipContext } from "../../../Context/ChampionshipContext";
 import "../../css/Calendar.css";
 import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLSEASONS } from '../../../queries/getAllSeasons';
