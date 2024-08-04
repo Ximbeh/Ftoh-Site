@@ -1,6 +1,6 @@
 import { useState } from "react"
 import HeaderOne from "./HeaderOne"
-import HeaderTwo from "./Headertwo"
+import HeaderTwo from "./HeaderTwo"
 import React from "react"
 import HeaderMobile from "./HeaderMobile"
 
