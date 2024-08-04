@@ -16,7 +16,7 @@ import Results from './components/js/Results/Results.jsx';
 import ErrorPage from './components/js/Boundary/ErrorBoundary.jsx';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ChampionshipProvider } from './context/ChampionshipContext.jsx';
+import { ChampionshipProvider } from './Context/ChampionshipContext.jsx';
 
 
 const router = createBrowserRouter([
