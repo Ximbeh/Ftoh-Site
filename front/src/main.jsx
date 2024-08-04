@@ -37,7 +37,7 @@ const router = createBrowserRouter([
 ]);
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
+  uri: 'https://ftoh-site.onrender.com/graphql',
   cache: new InMemoryCache(),
 });
 
