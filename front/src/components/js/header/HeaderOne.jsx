@@ -19,9 +19,12 @@ const HeaderOne = () => {
     if (error) return <p>Error: {error.message}</p>;
 
     const handleChampionshipClick = (championship) => {
-        setChampionship(championship.id, championship.championshipName);
+        setChampionship(championship.id, championship.championshipName, championship.color, championship.logo);
         navigate(`/${championship.id}`)
     };
+
+    console.log(selectedChampionship);
+    
 
     return (
         <div className="bg-white hidden lg:flex justify-between">

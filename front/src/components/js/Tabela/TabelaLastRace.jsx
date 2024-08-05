@@ -8,8 +8,10 @@ import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLTEAMS } from '../../../queries/getAllTeams';
 import { GET_ALLRACES } from '../../../queries/getAllRaces';
 import LoadingPage from '../Boundary/Loading';
+import { useNavigate } from 'react-router-dom';
 
 const TabelaLastRace = () => {
+  const navigate = useNavigate();
   const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
 
   const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
@@ -17,7 +19,7 @@ const TabelaLastRace = () => {
   const { loading: teamsLoading, error: teamsError, data: teamsData } = useQuery(GET_ALLTEAMS);
   const { loading: racesLoading, error: racesError, data: racesData } = useQuery(GET_ALLRACES);
 
-  if (championshipsLoading || driversLoading || teamsLoading || racesLoading) return <LoadingPage/>;
+  if (championshipsLoading || driversLoading || teamsLoading || racesLoading) return <LoadingPage />;
   if (championshipsError || driversError || teamsError || racesError) return <p>Error: {championshipsError?.message || driversError?.message || teamsError?.message}</p>;
 
   const championshipId = selectedChampionship?.id;
@@ -29,15 +31,55 @@ const TabelaLastRace = () => {
 
   if (!season) return <p>Temporada não encontrada</p>;
 
-  const lastRace = racesData?.races
-    ?.filter(race => race.finished === true)
-    .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+  const findLatestRace = (races) => {
+    // Função auxiliar para converter o formato de data para um objeto Date
+    const createDateFromFormat = (dateStr, monthStr) => {
+      const monthMap = {
+        'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'Mai': 4, 'Jun': 5,
+        'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dez': 11
+      };
+      const [day] = dateStr.split(' ');
+      return new Date(2024, monthMap[monthStr], parseInt(day, 10));
+    };
 
+    // Filtrar as corridas que foram finalizadas
+    const finishedRaces = races.filter(race => race.finished);
+
+    if (finishedRaces.length === 0) return null;
+
+    // Encontrar a fase mais distante do fim do ano
+    const latestRace = finishedRaces.reduce((latest, race) => {
+      // Obter a fase mais recente
+      const latestPhase = race.phases.reduce((latestPhase, phase) => {
+        const phaseDate = createDateFromFormat(phase.dayOfMonth, phase.Month);
+        const latestPhaseDate = createDateFromFormat(latestPhase.dayOfMonth, latestPhase.Month);
+
+        // console.log('Comparando:', phaseDate, 'com', latestPhaseDate); // Log para depuração
+
+        return phaseDate > latestPhaseDate ? phase : latestPhase;
+      }, { Month: 'Jan', dayOfMonth: '01' });
+
+      // console.log('Fase mais recente da corrida atual:', latestPhase); // Log para depuração
+
+      // Compare com a fase mais distante atual
+      const latestDate = createDateFromFormat(latestPhase.dayOfMonth, latestPhase.Month);
+      const currentLatestDate = createDateFromFormat(latest?.phases?.[0]?.dayOfMonth || '01', latest?.phases?.[0]?.Month || 'Jan');
+
+      // console.log('Comparando datas:', latestDate, 'com', currentLatestDate); // Log para depuração
+
+      return latestDate > currentLatestDate ? race : latest;
+    }, null);
+
+    return latestRace;
+  };
+
+  // Exemplo de uso
+  const lastRace = findLatestRace(racesData.races);
   if (!lastRace) return <p>Última corrida não encontrada</p>;
 
-  const lastPhase = lastRace.phases?.slice(-1)[0];
 
-  if (!lastPhase) return <p>Fase não encontrada</p>;
+
+  const lastPhase = lastRace.phases?.slice(-1)[0];
 
   // Mapear pilotos da última fase e incluir informações dos pilotos
   const pilotsPositions = lastPhase.pilots
@@ -62,6 +104,17 @@ const TabelaLastRace = () => {
     .filter(pilot => pilot.driverInfo) // Certificar-se de incluir apenas pilotos com informações
     .sort((a, b) => a.position - b.position) // Ordenar por posição
     .slice(0, 10); // Limitar aos 10 primeiros
+
+
+  const handleButtonClick = () => {
+    navigate('/Results', {
+      state: {
+        temporarySeason: selectedSeason[0].seasonId,
+        midSelect: 'Corridas',
+        finalSelect: lastRace.id, // substitua com a lógica para obter o ID da corrida
+      }
+    });
+  };
 
   return (
     <div>
@@ -95,7 +148,7 @@ const TabelaLastRace = () => {
                   </div>
                 );
               })}
-              <button className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': selectedChampionship.color }}>
+              <button onClick={handleButtonClick} className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': selectedChampionship.color }}>
                 <span className='tabela-completa-btn-text' style={{ '--championship-color': selectedChampionship.color }}>Resultado da Corrida</span>
               </button>
             </div>

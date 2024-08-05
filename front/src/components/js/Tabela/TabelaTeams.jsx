@@ -56,6 +56,17 @@ const TabelaTeams = () => {
     navigate(`Teams/Team/${team.id}`)
 }
 
+
+const handleButtonClick = () => {
+  navigate('/Results', {
+      state: {
+          temporarySeason: selectedSeason[0].seasonId,
+          midSelect: 'Times',
+          finalSelect: 'All', 
+      }
+  });
+};
+
   return (
     <div>
       <div className='z-1 relative px-6 bg-gray-200'>
@@ -132,7 +143,7 @@ const TabelaTeams = () => {
                   </div>
                 </div>
               ))}
-              <button onClick={() => navigate('/Teams')} className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': selectedChampionship.color }}>
+              <button onClick={handleButtonClick} className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': selectedChampionship.color }}>
                 <span className='tabela-completa-btn-text' style={{ '--championship-color': selectedChampionship.color }}>Tabela Completa</span>
               </button>
             </div>

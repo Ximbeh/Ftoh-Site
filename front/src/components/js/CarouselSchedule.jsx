@@ -7,7 +7,7 @@ import { GET_CHAMPIONSHIPS } from '../../queries/getChampionship';
 import { GET_ALLPHASES } from '../../queries/getAllPhases';
 import { GET_ALLRACES } from '../../queries/getAllRaces';
 import LoadingPage from './Boundary/Loading';
-LoadingPage
+
 
 const CarouselSchedule = () => {
     const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
@@ -107,7 +107,7 @@ const CarouselSchedule = () => {
     }, {});
 
     // console.log(groupedPhases);
-    console.log(filteredRaces);
+    // console.log(filteredRaces);
 
     return (
         <div className='relative'>
