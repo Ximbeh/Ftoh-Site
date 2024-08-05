@@ -1,12 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
-import FtohLogo from '../../../assets/f1_logo.svg';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useContext } from 'react';
 import { ChampionshipContext } from "../../../Context/ChampionshipContext";
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import LoadingPage from '../Boundary/Loading'
+
 
 const HeaderTwo = () => {
     const navigate = useNavigate();
@@ -40,7 +40,7 @@ const HeaderTwo = () => {
             <div className="flex space-x-8 max-w-screen-lg ml-10">
                 <img className="h-8 my-5 cursor-pointer"
                     onClick={() => navigate('/')}
-                    src={`../../../../img/championship/${selectedLogo}`}
+                    src={`../../../../public/img/championship/${selectedLogo}`}
                     style={{ filter: 'invert(50%) brightness(200%)' }} />
                 <div className="flex items-center font-formula text-xs text-white">
                     <a

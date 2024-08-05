@@ -42,7 +42,7 @@ export function CarouselCustomNavigation({newsItems}) {
                         {filteredNews.map((news, index) => (
                             <div className="relative" key={index}>
                                 <img
-                                    src={news.image ? `../../../img/news/capa/${news.image}` : "https://via.placeholder.com/800x400"}
+                                    src={news.image ? `../../assets/img/news/capa/${news.image}` : "https://via.placeholder.com/800x400"}
                                     alt={`image ${index + 1}`}
                                     className="h-full w-full object-cover hover:cursor-pointer"
                                     onClick={() => handleNewsClick(news)}
@@ -61,7 +61,7 @@ export function CarouselCustomNavigation({newsItems}) {
                             {filteredNews.slice(0, 2).map((news, index) => (
                                 <div key={index}>
                                     <div className="imagem overflow-hidden inline-block rounded-sm w-full hidden md:flex">
-                                        <img className="w-full h-full duration-500 transition-transform mb-2" src={news.image ? `../../../img/news/capa/${news.image}` : "https://via.placeholder.com/800x400"} />
+                                        <img className="w-full h-full duration-500 transition-transform mb-2" src={news.image ? `../../assets/img/news/capa/${news.image}` : "https://via.placeholder.com/800x400"} />
                                     </div>
                                     <div className="mb-4 duration-300 text pt-1 pb-3 px-3 border-r border-b border-l-0 border-t-0 border-solid border-gray-300 rounded-br-3xl min-h-4 hover:cursor-pointer"
                                     onClick={() => handleNewsClick(news)}>

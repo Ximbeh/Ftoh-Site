@@ -76,9 +76,9 @@ const Circuit = (race) => {
                     <h3 className="py-4 font-formula uppercase text-lg lg:text-2xl   lg:py-10">{race.fullName}</h3>
                 </div>
                 <div className="mt-10 border-t-8 border-r-8 rounded-tr-3xl py-6 pr-4 relative border-red-500">
-                    <img className="absolute -top-4 lg:-top-6 left-0 w-20 lg:w-24 bg-gray-200 px-4" src={race.flag ? `../../../img/race/${race.flag}` : "https://via.placeholder.com/800x400"} alt="" />
+                    <img className="absolute -top-4 lg:-top-6 left-0 w-20 lg:w-24 bg-gray-200 px-4" src={race.flag ? `../../assets/img/race/${race.flag}` : "https://via.placeholder.com/800x400"} alt="" />
                     <h3 className="font-formula-bold text-lg lg:text-2xl">{race.name}</h3>
-                    <img className="mt-2 max-w-3xl mx-auto" src={race.mapDetalhes ? `../../../img/maps/${race.mapDetalhes}` : "https://via.placeholder.com/800x400"} alt="" />
+                    <img className="mt-2 max-w-3xl mx-auto" src={race.mapDetalhes ? `../../assets/img/maps/${race.mapDetalhes}` : "https://via.placeholder.com/800x400"} alt="" />
                     <div className="mt-4 flex gap-4 flex-col">
                         <div className="flex gap-4 flex-col md:flex-row">
                             <div className="border-b-2 border-r-2 rounded-br-xl border-gray-400 py-2 md:w-full">

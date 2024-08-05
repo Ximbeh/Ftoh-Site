@@ -76,13 +76,13 @@ const Pilots = () => {
                                         <p className="font-formula text-sm">{nome}</p>
                                         <p className="font-formula-bold text-lg">{sobrenome}</p>
                                     </div>
-                                    <img className="w-10 rounded border border-gray-400" src={driver.flag ? `../../../img/race/${driver.flag}` : "https://via.placeholder.com/800x400"} alt="" />
+                                    <img className="w-10 rounded border border-gray-400" src={driver.flag ? `../../assets/img/race/${driver.flag}` : "https://via.placeholder.com/800x400"} alt="" />
                                 </div>
                                 <div className="border-t-2 border-gray-400 py-4">
                                     <p className="font-formula text-xs text-gray-700">{driver.team.name}</p>
                                     <div className="flex">
                                         <p className="self-end w-1/4 font-formula-bold text-6xl" style={{color: driver.team.color}}>{driver.number}</p>
-                                        <img className="w-2/3 object-cover h-32 sm:h-64" src={driver.photo ? `../../../img/drivers/${driver.photo}` : "../../../img/drivers/default.png"} alt="" />
+                                        <img className="w-2/3 object-cover h-32 sm:h-64" src={driver.photo ? `../../assets/img/drivers/${driver.photo}` : "../../assets/img/drivers/default.png"} alt="" />
                                     </div>
                                 </div>
                             </div>

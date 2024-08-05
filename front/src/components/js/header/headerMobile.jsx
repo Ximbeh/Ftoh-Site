@@ -50,7 +50,7 @@ const HeaderMobile = () => {
                 {selectedLogo && (
                     <img
                         className="h-8 my-5 w-calc100-62"
-                        src={`../../../../img/championship/${selectedLogo}`}
+                        src={`../../../../public/img/championship/${selectedLogo}`}
                         style={{ filter: 'invert(50%) brightness(200%)' }}
                     />
                 )}
@@ -92,7 +92,7 @@ const HeaderMobile = () => {
                         <div className="h-72 w-full bg-white font-formula py-6 md:grid md:grid-cols-2 md:gap-x-4 md:gap-y-3 md:h-40">
                             {data.championships.map((championship) => (
                                 <a key={championship.id} onClick={() => handleChampionshipClick(championship)} className="flex items-center hover:cursor-pointer opacity-40 flex pr-4 border-r border-gray-500 border-t-0 border-l-0 border-b border-solid rounded-br-xl mx-3 py-3 mb-3 md:py-0 md:mb-0">
-                                    <img className="w-20 mr-4" src={`../../../../img/championship/${championship.logo}`} style={{ filter: 'grayscale(100%) brightness(0%)' }} />
+                                    <img className="w-20 mr-4" src={`../../../../public/img/championship/${championship.logo}`} style={{ filter: 'grayscale(100%) brightness(0%)' }} />
                                     {championship.championshipName}
                                 </a>
                             ))}

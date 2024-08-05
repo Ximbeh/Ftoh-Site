@@ -18,7 +18,7 @@ const PrincipalNewsHome = forwardRef(({ news, index }, ref) => {
   // console.log("index: " + index);
 
   const { tags, title, image } = news;
-  const imagePath = image ? `../../../../img/news/capa/${image}` : "https://via.placeholder.com/800x400";
+  const imagePath = image ? `../../../../public/img/news/capa/${image}` : "https://via.placeholder.com/800x400";
   const navigate = useNavigate();
 
   const handleNewsClick = (news) => {

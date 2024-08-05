@@ -12,7 +12,7 @@ import "../../css/Calendar.css";
 import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
 import { GET_ALLSEASONS } from '../../../queries/getAllSeasons';
 import { GET_ALLRACES } from '../../../queries/getAllRaces';
-import defaultCape from '../../../../img/capes/interlagosOne.jpg';
+import defaultCape from '../../../../public/img/capes/interlagosOne.jpg';
 import LoadingPage from '../Boundary/Loading';
 
 
@@ -164,7 +164,7 @@ const Calendar = () => {
 
   
     const imageCape = actualRace?.capeOne
-        ? (`../../../../img/capes/${actualRace.capeOne}`)
+        ? (`../../../../public/img/capes/${actualRace.capeOne}`)
         : defaultCape;
 
     return (
@@ -204,8 +204,8 @@ const Calendar = () => {
                             const secondPilotName = secondPilotInfo.nameAbreviado || '???';
                             const thirdPilotName = thirdPilotInfo && thirdPilotInfo.nameAbreviado ? thirdPilotInfo.nameAbreviado : '???';
 
-                            const firstPilotPhoto = firstPilotInfo.photo || '../../../../img/drivers/default.png'
-                            const secondPilotPhoto = secondPilotInfo.photo || '../../../../img/drivers/default.png'
+                            const firstPilotPhoto = firstPilotInfo.photo || '../../../../public/img/drivers/default.png'
+                            const secondPilotPhoto = secondPilotInfo.photo || '../../../../public/img/drivers/default.png'
                             const thirdPilotPhoto = thirdPilotInfo && thirdPilotInfo.photo ? thirdPilotInfo.photo : 'default.png'
 
                             const firstPilotColor = firstPilotInfo.team.color || 'gray';
@@ -230,7 +230,7 @@ const Calendar = () => {
                                                 </h4>
                                             </div>
                                             <img className="border-2 w-12 h-8 rounded-md"
-                                                src={race.flag ? `../../../img/race/${race.flag}` : "https://via.placeholder.com/800x400"}
+                                                src={race.flag ? `../../assets/img/race/${race.flag}` : "https://via.placeholder.com/800x400"}
                                                 alt="" />
                                         </div>
                                         <div className="pb-4 border-b-2 border-gray-400 mb-4">
@@ -243,7 +243,7 @@ const Calendar = () => {
                                         <div className="flex items-end gap-1">
                                             <div className="w-full">
                                                 <div className="rounded-t-xl relative flex justify-center h-16 bg-gray-800">
-                                                    <img className="absolute h-20 bottom-0 object-cover left-1/5" src={`../../../../img/drivers/${secondPilotPhoto}`} alt="" />
+                                                    <img className="absolute h-20 bottom-0 object-cover left-1/5" src={`../../../../public/img/drivers/${secondPilotPhoto}`} alt="" />
                                                 </div>
                                                 <div className="p-2 border-b border-r border-gray-300 rounded-br-xl flex items-center gap-2 justify-center">
                                                     <svg className="w-7 sm:w-6" width="87" height="25" viewBox="0 0 87 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -260,7 +260,7 @@ const Calendar = () => {
                                             </div>
                                             <div className="w-full">
                                                 <div className="rounded-t-xl relative  flex justify-center h-20 bg-gray-800">
-                                                    <img className="absolute h-24 object-cover bottom-0" src={`../../../../img/drivers/${firstPilotPhoto}`} alt="" />
+                                                    <img className="absolute h-24 object-cover bottom-0" src={`../../../../public/img/drivers/${firstPilotPhoto}`} alt="" />
                                                 </div>
                                                 <div className="p-2 border-b border-r border-gray-300 rounded-br-xl flex gap-2 justify-center items-center">
                                                     <svg className="w-7 sm:w-7" width="92" height="24" viewBox="0 0 92 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -275,7 +275,7 @@ const Calendar = () => {
                                             </div>
                                             <div className="w-full">
                                                 <div className="rounded-t-xl relative  flex justify-center h-14 bg-gray-800">
-                                                    <img className="absolute h-20 object-cover bottom-0" src={`../../../../img/drivers/${thirdPilotPhoto}`} alt="" />
+                                                    <img className="absolute h-20 object-cover bottom-0" src={`../../../../public/img/drivers/${thirdPilotPhoto}`} alt="" />
                                                 </div>
                                                 <div className="p-2 border-b border-r border-gray-300 rounded-br-xl flex gap-2 justify-center items-center">
                                                     <svg className="w-7 sm:w-5" width="102" height="26" viewBox="0 0 102 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -316,7 +316,7 @@ const Calendar = () => {
                         <h3 className="font-formula-bold text-2xl">{dayRange}</h3>
                         <h4 className="text-center font-formula-bold text-lg text-black bg-white px-2 rounded-xl uppercase">{monthRange}</h4>
                     </div>
-                    <img className="border-2 w-12 h-8 rounded-md"      src={actualRace.flag ? `../../../img/race/${actualRace.flag}` : "https://via.placeholder.com/800x400"} alt="" />
+                    <img className="border-2 w-12 h-8 rounded-md"      src={actualRace.flag ? `../../assets/img/race/${actualRace.flag}` : "https://via.placeholder.com/800x400"} alt="" />
                 </div>
                 <div className="pb-4 mb-10 md:mb-4 mr-2 border-b-2 border-gray-400">
                     <div className="flex">
@@ -326,7 +326,7 @@ const Calendar = () => {
                     <p className="font-formula uppercase text-sm">{actualRace.fullName}</p>
                 </div>
                 <div className="hidden md:flex mr-2 rounded-lg justify-center mt-2 p-2 bg-repeat bg-grade-pattern-gray bg-2">
-                    <img className="h-28 raceMap" src={`../../../img/maps/${actualRace.map}`} alt="" />
+                    <img className="h-28 raceMap" src={`../../assets/img/maps/${actualRace.map}`} alt="" />
                 </div>
                  </>
                 
@@ -389,7 +389,7 @@ const Calendar = () => {
                                             </h4>
                                         </div>
                                         <img className="border-2 w-12 h-8 rounded-md"
-                                            src={race.flag ? `../../../img/race/${race.flag}` : "https://via.placeholder.com/800x400"}
+                                            src={race.flag ? `../../assets/img/race/${race.flag}` : "https://via.placeholder.com/800x400"}
                                             alt="" />
                                     </div>
                                     <div className="pb-4 border-b-2 border-gray-400 mb-4">
@@ -400,7 +400,7 @@ const Calendar = () => {
                                         <p className="font-formula text-gray-700">{race.fullName}</p>
                                     </div>
                                     <div className="flex justify-center mt-2 pt-2 pb-2 bg-repeat bg-grade-pattern bg-2">
-                                        <img className="h-28" src={`../../../img/maps/${race.map}`} alt="" />
+                                        <img className="h-28" src={`../../assets/img/maps/${race.map}`} alt="" />
                                     </div>
                                 </div>
                             </div>

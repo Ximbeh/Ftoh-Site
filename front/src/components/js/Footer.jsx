@@ -1,5 +1,5 @@
 
-import tohaxLogo from '../../../img/logo/tohax.png'
+import tohaxLogo from '../../../public/img/logo/tohax.png'
 import '../css/Calendar.css'
 const Footer = () => {
 
