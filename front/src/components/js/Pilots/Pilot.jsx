@@ -2,16 +2,10 @@
 import Header from "../header/Header"
 import Footer from "../Footer"
 import NewsContainer from "../News/NewsContainer"
-import { ChevronRight } from "lucide-react"
 import { useParams } from 'react-router-dom';
 import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { useContext, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_ALLDRIVERS } from "../../../queries/getAllPilots";
-import { GET_CHAMPIONSHIPS } from "../../../queries/getChampionship";
-import { GET_ALLPHASES } from "../../../queries/getAllPhases";
-import { GET_ALLDRIVERSH } from "../../../queries/getAllDriverH";
-import { GET_ALLNEWS } from "../../../queries/getAllNews"
 import LoadingPage from "../Boundary/Loading";
 import { GET_PILOTSINFO } from "../../../queries/getPilotsInfo";
 
@@ -23,7 +17,6 @@ const Pilot = () => {
     const { selectedChampionship, selectedSeason, setSeason } = useContext(ChampionshipContext);
    
     const [championship, setChampionship] = useState(null);
-    const [temporarySeason, setTemporarySeason] = useState(null);
 
     const { id } = useParams();
 
@@ -46,11 +39,11 @@ const Pilot = () => {
     const driver = data.drivers.find(driver => driver.id == id)
     // console.log(driver);
 
-    const driverHistory = data.driverHistories.filter(drivers=> drivers.name == driver.name)
+    const driverHistory = data.drivers.filter(drivers=> drivers.name == driver.name)
     // console.log(driverHistory);
     // console.log(phasesData);
-    console.log(driverHistory);
-    
+    // console.log(driverHistory);
+  
     
     
     const phasesDriver = data.phases.filter(phase => 
@@ -58,8 +51,17 @@ const Pilot = () => {
             driverHistory.some(driver => driver.id === pilot.pilotId)
         )
     );
+    console.log(driverHistory[0]);
+    console.log(data.phases);
+    
+    
+
+    console.log(phasesDriver);
     
     const races = phasesDriver.filter(phase=>phase.name == "Corrida")
+    
+    console.log(races);
+
     
     const totalPoints = races.reduce((total, phase) => {
         return total + phase.pilots.reduce((phaseTotal, pilot) => {
@@ -145,6 +147,8 @@ const Pilot = () => {
     const lastName = nameParts[nameParts.length - 1];
       const newsWithTag = data.news.filter(news => news.tags.includes(lastName));
     
+
+      
     return (
         <div className="bg-gray-200">
             <Header />
@@ -192,7 +196,7 @@ const Pilot = () => {
                                 <p className="font-formula text-sm">{resultMaxPosition}</p>
                             </div>
                             <div className="mb-10 md:mb-5">
-                                <hp5  className="font-formula-bold mb-1">Pole Position</hp5>
+                                <h5 className="font-formula-bold mb-1">Pole Position</h5>
                                 <p className="font-formula text-sm">{polesCount[1]}</p>
                             </div>
                             <div className="mb-10 md:mb-5">
@@ -211,7 +215,6 @@ const Pilot = () => {
                         <NewsContainer newsItem={newsWithTag[newsWithTag.length - 2]} />
                         <NewsContainer newsItem={newsWithTag[newsWithTag.length - 3]} />
                         <NewsContainer newsItem={newsWithTag[newsWithTag.length - 4]} />
-
                     </div>
                 </div>
             </div>

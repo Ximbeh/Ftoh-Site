@@ -7,29 +7,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { useContext, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_ALLDRIVERS } from "../../../queries/getAllPilots";
 import { GET_CHAMPIONSHIPS } from "../../../queries/getChampionship";
-import { GET_ALLTEAMH } from "../../../queries/getAllTeamH";
-import { GET_ALLTEAMS } from "../../../queries/getAllTeams";
-import { GET_ALLDRIVERSH } from "../../../queries/getAllDriverH";
-import { GET_ALLNEWS } from "../../../queries/getAllNews"
 import LoadingPage from "../Boundary/Loading";
+import { GET_TEAM } from "../../../queries/getTeam";
 
 
 
 
 const Team = () => {
-    const { selectedChampionship, selectedSeason, setSeason } = useContext(ChampionshipContext);
+    const { selectedChampionship } = useContext(ChampionshipContext);
     const { loading: loadingChampionships, error: errorChampionships, data: dataChampionships } = useQuery(GET_CHAMPIONSHIPS);
-    const { loading: loadingteamH, error: errorteamH, data: datateamH } = useQuery(GET_ALLTEAMH);
-    const { loading: driversLoading, error: driversError, data: driversData } = useQuery(GET_ALLDRIVERS);
-    const { loading: teamsLoading, error: teamsError, data: teamsData } = useQuery(GET_ALLTEAMS);
-    const { loading: loadingdriverH, error: errordriverH, data: datadriverH } = useQuery(GET_ALLDRIVERSH);
-    const { loading: newsLoading, error: newsError, data: newsData } = useQuery(GET_ALLNEWS);
+    const { loading: loadingTeams, error: errorTeams, data: dataTeams } = useQuery(GET_TEAM);
 
     const [championship, setChampionship] = useState(null);
-    const [temporarySeason, setTemporarySeason] = useState(null);
-
     
     const navigate = useNavigate();
 
@@ -46,37 +36,33 @@ const Team = () => {
         }
     }, [dataChampionships, selectedChampionship]);
 
-    if (loadingChampionships || newsLoading || driversLoading || teamsLoading || loadingteamH || loadingdriverH) return <LoadingPage/>;
+    if (loadingChampionships || loadingTeams) return <LoadingPage />;
     if (errorChampionships) return <p>Error: {errorChampionships.message}</p>;
-    if (driversError) return <p>Error: {driversError.message}</p>;
-    if (teamsError) return <p>Error: {teamsError.message}</p>;
-    if (errorteamH) return <p>Error: {errorteamH.message}</p>;
-    if (errordriverH) return <p>Error: {errordriverH.message}</p>;
-    if (newsError) return <p>Error: {newsError.message}</p>;
-
+    if (errorTeams) return <p>Error: {errorTeams.message}</p>;
     if (!championship) return <p>Campeonato não encontrado</p>;
 
-    const team = teamsData.teams.find(team=>team.id == id)
+    const team = dataTeams.teams.find(team=>team.id == id)
 
     // const teamHistory = teamsData.teams.filter(teams=>teams.name == team.name)
 
 
-    const teamAllTime = datateamH.teamHistories.find(teams =>
+    const teamAllTime = dataTeams.teamHistories.find(teams =>
         teams.name.some(name=>name == team.name)
     )
 
     
-    const firstPilot = datadriverH.driverHistories.find(drivers=>drivers.name == team.drivers[0].name)
-    const secondPilot =  datadriverH.driverHistories.find(drivers=>drivers.name == team.drivers[1].name)
+    const firstPilot = dataTeams.driverHistories.find(drivers=>drivers.name == team.drivers[0].name)
+    const secondPilot =  dataTeams.driverHistories.find(drivers=>drivers.name == team.drivers[1].name)
     
     
+
     const handleNavigatePilot = (driver) => {
      
         
         navigate(`/Pilots/Pilot/${driver.id}`)
     }
     
-    const newsWithTag = newsData.news.filter(news => news.tags.includes(team.name));
+    const newsWithTag = dataTeams.news.filter(news => news.tags.includes(team.name));
 
 
     

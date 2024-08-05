@@ -4,6 +4,10 @@
   white-space: nowrap; /* Garante que o conteúdo não quebre em várias linhas */
 }
 
+.hoverContainer:hover{
+  border-color: var(--colorTeam);
+}
+
 .cursor-pointer {
   cursor: pointer;
 }

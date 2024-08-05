@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
-import LoadingPage from '../components/js/Boundary/Loading'
+import LoadingPage from '../components/js/Boundary/Loading';
 
 export const ChampionshipContext = createContext();
 
@@ -32,29 +32,28 @@ export const ChampionshipProvider = ({ children }) => {
 
     useEffect(() => {
         if (data && data.championships.length > 0) {
+            // Encontrar o campeonato padrão
             const defaultChampionship = data.championships.find(champ => champ.championshipName === 'Fórmula 1') || data.championships[0];
-            setChampionship(defaultChampionship.id, defaultChampionship.championshipName, defaultChampionship.color, defaultChampionship.logo);
-            // console.log(defaultChampionship);
-            const seasonDate = defaultChampionship.seasons.filter(season => season.date === "2023");
-            setSelectedSeason(seasonDate);
+            
+            // Atualizar o campeonato selecionado e a temporada
+            setSelectedChampionship({
+                id: defaultChampionship.id,
+                name: defaultChampionship.championshipName,
+                color: defaultChampionship.color,
+                logo: defaultChampionship.logo
+            });
+
+            // Filtrar e definir a temporada selecionada
+            const defaultSeason = defaultChampionship.seasons.filter(season => season.date === '2023');
+            setSelectedSeason(defaultSeason);
         }
     }, [data]);
 
-
-
-    const setChampionship = (id, name, color, logo) => {
-        setSelectedChampionship({ id, name, color, logo });
-    };
-
-    const setSeason = (seasons) => {
-        setSelectedSeason(seasons);
-    }
-
-    if (loading) return <LoadingPage/>;
+    if (loading) return <LoadingPage />;
     if (error) return <p>Error: {error.message}</p>;
 
     return (
-        <ChampionshipContext.Provider value={{ selectedChampionship, setChampionship, selectedSeason, setSelectedSeason }}>
+        <ChampionshipContext.Provider value={{ selectedChampionship, setSelectedChampionship, selectedSeason, setSelectedSeason }}>
             {children}
         </ChampionshipContext.Provider>
     );

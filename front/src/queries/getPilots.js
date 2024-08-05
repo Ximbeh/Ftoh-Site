@@ -16,6 +16,13 @@ query getPilots {
       seasonId
       name
     }
+
+    news{
+      id
+      tags
+      title
+      image
+    }
   }
 }
 

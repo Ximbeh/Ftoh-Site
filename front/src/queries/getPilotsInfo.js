@@ -30,6 +30,7 @@ export const GET_PILOTSINFO = gql`
       nameAbreviado
       photo
       teamId
+      
       team {
         name
         color
@@ -57,10 +58,12 @@ export const GET_PILOTSINFO = gql`
         timeFastLap
       }
     }
-    news {
+    
+    news{
       id
       tags
-      newsId
+      title
+      image
     }
   }
 `;
