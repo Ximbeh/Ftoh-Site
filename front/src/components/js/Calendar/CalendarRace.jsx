@@ -1,9 +1,9 @@
 import NewsContainer from "../News/NewsContainer"
 import ResumeRace from "./ResumeRace"
 
-import firstLogo from "../../../assets/First.svg"
-import secondLogo from "../../../assets/Second.png"
-import thirdLogo from "../../../assets/Third.svg"
+import firstLogo from "..//First.svg"
+import secondLogo from "..//Second.png"
+import thirdLogo from "..//Third.svg"
 import { ChevronRight, ChevronLeft } from "lucide-react"
 import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { } from "@apollo/client"

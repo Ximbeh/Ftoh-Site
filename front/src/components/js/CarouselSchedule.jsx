@@ -134,7 +134,7 @@ const CarouselSchedule = () => {
                             >
                                 <div className='content' id={`content${index + 1}`}>
                                     <img className="rounded-md w-12 mb-2"
-                                        src={race.flag ? `../../assets/img/race/${race.flag}` : "https://via.placeholder.com/800x400"}
+                                        src={race.flag ? `/img/race/${race.flag}` : "https://via.placeholder.com/800x400"}
                                     />
                                     <h3 className='px-2 text-gray-600 text-sm mb-3 uppercase font-formula-bold text-center text-break'>{race.name}</h3>
                                     <h2 className='leading-9 text-white text-xl mb-1 font-formula-bold'>

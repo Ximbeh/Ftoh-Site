@@ -162,11 +162,11 @@ const Pilot = () => {
                 <div className="bg-white">
                     <div className="grid md:grid-cols-2">
                         <div>
-                            <img className="lg:h-1/2 w-full lg:object-cover lg:object-top" src={driverAllTime.photo ? `../../assets/img/drivers/${driverAllTime.photo}` : "https://via.placeholder.com/800x400"} alt="" />
+                            <img className="lg:h-1/2 w-full lg:object-cover lg:object-top" src={driverAllTime.photo ? `/img/drivers/${driverAllTime.photo}` : "https://via.placeholder.com/800x400"} alt="" />
                             <div className="py-5 pt-10 px-4 border-b border-gray-500 md:border-0 md:px-10">
                                 <div className="flex flex-cols items-center gap-4">
                                     <h4 className="font-formula text-gray-600 text-3xl md:text-4xl">{driver.number}</h4>
-                                    <img className="w-14 rounded border border-gray-500" src={driver.flag ? `../../assets/img/race/${driver.flag}` : "https://via.placeholder.com/800x400"} alt="" />
+                                    <img className="w-14 rounded border border-gray-500" src={driver.flag ? `/img/race/${driver.flag}` : "https://via.placeholder.com/800x400"} alt="" />
                                 </div>
                                 <h3 className="font-formula-bold text-2xl md:text-5xl">{driver.name}</h3>
                             </div>

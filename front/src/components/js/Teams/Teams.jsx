@@ -74,7 +74,7 @@ const Teams = () => {
                                     <div>
                                         <p className="font-formula-bold text-lg">{team.name}</p>
                                     </div>
-                                    <img className="w-10" src={team.logo ? `../../assets/img/logo/${team.logo}` : "../../assets/img/drivers/default.png"} alt={team.name} />
+                                    <img className="w-10" src={team.logo ? `/img/logo/${team.logo}` : "/img/drivers/default.png"} alt={team.name} />
                                 </div>
                                 <div className="border-t-2 border-gray-400 py-4">
                                     <div className="flex flex-cols gap-4">
@@ -89,7 +89,7 @@ const Teams = () => {
                                         })}
                                     </div>
                                     <div className="flex items-center justify-center bg-repeat bg-grade-pattern bg-2 mt-2">
-                                        <img className="" src={team.car ? `../../assets/img/cars/${team.car}` : "../../assets/img/car/default.png"} alt={team.name} />
+                                        <img className="" src={team.car ? `/img/cars/${team.car}` : "/img/car/default.png"} alt={team.name} />
                                     </div>
                                 </div>
                             </div>

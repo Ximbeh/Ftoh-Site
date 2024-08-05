@@ -230,7 +230,7 @@ const Calendar = () => {
                                                 </h4>
                                             </div>
                                             <img className="border-2 w-12 h-8 rounded-md"
-                                                src={race.flag ? `../../assets/img/race/${race.flag}` : "https://via.placeholder.com/800x400"}
+                                                src={race.flag ? `/img/race/${race.flag}` : "https://via.placeholder.com/800x400"}
                                                 alt="" />
                                         </div>
                                         <div className="pb-4 border-b-2 border-gray-400 mb-4">
@@ -316,7 +316,7 @@ const Calendar = () => {
                         <h3 className="font-formula-bold text-2xl">{dayRange}</h3>
                         <h4 className="text-center font-formula-bold text-lg text-black bg-white px-2 rounded-xl uppercase">{monthRange}</h4>
                     </div>
-                    <img className="border-2 w-12 h-8 rounded-md"      src={actualRace.flag ? `../../assets/img/race/${actualRace.flag}` : "https://via.placeholder.com/800x400"} alt="" />
+                    <img className="border-2 w-12 h-8 rounded-md"      src={actualRace.flag ? `/img/race/${actualRace.flag}` : "https://via.placeholder.com/800x400"} alt="" />
                 </div>
                 <div className="pb-4 mb-10 md:mb-4 mr-2 border-b-2 border-gray-400">
                     <div className="flex">
@@ -326,7 +326,7 @@ const Calendar = () => {
                     <p className="font-formula uppercase text-sm">{actualRace.fullName}</p>
                 </div>
                 <div className="hidden md:flex mr-2 rounded-lg justify-center mt-2 p-2 bg-repeat bg-grade-pattern-gray bg-2">
-                    <img className="h-28 raceMap" src={`../../assets/img/maps/${actualRace.map}`} alt="" />
+                    <img className="h-28 raceMap" src={`/img/maps/${actualRace.map}`} alt="" />
                 </div>
                  </>
                 
@@ -389,7 +389,7 @@ const Calendar = () => {
                                             </h4>
                                         </div>
                                         <img className="border-2 w-12 h-8 rounded-md"
-                                            src={race.flag ? `../../assets/img/race/${race.flag}` : "https://via.placeholder.com/800x400"}
+                                            src={race.flag ? `/img/race/${race.flag}` : "https://via.placeholder.com/800x400"}
                                             alt="" />
                                     </div>
                                     <div className="pb-4 border-b-2 border-gray-400 mb-4">
@@ -400,7 +400,7 @@ const Calendar = () => {
                                         <p className="font-formula text-gray-700">{race.fullName}</p>
                                     </div>
                                     <div className="flex justify-center mt-2 pt-2 pb-2 bg-repeat bg-grade-pattern bg-2">
-                                        <img className="h-28" src={`../../assets/img/maps/${race.map}`} alt="" />
+                                        <img className="h-28" src={`/img/maps/${race.map}`} alt="" />
                                     </div>
                                 </div>
                             </div>

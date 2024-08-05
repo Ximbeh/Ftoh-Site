@@ -89,7 +89,7 @@ const Team = () => {
                     <div className="grid md:grid-cols-2">
                         <div>
                             <div>
-                                <img className="w-60 mt-4 mx-auto lg:h-1/2 lg:object-cover lg:object-top " src={team.logo ? `../../assets/img/logo/${team.logo}` : "https://via.placeholder.com/800x400"} alt="" />
+                                <img className="w-60 mt-4 mx-auto lg:h-1/2 lg:object-cover lg:object-top " src={team.logo ? `/img/logo/${team.logo}` : "https://via.placeholder.com/800x400"} alt="" />
 
                             </div>
                             <div className="py-5 pt-10 px-4 border-b border-gray-500 md:ml-10 md:border-0">
@@ -120,7 +120,7 @@ const Team = () => {
                         </div>
                         <div className="grid grid-cols-2 gap-1">
                             <div onClick={() => handleNavigatePilot(team.drivers[0])} className="hover:bg-black hover:text-white duration-500 cursor-pointer md:border-l-2 md:border-gray-200">
-                                <img className="object-cover" src={firstPilot.photo ? `../../assets/img/drivers/${firstPilot.photo}` : "https://via.placeholder.com/800x400"} alt="" />
+                                <img className="object-cover" src={firstPilot.photo ? `/img/drivers/${firstPilot.photo}` : "https://via.placeholder.com/800x400"} alt="" />
                                 <div className="px-5 py-10">
                                     <h4 className="font-formula text-3xl md:text-3xl md:font-formula-bold">{team.drivers[0].number}</h4>
                                     <p className="font-formula text-xl md:text-4xl md:text-base">{team.drivers[0].name}</p>
@@ -128,7 +128,7 @@ const Team = () => {
                                 </div>
                             </div>
                             <div onClick={() => handleNavigatePilot(team.drivers[1])} className="hover:bg-black hover:text-white duration-500 cursor-pointer  md:border-l-2 md:border-gray-200">
-                                <img src={secondPilot.photo ? `../../assets/img/drivers/${secondPilot.photo}` : "https://via.placeholder.com/800x400"} alt="" />
+                                <img src={secondPilot.photo ? `/img/drivers/${secondPilot.photo}` : "https://via.placeholder.com/800x400"} alt="" />
                                 <div className="px-5 py-10">
                                     <h4 className="font-formula text-3xl md:text-3xl md:font-formula-bold">{team.drivers[1].number}</h4>
                                     <p className="font-formula text-xl md:text-4xl md:text-base">{team.drivers[1].name}</p>
