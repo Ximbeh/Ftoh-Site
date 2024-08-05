@@ -127,7 +127,7 @@ const News = () => {
                         ))}
                     </div>
                 </div>
-                <div className="mt-10 flex gap-2 py-4 border-b-8 border-r-8 rounded-br-xl border-gray-400">
+                <div className="mt-10 flex flex-wrap gap-2 py-4 border-b-8 border-r-8 rounded-br-xl border-gray-400">
                     {news.tags?.map(tag => (
                         <button
                             key={tag}

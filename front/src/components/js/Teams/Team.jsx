@@ -141,7 +141,7 @@ const Team = () => {
                     </div>
                     <div className="px-4 py-10 mb-4">
                         <h2 className="mb-10 font-formula text-center text-4xl">História</h2>
-                        <div className="mb-10 w-1/2" dangerouslySetInnerHTML={{ __html: teamAllTime.text }}></div>
+                        <div className="mb-10 lg:w-1/2" dangerouslySetInnerHTML={{ __html: teamAllTime.text }}></div>
                     </div>
                     <div className="grid md:grid-cols-2 gap-1 py-4 bg-gray-200 xl:grid-cols-4">
                         <NewsContainer newsItem={newsWithTag[newsWithTag.length - 1]}/>

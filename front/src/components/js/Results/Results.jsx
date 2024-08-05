@@ -15,7 +15,7 @@ import { GET_ALLSEASONS } from "../../../queries/getAllSeasons"
 import { GET_ALLRACES } from "../../../queries/getAllRaces"
 import LoadingPage from "../Boundary/Loading";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import '../../css/Tabela.css'
 
 
 const Results = () => {
@@ -179,7 +179,7 @@ const Results = () => {
                     </div>
                     <div className="bg-white md:px-6 md:m-auto md:max-w-5xl lg:max-w-7xl">
                         <h2 className="px-4 py-10 font-formula-bold text-xl md:px-0 md:text-3xl">{temporarySeason?.date} - {midSelect}{nameFinal} </h2>
-                        <div>
+                        <div className="scroll-container">
                             {/* Corrida Escolhida */}
                             {midSelect === 'Corridas' && finalSelect !== 'All' && raceSelected ? (
                                 <div>
@@ -517,7 +517,7 @@ const Results = () => {
                                     <thead>
                                         <tr>
                                             <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pos</th>
-                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:table-cell hidden">Piloto</th>
+                                            <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Piloto</th>
                                             <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Carro</th>
                                             <th className="pl-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pontos</th>
                                         </tr>

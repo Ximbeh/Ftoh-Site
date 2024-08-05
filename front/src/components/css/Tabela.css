@@ -1,4 +1,8 @@
 /* Tabela.css */
+.scroll-container {
+  overflow-x: auto; /* Permite rolar horizontalmente se necessário */
+  white-space: nowrap; /* Garante que o conteúdo não quebre em várias linhas */
+}
 
 .cursor-pointer {
   cursor: pointer;

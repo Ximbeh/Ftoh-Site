@@ -21,7 +21,7 @@ const HeaderMobile = () => {
     };
 
     const handleChampionshipClick = (championship) => {
-        setChampionship(championship.id, championship.championshipName);
+        setChampionship(championship.id, championship.championshipName, championship.color, championship.logo);
         navigate(`/${championship.id}`);
     };
 

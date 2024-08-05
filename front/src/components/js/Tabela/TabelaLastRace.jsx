@@ -116,6 +116,8 @@ const TabelaLastRace = () => {
     });
   };
 
+  
+
   return (
     <div>
       <div className='z-1 relative px-6 bg-gray-200'>
@@ -138,7 +140,8 @@ const TabelaLastRace = () => {
                     <div className='flex items-center font-formula-bold'>
                       <h5 className='mr-2 pr-2 border-r-4' style={{ borderColor: driverInfo.teamColor }}>{pilot.position}</h5>
                       <h5 className='hidden md:flex font-formula mr-1'>{driverInfo.nome}</h5>
-                      <h5 className='uppercase mr-2'>{driverInfo.sobrenome}</h5>
+                      <h5 className='hidden sm:flex uppercase mr-2'>{driverInfo.sobrenome}</h5>
+                      <h5 className='sm:flex font-formula mr-1'>{driverInfo.nameAbreviado}</h5>
                       <p className='hidden md:flex font-titillium text-sm text-gray-600'>{driverInfo.teamName}</p>
                     </div>
                     <div className='flex items-center'>

@@ -133,12 +133,13 @@ const handleButtonClick = () => {
                 <div onClick={() => handleNavigateTeam(team)} key={team.id} className='cursor-pointer w-full gap-2 p-4 bg-white hover:bg-grayTotal transition duration-500 flex justify-between items-center rounded-md mb-2 hover-text-white'>
                   <div className='flex items-center font-formula-bold'>
                     <h5 className='mr-2 pr-2 border-r-4' style={{ borderColor: (team.color) || 'gray' }}>{team.position}</h5>
-                    <h5 className='uppercase mr-2'>{team.name}</h5>
+                    <h5 className='text-xs sm:text-sm md:text-lg uppercase mr-2'>{team.name}</h5>
                     <p className='hidden md:flex font-titillium text-sm text-gray-600'>{team.driverNames?.join(' / ')}</p>
                   </div>
                   <div className='flex items-center'>
-                    <img className="w-28 mr-4 lg:w-40" src={team.car ? `/img/cars/${team.car}` : "/img/cars/default.png"}></img>
-                    <p className='bg-gray-300 font-titillium rounded-2xl px-3 py-1 text-center'>{team.points} PTS</p>
+                    <img className="hidden sm:flex w-28 mr-4 lg:w-40" src={team.car ? `/img/cars/${team.car}` : "/img/cars/default.png"}></img>
+                    <p className='hidden sm:flex bg-gray-300 font-titillium rounded-2xl px-3 py-1 text-center'>{team.points} PTS</p>
+                    <p className='sm:hidden bg-gray-300 font-titillium rounded-2xl px-3 py-1 text-center'>{team.points}</p>
                     <ChevronRight className="chevron-right" style={{ color: selectedChampionship.color }} />
                   </div>
                 </div>
