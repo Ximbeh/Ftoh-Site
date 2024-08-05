@@ -14,8 +14,6 @@ import LoadingPage from '../components/js/Boundary/Loading';
 const Latest = () => {
   const location = useLocation();
   const {tag} = location.state || {};
-
-  console.log(tag);
   
   const { loading, error, data } = useQuery(GET_CHAMPIONSHIPS);
   const { selectedChampionship } = useContext(ChampionshipContext);
@@ -30,8 +28,6 @@ const Latest = () => {
           setChampionship(champ);
       }
   }, [data, selectedChampionship]);
-
-  console.log(selectedChampionship.color);
 
   if (loading) return <LoadingPage/>;
   if (error) return <p>Error: {error.message}</p>;

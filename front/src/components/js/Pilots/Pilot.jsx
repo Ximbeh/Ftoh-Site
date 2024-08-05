@@ -13,16 +13,15 @@ import { GET_ALLPHASES } from "../../../queries/getAllPhases";
 import { GET_ALLDRIVERSH } from "../../../queries/getAllDriverH";
 import { GET_ALLNEWS } from "../../../queries/getAllNews"
 import LoadingPage from "../Boundary/Loading";
+import { GET_PILOTSINFO } from "../../../queries/getPilotsInfo";
 
 
 const Pilot = () => {
-    const { selectedChampionship, selectedSeason, setSeason } = useContext(ChampionshipContext);
-    const { loading: loadingChampionships, error: errorChampionships, data: dataChampionships } = useQuery(GET_CHAMPIONSHIPS);
-    const { loading: loadingdriverH, error: errordriverH, data: datadriverH } = useQuery(GET_ALLDRIVERSH);
-    const { loading: driversLoading, error: driversError, data: driversData } = useQuery(GET_ALLDRIVERS);
-    const {loading: phasesLoading, error: phasesError, data: phasesData} = useQuery(GET_ALLPHASES)
-    const { loading: newsLoading, error: newsError, data: newsData } = useQuery(GET_ALLNEWS);
 
+
+    const {loading, error, data} = useQuery(GET_PILOTSINFO)
+    const { selectedChampionship, selectedSeason, setSeason } = useContext(ChampionshipContext);
+   
     const [championship, setChampionship] = useState(null);
     const [temporarySeason, setTemporarySeason] = useState(null);
 
@@ -33,38 +32,33 @@ const Pilot = () => {
     }, [location]);
 
     useEffect(() => {
-        if (dataChampionships && selectedChampionship) {
-            const champ = dataChampionships.championships.find(champ => champ.id === selectedChampionship.id);
+        if (data && selectedChampionship) {
+            const champ = data.championships.find(champ => champ.id === selectedChampionship.id);
             setChampionship(champ);
         }
-    }, [dataChampionships, selectedChampionship]);
+    }, [data, selectedChampionship]);
 
-    if (loadingChampionships || newsLoading || driversLoading || phasesLoading || loadingdriverH) return <LoadingPage/>;
-    if (errorChampionships) return <p>Error: {errorChampionships.message}</p>;
-    if (driversError) return <p>Error: {driversError.message}</p>;
-    if (phasesError) return <p>Error: {phasesError.message}</p>;
-    if (errordriverH) return <p>Error: {errordriverH.message}</p>;
-    if (newsError) return <p>Error: {newsError.message}</p>;
-
+    if (loading) return <LoadingPage/>;
+    if (error) return <p>Error: {error.message}</p>;
     if (!championship) return <p>Campeonato não encontrado</p>;
 
     
-    const driver = driversData.drivers.find(driver => driver.id == id)
+    const driver = data.drivers.find(driver => driver.id == id)
     // console.log(driver);
 
-    const driverHistory = driversData.drivers.filter(drivers=> drivers.name == driver.name)
-
+    const driverHistory = data.driverHistories.filter(drivers=> drivers.name == driver.name)
     // console.log(driverHistory);
     // console.log(phasesData);
+    console.log(driverHistory);
     
     
-    const phasesDriver = phasesData.phases.filter(phase => 
+    
+    const phasesDriver = data.phases.filter(phase => 
         phase.pilots.some(pilot => 
             driverHistory.some(driver => driver.id === pilot.pilotId)
         )
     );
     
-    const qualys = phasesDriver.filter(phase => phase.name === "Qualy");
     const races = phasesDriver.filter(phase=>phase.name == "Corrida")
     
     const totalPoints = races.reduce((total, phase) => {
@@ -143,17 +137,13 @@ const Pilot = () => {
     const totalFastLaps = Object.values(fastLapCounts).reduce((sum, count) => sum + count, 0);
 
    
-    const driverAllTime = datadriverH.driverHistories.find(drivers => 
+    const driverAllTime = data.driverHistories.find(drivers => 
         drivers.name.some(name => name === driver.name)
       );
 
       const nameParts = driver.name.split(" ");
     const lastName = nameParts[nameParts.length - 1];
-      const newsWithTag = newsData.news.filter(news => news.tags.includes(lastName));
-
-      console.log(newsWithTag);
-      
-
+      const newsWithTag = data.news.filter(news => news.tags.includes(lastName));
     
     return (
         <div className="bg-gray-200">
@@ -175,7 +165,7 @@ const Pilot = () => {
                         <div className="py-5 pt-10 px-4 border-b border-gray-500 md:ml-10 md:border-0">
                             <div className="mb-10 md:mb-5">
                                 <h5 className="font-formula-bold mb-1">Time</h5>
-                                <p className="font-formula text-sm">{driverHistory[driverHistory.length-1].team.name}</p>
+                                <p className="font-formula text-sm">{driver.team.name}</p>
                             </div>
                             <div className="mb-10 md:mb-5">
                                 <h5 className="font-formula-bold mb-1">Campeonatos</h5>

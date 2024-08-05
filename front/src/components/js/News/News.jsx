@@ -1,22 +1,21 @@
 import "../../css/news.css";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import NewsContainer from "./NewsContainer";
 import Footer from "../Footer";
 import Header from "../header/Header";
 import { useQuery } from '@apollo/client';
 import { ChampionshipContext } from '../../../Context/ChampionshipContext';
-import { useNavigate } from 'react-router-dom';
-import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useContext, useEffect, useState } from "react";
+import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { GET_ALLNEWS } from '../../../queries/getAllNews';
-import LoadingPage from '../Boundary/Loading'
+import LoadingPage from '../Boundary/Loading';
 
 const News = () => {
     const { id } = useParams();
     const location = useLocation();
+    const navigate = useNavigate()
     const { news: initialNews = {} } = location.state || {};
     const { selectedChampionship } = useContext(ChampionshipContext);
-    const navigate = useNavigate();
 
     const [news, setNews] = useState(initialNews);
 
@@ -30,41 +29,29 @@ const News = () => {
     useEffect(() => {
         if (!news.id && newsData) {
             const fetchedNews = newsData.news.find(item => item.id == id);
-            if (fetchedNews) {
-                setNews(fetchedNews);
-            }
+            if (fetchedNews) setNews(fetchedNews);
         }
-    }, [newsData, id, news.id]); // Ensure to include news.id in dependencies
+    }, [newsData, id, news.id]);
 
-
-    if (championshipsLoading || newsLoading) return <LoadingPage/>;
+    if (championshipsLoading || newsLoading) return <LoadingPage />;
     if (championshipsError || newsError) return <p>Error: {championshipsError?.message || newsError?.message}</p>;
 
-    const championshipId = selectedChampionship?.id;
-    const championship = championshipsData?.championships.find(champ => champ.id === championshipId);
-
+    const championship = championshipsData?.championships.find(champ => champ.id === selectedChampionship?.id);
     if (!championship) return <p>Campeonato não encontrado</p>;
 
     const newsLatest = championship.seasons.flatMap(season => season.news);
     const newsLessActual = newsLatest.filter(newsItem => newsItem.id !== id);
-    const mostRecent = newsLessActual.slice(newsLessActual.length - 3).reverse();
-    const secondMostRecente = newsLessActual.slice(newsLessActual.length - 6, newsLessActual.length - 3);
+    const mostRecent = newsLessActual.slice(-3).reverse();
+    const secondMostRecent = newsLessActual.slice(-6, -3);
 
-    const sameTag = newsLessActual.filter(newsItem => {
-        return news.tags?.some(tag => newsItem.tags.includes(tag));
-    }).slice(-6);
+    const sameTag = newsLessActual.filter(newsItem => news.tags?.some(tag => newsItem.tags.includes(tag))).slice(-6);
+    const uniqueById = (array) => Array.from(new Map(array.map(item => [item.id, item])).values());
+    const sameTagPlusLastNews = uniqueById([...sameTag, ...secondMostRecent]).slice(-6).reverse();
+    const sameTagPlusLastNewsFourItems = uniqueById([...sameTag, ...secondMostRecent]).slice(-4).reverse();
 
-    const uniqueById = (array) => {
-        const seen = new Set();
-        return array.filter(item => {
-            const duplicate = seen.has(item.id);
-            seen.add(item.id);
-            return !duplicate;
-        });
+    const handleTagClick = (tag) => {
+        navigate('/latest', { state: { tag } });
     };
-
-    const sameTagPlusLastNews = uniqueById(sameTag.concat(secondMostRecente)).slice(-6).reverse();
-    const sameTagPlusLastNewsFourItens = uniqueById(sameTag.concat(secondMostRecente)).slice(-4).reverse();
 
     if (!news.id) {
         return (
@@ -77,11 +64,6 @@ const News = () => {
             </div>
         );
     }
-
-    const handleTagClick = (tag) => {
-        
-        navigate('/latest', { state: { tag } });
-    };
 
     return (
         <div>
@@ -96,8 +78,8 @@ const News = () => {
                     {news.tags?.map(tag => (
                         <button
                             key={tag}
-                            className="text-xs  font-formula py-2 px-3 border-2  rounded-lg uppercase hover:border-4"
-                            style={{color: selectedChampionship.color, borderColor: selectedChampionship.color}}
+                            className="text-xs font-formula py-2 px-3 border-2 rounded-lg uppercase hover:border-4"
+                            style={{ color: selectedChampionship.color, borderColor: selectedChampionship.color }}
                             onClick={() => handleTagClick(tag)}
                         >
                             {tag}
@@ -106,13 +88,22 @@ const News = () => {
                 </div>
                 <div className="lg:grid lg:grid-cols-news gap-4">
                     <div>
-                        <img className="w-full object-contain border-t-8 border-r-8 rounded-tr-xl" style={{ borderColor: selectedChampionship.color }} src={news.image ? `/img/news/capa/${news.image}` : "https://via.placeholder.com/800x400"} alt="Notícia" />
+                        <img
+                            className="w-full object-contain border-t-8 border-r-8 rounded-tr-xl"
+                            style={{ borderColor: selectedChampionship.color }}
+                            src={news.image ? `/img/news/capa/${news.image}` : "https://via.placeholder.com/800x400"}
+                            alt="Notícia"
+                        />
                         <p className="mt-10 font-titillium font-bold lg:text-xl">{news.headline}</p>
                         <div className="mt-5 font-titillium lg:text-xl">
                             <p>{news.text}</p>
                         </div>
                         <div className="mt-5">
-                            <img className="rounded-tr-xl w-full object-contain" src={news.image ? `/img/news/capa/${news.image}` : "https://via.placeholder.com/800x400"} alt="Notícia" />
+                            <img
+                                className="rounded-tr-xl w-full object-contain"
+                                src={news.image ? `/img/news/capa/${news.image}` : "https://via.placeholder.com/800x400"}
+                                alt="Notícia"
+                            />
                             <p className="pb-2 mt-2 text-xs text-gray-500 font-titillium border-b border-r border-gray-500 rounded-br-lg">{news.description}</p>
                         </div>
                     </div>
@@ -122,7 +113,6 @@ const News = () => {
                             <NewsContainer
                                 key={newsItem.id}
                                 newsItem={newsItem}
-                            
                             />
                         ))}
                     </div>
@@ -131,8 +121,8 @@ const News = () => {
                     {news.tags?.map(tag => (
                         <button
                             key={tag}
-                            className="text-xs  font-formula py-2 px-3 border-2  rounded-lg uppercase hover:border-4"
-                            style={{color: selectedChampionship.color, borderColor: selectedChampionship.color}}
+                            className="text-xs font-formula py-2 px-3 border-2 rounded-lg uppercase hover:border-4"
+                            style={{ color: selectedChampionship.color, borderColor: selectedChampionship.color }}
                             onClick={() => handleTagClick(tag)}
                         >
                             {tag}
@@ -142,20 +132,18 @@ const News = () => {
                 <div className="mt-10">
                     <h2 className="font-formula-bold text-xl lg:text-3xl">Você também vai curtir</h2>
                     <div className="mt-2 md:grid md:grid-cols-2 md:gap-x-4 md:gap-y-2 lg:hidden md:max-w-3xl md:mx-auto">
-                        {sameTagPlusLastNewsFourItens.map(newsItem => (
+                        {sameTagPlusLastNewsFourItems.map(newsItem => (
                             <NewsContainer
                                 key={newsItem.id}
                                 newsItem={newsItem}
-                                
                             />
                         ))}
                     </div>
-                    <div className="hidden  mt-2 md:grid-cols-2 md:gap-x-4 md:gap-y-2 lg:grid lg:grid-cols-3 lg:max-w-6xl">
+                    <div className="hidden mt-2 md:grid-cols-2 md:gap-x-4 md:gap-y-2 lg:grid lg:grid-cols-3 lg:max-w-6xl">
                         {sameTagPlusLastNews.map(newsItem => (
                             <NewsContainer
                                 key={newsItem.id}
                                 newsItem={newsItem}
-                                
                             />
                         ))}
                     </div>
@@ -164,6 +152,6 @@ const News = () => {
             <Footer />
         </div>
     );
-}
+};
 
 export default News;

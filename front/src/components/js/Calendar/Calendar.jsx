@@ -14,6 +14,7 @@ import { GET_ALLSEASONS } from '../../../queries/getAllSeasons';
 import { GET_ALLRACES } from '../../../queries/getAllRaces';
 import defaultCape from '/img/capes/interlagosOne.jpg';
 import LoadingPage from '../Boundary/Loading';
+import {GET_CALENDAR_DATA} from '../../../queries/getCalendar'
 
 
 
@@ -22,38 +23,35 @@ const Calendar = () => {
     const location = useLocation();
     const { state } = location;
     const navigate = useNavigate();
+
+    const {loading, error, data} = useQuery(GET_CALENDAR_DATA)
+
     const { selectedChampionship, selectedSeason, setSeason } = useContext(ChampionshipContext);
 
-    const { loading: loadingChampionships, error: errorChampionships, data: dataChampionships } = useQuery(GET_CHAMPIONSHIPS);
-    const { loading: loadingSeasons, error: errorSeasons, data: dataSeason } = useQuery(GET_ALLSEASONS);
-    const { loading: loadingRaces, error: errorRaces, data: dataRace } = useQuery(GET_ALLRACES);
-    const { loading: driversLoading, error: driversError, data: driversData } = useQuery(GET_ALLDRIVERS);
 
     const [championship, setChampionship] = useState(null);
     const [temporarySeason, setTemporarySeason] = useState(null);
 
     useEffect(() => {
-        if (dataChampionships && selectedChampionship) {
-            const champ = dataChampionships.championships.find(champ => champ.id === selectedChampionship.id);
+        if (data && selectedChampionship) {
+            const champ = data.championships.find(champ => champ.id === selectedChampionship.id);
             setChampionship(champ);
         }
-    }, [dataChampionships, selectedChampionship]);
+    }, [data, selectedChampionship]);
 
     useEffect(() => {
-        if (dataSeason) {
+        if (data) {
         }
-    }, [dataSeason]);
+    }, [data]);
 
-    if (loadingChampionships || loadingSeasons || loadingRaces || driversLoading) return <LoadingPage/>;
-    if (errorChampionships) return <p>Error: {errorChampionships.message}</p>;
-    if (errorSeasons) return <p>Error: {errorSeasons.message}</p>;
-    if (errorRaces) return <p>Error: {errorRaces.message}</p>;
-    if (driversError) return <p>Error: {driversError.message}</p>;
-
+    if (loading) return <LoadingPage/>;
+    if (error) return <p>Error: {error.message}</p>;
     if (!championship) return <p>Campeonato não encontrado</p>;
 
     // Filtrar temporadas pelo nome do campeonato selecionado
-    const seasonByChampionship = dataSeason.seasons.filter(season => season.championshipName === selectedChampionship.name);
+    // console.log(data.seasons);
+    
+    const seasonByChampionship = data.seasons.filter(season => season.championshipName === selectedChampionship.name);
     // console.log('Season By Championship:', seasonByChampionship);
 
     // Encontrar a temporada atual no dataSeason
@@ -77,7 +75,7 @@ const Calendar = () => {
     const displayedSeason = temporarySeason || actualSeason; // Use a temporada temporária se estiver definida, caso contrário, use a temporada atual
 
 
-    const filteredRaces = dataRace.races.filter(race =>
+    const filteredRaces = data.races.filter(race =>
     (race.calendar[0].season[0].date == displayedSeason.date &&
         race.calendar[0].season[0].championship.id == championship.id)
     )
@@ -95,9 +93,9 @@ const Calendar = () => {
         ? filteredRaces[actualRaceIndex + 1]
         : null; 
 
-    const racesBefore = dataRace.races.slice(0, actualRaceIndex+1);
+    const racesBefore = data.races.slice(0, actualRaceIndex+1);
 
-    const racesAfter = filteredRaces.slice(actualRaceIndex+2, dataRace.races.length)
+    const racesAfter = filteredRaces.slice(actualRaceIndex+2, data.races.length)
 
     // console.log("antes da corrida: ", racesBefore);
     // console.log("corrida atual: ", actualRace);
@@ -184,9 +182,9 @@ const Calendar = () => {
                      
 
                         if (!lastPhase || !lastPhase.pilots) {
-                            console.log(undefined);
+                            // console.log(undefined);
                         } else {
-                            console.log("a", race);
+                            // console.log("a", race);
                             const firstPilot = race.phases[race.phases.length - 1].pilots.find((pilot) => pilot.position == 1);
                             const secondPilot = race.phases[race.phases.length - 1].pilots.find((pilot) => pilot.position == 2);
                             const thirdPilot = race.phases[race.phases.length - 1].pilots.find((pilot) => pilot.position == 3);
@@ -194,9 +192,9 @@ const Calendar = () => {
                         
                          
                             
-                            const firstPilotInfo = driversData.drivers.find((driver) => driver.id == firstPilot.pilotId)
-                            const secondPilotInfo = driversData.drivers.find((driver) => driver.id == secondPilot.pilotId)
-                            const thirdPilotInfo = driversData.drivers.find((driver) => driver.id == thirdPilot.pilotId)
+                            const firstPilotInfo = data.drivers.find((driver) => driver.id == firstPilot.pilotId)
+                            const secondPilotInfo = data.drivers.find((driver) => driver.id == secondPilot.pilotId)
+                            const thirdPilotInfo = data.drivers.find((driver) => driver.id == thirdPilot.pilotId)
                         
 
                             // Verificar se algum piloto foi encontrado e preparar mensagens padrão caso não tenha encontrado
@@ -312,7 +310,6 @@ const Calendar = () => {
                                <h4 className="uppercase font-formula-bold text-red-500 pr-2 absolute -top-4 bg-grayTotal">Estágio - Próximo</h4>
                 <div className="flex justify-between items-center py-4 mr-2 border-b-2 border-gray-400 mb-4">
                     <div className="flex flex-col">
-                        {/* Atualize os campos aqui usando dayRange e monthRange */}
                         <h3 className="font-formula-bold text-2xl">{dayRange}</h3>
                         <h4 className="text-center font-formula-bold text-lg text-black bg-white px-2 rounded-xl uppercase">{monthRange}</h4>
                     </div>
@@ -425,37 +422,7 @@ const Calendar = () => {
                         </div>
                     </div>
                 </div>
-                {/* <div className="bg-grayTotal px-8 py-4 text-white flex flex-col gap-4">
-                    <div className="max-w-xl mx-auto md:max-w-3xl lg:max-w-5xl xl:max-w-7xl lg:flex lg:flex-rows lg:gap-4">
-                        <div className="img-background-1 rounded-2xl p-2">
-                            <div className="border-t-2 border-r-2 border-white rounded-tr-2xl pt-2 pr-2">
-                                <div className="bg-gray-700 bg-opacity-20 rounded-t-2xl px-2 py-6 grid grid-cols-2">
-                                    <div>
-                                        <h3 className="font-formula-bold text-xl mb-2">Formula 2</h3>
-                                        <p className="font-titillium mb-2">Veja o calendário da temporada da F2</p>
-                                        <button className="bg-red-500 p-2 pl-4 text-sm flex rounded-md">Veja <ChevronRight height="20" /></button>
-                                    </div>
-                                    <img className="px-8" src={formulaLogo} alt="" />
-
-                                </div>
-                            </div>
-                        </div>
-                        <div className="img-background-1 rounded-2xl p-2">
-                            <div className="border-t-2 border-r-2 border-white rounded-tr-2xl pt-2 pr-2">
-                                <div className="bg-gray-700 bg-opacity-20 rounded-t-2xl px-2 py-6 grid grid-cols-2">
-                                    <div>
-                                        <h3 className="font-formula-bold text-xl mb-2">Formula 2</h3>
-                                        <p className="font-titillium mb-2">Veja o calendário da temporada da F2</p>
-                                        <button className="bg-red-500 p-2 pl-4 text-sm flex rounded-md">Veja <ChevronRight height="20" /></button>
-                                    </div>
-                                    <img className="px-8" src={formulaLogo} alt="" />
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div> */}
+              
             </main >
             <Footer></Footer>
         </div >

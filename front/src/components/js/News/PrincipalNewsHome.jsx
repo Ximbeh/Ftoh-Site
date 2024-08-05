@@ -2,11 +2,10 @@ import React, { forwardRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 
-
-
 const PrincipalNewsHome = forwardRef(({ news, index }, ref) => {
   const { selectedChampionship } = useContext(ChampionshipContext);
-  
+  const navigate = useNavigate();
+
   if (!news) {
     return (
       <div ref={ref} className="principalHome py-6 lg:py-0 font-formula bg-white">
@@ -15,30 +14,25 @@ const PrincipalNewsHome = forwardRef(({ news, index }, ref) => {
     );
   }
 
-  // console.log("index: " + index);
-
-  const { tags, title, image } = news;
+  const { tags = [], title, image } = news;
   const imagePath = image ? `/img/news/capa/${image}` : "https://via.placeholder.com/800x400";
-  const navigate = useNavigate();
-
-  const handleNewsClick = (news) => {
-    navigate(`/News/${news.id}`, { state: {news} });
+  
+  const handleNewsClick = () => {
+    navigate(`/News/${news.id}`, { state: { news } });
   };
 
-  const tagsString = tags[0];
-  const tagArray = tagsString.split(', ');
-  const firstTag = tagArray[0];
+  const [firstTag = 'Sem categoria'] = tags;
 
   return (
     <div ref={ref} className="principalHome py-6 lg:py-0 font-formula bg-white">
       <div
         className="hover:cursor-pointer pt-3 pr-3 border-l-0 border-b-0 border-r-8 border-t-8 border-solid rounded-tr-3xl max-w-lg m-auto
-        md:max-w-screen-md lg:"
+        md:max-w-screen-md"
         style={{ borderColor: selectedChampionship.color }}
-        onClick={() => handleNewsClick(news)}
+        onClick={handleNewsClick}
       >
         <p className="text-xs font-formula-bold mb-1 uppercase" style={{ color: selectedChampionship.color }}>
-          {firstTag || 'Sem categoria'}
+          {firstTag}
         </p>
         <h2 className="text-black text-2xl font-formula-bold mb-5 hover:underline">{title}</h2>
         <div className="overflow-hidden inline-block rounded-sm w-full">

@@ -1,34 +1,25 @@
 import { gql } from "@apollo/client";
 
 export const GET_CHAMPIONSHIPS = gql`
- query getAllChampionships {
-  championships {
-    id
-    championshipName
-    logo
-    color
-    seasons {
+  query getAllChampionships {
+    championships {
       id
-      seasonId
-      date
       championshipName
-      news {
+      logo
+      color
+      seasons {
         id
-    title
-    headline
-    text
-    writer
-    tags
-    image
-    video
-    driverId
-    raceId
-    teamId
-    seasonId
-    newsId
+        seasonId
+        date
+        championshipName
+        news {
+          id
+          title
+          tags
+          image
+          newsId
+        }
       }
     }
-    
   }
-}
 `;

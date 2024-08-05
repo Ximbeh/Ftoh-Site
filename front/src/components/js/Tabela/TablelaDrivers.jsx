@@ -8,32 +8,28 @@ import { useContext } from 'react';
 import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useQuery } from '@apollo/client';
-import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
-import { GET_ALLTEAMS } from '../../../queries/getAllTeams';
 import { useNavigate } from 'react-router-dom';
 import LoadingPage from '../Boundary/Loading';
+import { GET_TABELADRIVERS } from '../../../queries/getTabelaDrivers';
 
 
 const TabelaDrivers = () => {
-  const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
-
-  const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
-  const { loading: driversLoading, error: driversError, data: driversData } = useQuery(GET_ALLDRIVERS);
-  const { loading: teamsLoading, error: teamsError, data: teamsData } = useQuery(GET_ALLTEAMS);
-
+  
   const navigate = useNavigate();
+  const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
+  const { loading: tabelaLoading, error: tabelaError, data: tabelaData } = useQuery(GET_TABELADRIVERS);
+  const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
 
-
-  if (championshipsLoading || driversLoading || teamsLoading) return <LoadingPage/>;
-  if (championshipsError || driversError || teamsError) return <p>Error: {championshipsError?.message || driversError?.message || teamsError?.message}</p>;
+  if (championshipsLoading || tabelaLoading) return <LoadingPage />;
+  if (championshipsError || tabelaError) return <p>Error: {championshipsError?.message || tabelaError?.message}</p>;
 
   const championshipId = selectedChampionship?.id;
   const championship = championshipsData?.championships.find(champ => champ.id === championshipId);
 
   if (!championship) return <p>Campeonato não encontrado</p>;
 
-  const filteredDrivers = driversData?.drivers.filter(driver => {
-    const team = teamsData?.teams.find(team => team.id === driver.teamId);
+  const filteredDrivers = tabelaData?.drivers.filter(driver => {
+    const team = tabelaData?.teams.find(team => team.id === driver.teamId);
     return team && team.seasonId === selectedSeason?.[0]?.seasonId && team.season?.championship?.id === championshipId;
   });
 
@@ -42,7 +38,7 @@ const TabelaDrivers = () => {
     .slice(0, 10);
 
   const driversInfo = topDrivers?.map(driver => {
-    const team = teamsData?.teams.find(team => team.id === driver.teamId);
+    const team = tabelaData?.teams.find(team => team.id === driver.teamId);
     const [nome, ...sobrenomeArr] = driver.name.split(' ');
     const sobrenome = sobrenomeArr.join(' ');
     const teamColor = team?.color || 'gray'; // Default color if team color is not available
@@ -181,7 +177,7 @@ const handleButtonClick = () => {
                     <h5 className='hidden md:flex font-formula mr-1'>{driver.nome}</h5>
                     <h5 className='hidden sm:flex uppercase mr-2'>{driver.sobrenome}</h5>
                     <h5 className='sm:hidden uppercase mr-2'>{driver.nameAbreviado}</h5>
-                    <p className='hidden md:flex font-titillium text-sm text-gray-600'>{teamsData?.teams.find(team => team.id === driver.teamId)?.name || 'Team not found'}</p>
+                    <p className='hidden md:flex font-titillium text-sm text-gray-600'>{tabelaData?.teams.find(team => team.id === driver.teamId)?.name || 'Team not found'}</p>
                   </div>
                   <div className='flex item-center'>
                     <p className='bg-gray-300 font-titillium rounded-2xl px-3 py-1'>{driver.points} PTS</p>

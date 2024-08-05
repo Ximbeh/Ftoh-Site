@@ -4,29 +4,27 @@ import { useContext } from 'react';
 import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import { useQuery } from '@apollo/client';
-import { GET_ALLDRIVERS } from '../../../queries/getAllPilots';
-import { GET_ALLTEAMS } from '../../../queries/getAllTeams';
 import { useNavigate } from 'react-router-dom';
 import LoadingPage from '../Boundary/Loading';
+import { GET_TABELATEAMS } from '../../../queries/getTabelaTeams';
 
 
 const TabelaTeams = () => {
-  const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
-
-  const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
-  const { loading: driversLoading, error: driversError, data: driversData } = useQuery(GET_ALLDRIVERS);
-  const { loading: teamsLoading, error: teamsError, data: teamsData } = useQuery(GET_ALLTEAMS);
   const navigate = useNavigate();
+  const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
+  const { loading: tabelaLoading, error: tabelaError, data: tabelaData } = useQuery(GET_TABELATEAMS);
+  const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
 
-  if (championshipsLoading || driversLoading || teamsLoading) return <LoadingPage/>;
-  if (championshipsError || driversError || teamsError) return <p>Error: {championshipsError?.message || driversError?.message || teamsError?.message}</p>;
+  if (championshipsLoading || tabelaLoading) return <LoadingPage />;
+  if (championshipsError || tabelaError) return <p>Error: {championshipsError?.message || tabelaError?.message}</p>;
+
 
   const championshipId = selectedChampionship?.id;
   const championship = championshipsData?.championships.find(champ => champ.id === championshipId);
 
   if (!championship) return <p>Campeonato não encontrado</p>;
 
-  const filteredTeams = teamsData?.teams.filter(team => {
+  const filteredTeams = tabelaData?.teams.filter(team => {
     if (team && team.seasonId) {
       const hasSeason = team.seasonId === selectedSeason[0]?.seasonId &&
       team.season.championship.id == championshipId
@@ -43,7 +41,7 @@ const TabelaTeams = () => {
 
   const teamDetails = topTeams.map(team => {
     // Find drivers associated with the team
-    const teamDrivers = driversData?.drivers.filter(driver => driver.teamId === team.id);
+    const teamDrivers = tabelaData?.drivers.filter(driver => driver.teamId === team.id);
     const driverNames = teamDrivers?.map(driver => {
       const [, ...sobrenomeArr] = driver.name.split(' ');
       return sobrenomeArr.join(' ');
