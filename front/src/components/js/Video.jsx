@@ -3,7 +3,7 @@ import React from 'react';
 
 const Video = ({ videoNews }) => {
   // console.log(videoNews );
-  const imagePath =  videoNews.image ? `../../../../public/img/news/capa/${videoNews.image}` : "https://via.placeholder.com/800x400";
+  const imagePath =  videoNews.image ? `/img/news/capa/${videoNews.image}` : "https://via.placeholder.com/800x400";
 
   return (
     <div className='max-w-lg mx-auto md:max-w-screen-md max-w-screen-lg-30 xl:max-w-screen-xl'>

@@ -16,7 +16,7 @@ const SecondNews = (news) => {
     );
   }
 
-  const imagePath = news.news.image ? `../../../../public/img/news/capa/${news.news.image}` : "https://via.placeholder.com/800x400";
+  const imagePath = news.news.image ? `/img/news/capa/${news.news.image}` : "https://via.placeholder.com/800x400";
 
   const navigate = useNavigate();
 

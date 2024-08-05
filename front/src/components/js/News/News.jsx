@@ -106,13 +106,13 @@ const News = () => {
                 </div>
                 <div className="lg:grid lg:grid-cols-news gap-4">
                     <div>
-                        <img className="w-full object-contain border-t-8 border-r-8 rounded-tr-xl" style={{ borderColor: selectedChampionship.color }} src={news.image ? `../../../../public/img/news/capa/${news.image}` : "https://via.placeholder.com/800x400"} alt="Notícia" />
+                        <img className="w-full object-contain border-t-8 border-r-8 rounded-tr-xl" style={{ borderColor: selectedChampionship.color }} src={news.image ? `/img/news/capa/${news.image}` : "https://via.placeholder.com/800x400"} alt="Notícia" />
                         <p className="mt-10 font-titillium font-bold lg:text-xl">{news.headline}</p>
                         <div className="mt-5 font-titillium lg:text-xl">
                             <p>{news.text}</p>
                         </div>
                         <div className="mt-5">
-                            <img className="rounded-tr-xl w-full object-contain" src={news.image ? `../../../../public/img/news/capa/${news.image}` : "https://via.placeholder.com/800x400"} alt="Notícia" />
+                            <img className="rounded-tr-xl w-full object-contain" src={news.image ? `/img/news/capa/${news.image}` : "https://via.placeholder.com/800x400"} alt="Notícia" />
                             <p className="pb-2 mt-2 text-xs text-gray-500 font-titillium border-b border-r border-gray-500 rounded-br-lg">{news.description}</p>
                         </div>
                     </div>

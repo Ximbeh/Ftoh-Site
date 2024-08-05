@@ -10,7 +10,7 @@ import { ChampionshipContext } from '../../../Context/ChampionshipContext';
 import { GET_ALLRACES } from '../../../queries/getAllRaces';
 import { useQuery } from '@apollo/client';
 
-import defaultCape from '../../../../public/img/capes/defaultHeader.jpg';
+import defaultCape from '/img/capes/defaultHeader.jpg';
 import LoadingPage from '../Boundary/Loading';
 
 const Race = () => {
@@ -32,7 +32,7 @@ const Race = () => {
 
     // Verifique se a imagem é importada corretamente
     const imageHeader = race && race.capeTwo 
-        ? (`../../../../public/img/capes/${race.capeTwo}`)
+        ? (`/img/capes/${race.capeTwo}`)
         : defaultCape;
 
     const handleActive = (e) => {
