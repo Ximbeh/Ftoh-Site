@@ -40,7 +40,7 @@ const HeaderTwo = () => {
             <div className="flex space-x-8 max-w-screen-lg ml-10">
                 <img className="h-8 my-5 cursor-pointer"
                     onClick={() => navigate('/')}
-                    src={`../../../../public/img/championship/${selectedLogo}`}
+                    src={`/img/championship/${selectedLogo}`}
                     style={{ filter: 'invert(50%) brightness(200%)' }} />
                 <div className="flex items-center font-formula text-xs text-white">
                     <a
