@@ -27,6 +27,7 @@ export const TypeDefs = /* GraphQL */ `
     capeTwo: String
     finished: Boolean
     resume: String
+    highlight: String
   }
 
   input UpdateRaceInput {
@@ -45,6 +46,7 @@ export const TypeDefs = /* GraphQL */ `
     capeTwo: String
     finished: Boolean
     resume: String
+    highlight: String
   }
 
   type Race {
@@ -64,6 +66,7 @@ export const TypeDefs = /* GraphQL */ `
     capeTwo: String
     finished: Boolean
     resume: String
+    highlight: String
 
     calendar: [Calendar]
     phases: [Phase]

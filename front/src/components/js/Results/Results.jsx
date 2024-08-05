@@ -14,11 +14,12 @@ import { GET_ALLNEWS } from "../../../queries/getAllNews"
 import { GET_ALLSEASONS } from "../../../queries/getAllSeasons"
 import { GET_ALLRACES } from "../../../queries/getAllRaces"
 import LoadingPage from "../Boundary/Loading";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 
 const Results = () => {
-    const { selectedChampionship, selectedSeason, setSeason } = useContext(ChampionshipContext);
+    const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
     const { loading: loadingChampionships, error: errorChampionships, data: dataChampionships } = useQuery(GET_CHAMPIONSHIPS);
     const { loading: seasonLoading, error: seasonError, data: seasonData } = useQuery(GET_ALLSEASONS);
     const { loading: driversLoading, error: driversError, data: driversData } = useQuery(GET_ALLDRIVERS);
@@ -31,6 +32,9 @@ const Results = () => {
     const [finalSelect, setFinalSelect] = useState('All');
     const [raceSelect, setRaceSelect] = useState('Resultado da corrida');
 
+    const location = useLocation();
+    const navigate = useNavigate();
+
     useEffect(() => {
         if (dataChampionships && selectedChampionship) {
             const champ = dataChampionships.championships.find(champ => champ.id === selectedChampionship.id);
@@ -41,25 +45,24 @@ const Results = () => {
     useEffect(() => {
         if (championship && seasonData) {
             const filteredSeasons = seasonData.seasons.filter(season => season.championshipName === championship.championshipName);
+            const initialTemporarySeason = location.state?.temporarySeason || (selectedSeason ? filteredSeasons[filteredSeasons.length - 1]?.seasonId : null);
 
-            if (selectedSeason && selectedSeason.length > 0) {
-                setTemporarySeason(filteredSeasons[filteredSeasons.length - 1]);
-            }
+            setTemporarySeason(filteredSeasons.find(season => season.seasonId === initialTemporarySeason) || null);
         }
-    }, [championship, seasonData, selectedSeason]);
+    }, [championship, seasonData, selectedSeason, location.state]);
 
-    const handleSeasonChange = (event) => {
-        const selectedSeasonId = event.target.value;
-        const selectedSeasonObj = filteredSeasons.find(season => season.seasonId === selectedSeasonId);
+    useEffect(() => {
+        if (championship && seasonData) {
+            const filteredSeasons = seasonData.seasons.filter(season => season.championshipName === championship.championshipName);
+            const initialMidSelect = location.state?.midSelect || 'Corridas';
+            const initialFinalSelect = location.state?.finalSelect || 'All';
 
-        if (selectedSeasonObj) {
-            setTemporarySeason(selectedSeasonObj);
-        } else {
-            setTemporarySeason(null);  // Use `null` instead of an empty string
+            setMidSelect(initialMidSelect);
+            setFinalSelect(initialFinalSelect);
         }
-    };
+    }, [championship, seasonData, location.state]);
 
-    if (loadingChampionships || driversLoading || teamsLoading || seasonLoading || racesLoading) return <LoadingPage/>;
+    if (loadingChampionships || driversLoading || teamsLoading || seasonLoading || racesLoading) return <LoadingPage />;
     if (errorChampionships) return <p>Error: {errorChampionships.message}</p>;
     if (driversError) return <p>Error: {driversError.message}</p>;
     if (teamsError) return <p>Error: {teamsError.message}</p>;
@@ -75,15 +78,26 @@ const Results = () => {
         .sort((a, b) => a.position - b.position);
     const filteredTeams = teamsData.teams.filter(team => team.seasonId === temporarySeason?.seasonId).sort((a, b) => a.position - b.position);
 
+    const handleSeasonChange = (event) => {
+        const selectedSeasonId = event.target.value;
+        const selectedSeasonObj = filteredSeasons.find(season => season.seasonId === selectedSeasonId);
+
+        if (selectedSeasonObj) {
+            setTemporarySeason(selectedSeasonObj);
+        } else {
+            setTemporarySeason(null);  // Use `null` instead of an empty string
+        }
+    };
+
     const handleMidSelectChange = (event) => {
         const selectedMid = event.target.value;
         setMidSelect(selectedMid);
-        setFinalSelect('All');  // Reset `finalSelect` when `midSelect` changes
+        setFinalSelect('All');
     };
 
     const handleFinalSelectChange = (event) => {
         const selectedFinal = event.target.value;
-        setFinalSelect(selectedFinal === 'all' ? 'All' : selectedFinal); // Ajuste para garantir que 'all' se torne 'All'
+        setFinalSelect(selectedFinal === 'all' ? 'All' : selectedFinal);
     };
 
     const raceOptions = filteredRaces.map(race => (
@@ -121,6 +135,17 @@ const Results = () => {
     ? filteredRaces.find(race => race.id === finalSelect)
     : null; 
 
+    const handleButtonClick = () => {
+        if (raceSelected) {
+            navigate('/Results', {
+                state: {
+                    temporarySeason: raceSelected.calendar[0].season[0].seasonId,
+                    midSelect: 'Corridas',
+                    finalSelect: raceSelected.id,
+                }
+            });
+        }
+    };
 
     return (
         <div>

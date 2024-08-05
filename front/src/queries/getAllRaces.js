@@ -8,6 +8,7 @@ query GetRaceAndCalendars {
     name
     finished
     resume
+    highlight
     calendarId
     description
     fullName

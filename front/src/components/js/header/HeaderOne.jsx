@@ -45,20 +45,20 @@ const HeaderOne = () => {
                 </div>
             </div>
             <div className="flex gap-8 mr-40 items-center">
-                <div target="_blank" href="https://www.youtube.com/channel/UCsNl4k9tn7Ao7wDiykfaHfg" className="flex font-formula-bold cursor-pointer text-gray-500 hover:text-black text-xs items-center gap-2">
+                <a target="_blank" href="https://www.youtube.com/channel/UCsNl4k9tn7Ao7wDiykfaHfg" className="flex font-formula-bold cursor-pointer text-gray-500 hover:text-black text-xs items-center gap-2">
                     <p>YouTohbe</p>
                     <FaYoutube size="2em" color="red" />
 
-                </div>
-                <div target="_blank" href="https://www.tiktok.com/@formulatoh" className="flex font-formula-bold cursor-pointer text-gray-500 hover:text-black text-xs items-center gap-2">
+                </a>
+                <a target="_blank" href="https://www.tiktok.com/@formulatoh" className="flex font-formula-bold cursor-pointer text-gray-500 hover:text-black text-xs items-center gap-2">
                     <p>Tik-Tohk</p>
                     <FaTiktok size="2em" color="black" />
 
-                </div>
-                <div target="_blank" href="https://discord.com/invite/MuQ7QX6cPr" className="flex font-formula-bold cursor-pointer text-gray-500 hover:text-black text-xs items-center gap-2">
+                </a>
+                <a target="_blank" href="https://discord.com/invite/MuQ7QX6cPr" className="flex font-formula-bold cursor-pointer text-gray-500 hover:text-black text-xs items-center gap-2">
                     <p>Distohrd</p>
                     <FaDiscord size="2em" color="#7289da"></FaDiscord>
-                </div>
+                </a>
             </div>
 
         </div>

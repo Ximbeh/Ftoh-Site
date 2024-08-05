@@ -50,7 +50,8 @@ const HeaderTwo = () => {
                         <span className="hover:opacity-100">Notícias</span>
                     </a>
                     <a
-                        className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer" href="https://www.youtube.com/channel/UCsNl4k9tn7Ao7wDiykfaHfg" target='_blank'
+                        className="hover:bg-grayTotal h-full flex items-center px-4 transition ease-out duration-500 cursor-pointer" 
+                        href="https://www.youtube.com/channel/UCsNl4k9tn7Ao7wDiykfaHfg" target='_blank'
                     >
                         <span className="hover:opacity-100">Vídeo</span>
                     </a>

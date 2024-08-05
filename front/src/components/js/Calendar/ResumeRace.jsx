@@ -5,13 +5,17 @@ import { useQuery } from "@apollo/client"
 import { GET_ALLDRIVERS } from "../../../queries/getAllPilots"
 import { GET_ALLNEWS } from "../../../queries/getAllNews"
 import LoadingPage from "../Boundary/Loading"
+import { useNavigate } from 'react-router-dom';
+
 
 
 const ResumeRace = ({ race, selectedChampionship }) => {
+    const navigate = useNavigate();
+
     const { loading: driverLoading, error: driverError, data: driverData } = useQuery(GET_ALLDRIVERS);
     const { loading: newsLoading, error: newsError, data: newsData } = useQuery(GET_ALLNEWS);
 
-    if (driverLoading || newsLoading) return <LoadingPage/>;
+    if (driverLoading || newsLoading) return <LoadingPage />;
     if (driverError) return <p>Error: {driverError?.message}</p>;
     if (newsError) return <p>Error: {newsError?.message}</p>;
 
@@ -36,6 +40,20 @@ const ResumeRace = ({ race, selectedChampionship }) => {
     const { nome: secondNome, sobrenome: secondSobrenome } = getNomeESobrenome(secondPilotInfo.name);
     const { nome: thirdNome, sobrenome: thirdSobrenome } = getNomeESobrenome(thirdPilotInfo.name);
 
+    const handleButtonClick = () => {
+        navigate('/Results', {
+            state: {
+                temporarySeason: race.calendar[0].season[0].seasonId,
+                midSelect: 'Corridas',
+                finalSelect: race.id, // substitua com a lógica para obter o ID da corrida
+            }
+        });
+    };
+
+    const handleButtonClickHigh = () => {
+        const url = race.highlight ? race.highlight : "https://www.youtube.com/channel/UCsNl4k9tn7Ao7wDiykfaHfg";
+        window.location.href = url;
+    };
 
 
     const newsWithTag = newsData.news.filter(news => news.tags.includes(race.name));
@@ -94,11 +112,17 @@ const ResumeRace = ({ race, selectedChampionship }) => {
                     </div>
                     <div className="flex flex-col gap-1 mb-2 md:flex-row">
                         <button
+                            onClick={handleButtonClick}
                             className="buttonResultados w-full md:w-min flex justify-between items-center hover:bg-gray-200 text-white rounded-md text-start px-4 py-3 font-formula text-xs uppercase"
                             style={{ '--selected-color': selectedChampionship.color }}
                         >Resultados <ChevronRight color="white" /></button>
-                        <button className="buttonHighlights w-full md:w-min flex justify-between items-center border-2  rounded-md text-start px-4 py-3 font-formula text-xs duration-200 uppercase"
-                            style={{ '--selected-color': selectedChampionship.color }}>Highlights <ChevronRight color="rgb(229 57 53)" /></button>
+                        <button
+                            className="buttonHighlights w-full md:w-min flex justify-between items-center border-2 rounded-md text-start px-4 py-3 font-formula text-xs duration-200 uppercase"
+                            style={{ '--selected-color': selectedChampionship.color }}
+                            onClick={handleButtonClickHigh}
+                        >
+                            Highlights <ChevronRight color="rgb(229 57 53)" />
+                        </button>
                     </div>
 
                 </div>
