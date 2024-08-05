@@ -33,6 +33,7 @@ export const GET_TEAM = gql`
       id
       tags
       image
+      writer
       title
     }
   }

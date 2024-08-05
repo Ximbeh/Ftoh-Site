@@ -19,7 +19,7 @@ const NewsContainer = ({ newsItem }) => {
   const imagePath = image ? `/img/news/capa/${image}` : "https://via.placeholder.com/800x400";
 
   const handleNewsClick = () => {
-    navigate(`/News/${newsItem.id}`, { state: { news: newsItem } });
+    navigate(`/news/${newsItem.id}`);
   };
 
   return (

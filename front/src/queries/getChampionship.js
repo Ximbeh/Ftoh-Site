@@ -18,6 +18,9 @@ export const GET_CHAMPIONSHIPS = gql`
           tags
           image
           newsId
+          writer
+          text
+          headline
         }
       }
     }

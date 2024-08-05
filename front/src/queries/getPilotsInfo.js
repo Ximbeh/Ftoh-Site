@@ -64,6 +64,7 @@ export const GET_PILOTSINFO = gql`
       tags
       title
       image
+      writer
     }
   }
 `;

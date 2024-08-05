@@ -22,6 +22,7 @@ query getPilots {
       tags
       title
       image
+      writer
     }
   }
 }

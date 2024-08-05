@@ -12,29 +12,39 @@ import LoadingPage from '../Boundary/Loading';
 
 const News = () => {
     const { id } = useParams();
-    const location = useLocation();
-    const navigate = useNavigate()
-    const { news: initialNews = {} } = location.state || {};
+    const navigate = useNavigate();
     const { selectedChampionship } = useContext(ChampionshipContext);
-
-    const [news, setNews] = useState(initialNews);
+    const [news, setNews] = useState(null);
 
     const { loading: championshipsLoading, error: championshipsError, data: championshipsData } = useQuery(GET_CHAMPIONSHIPS);
     const { loading: newsLoading, error: newsError, data: newsData } = useQuery(GET_ALLNEWS);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [location]);
+    const newsItem = newsData?.news.find(item => item.id === id);
 
     useEffect(() => {
-        if (!news.id && newsData) {
-            const fetchedNews = newsData.news.find(item => item.id == id);
-            if (fetchedNews) setNews(fetchedNews);
+        window.scrollTo(0, 0);
+    }, [id]);
+
+    useEffect(() => {
+        if (newsItem) {
+            setNews(newsItem);
         }
-    }, [newsData, id, news.id]);
+    }, [newsItem]);
 
     if (championshipsLoading || newsLoading) return <LoadingPage />;
     if (championshipsError || newsError) return <p>Error: {championshipsError?.message || newsError?.message}</p>;
+
+    if (!news) {
+        return (
+            <div>
+                <Header />
+                <div className="max-w-md mx-auto px-2 my-8">
+                    <h1>Notícia não encontrada</h1>
+                </div>
+                <Footer />
+            </div>
+        );
+    }
 
     const championship = championshipsData?.championships.find(champ => champ.id === selectedChampionship?.id);
     if (!championship) return <p>Campeonato não encontrado</p>;
@@ -52,18 +62,6 @@ const News = () => {
     const handleTagClick = (tag) => {
         navigate('/latest', { state: { tag } });
     };
-
-    if (!news.id) {
-        return (
-            <div>
-                <Header />
-                <div className="max-w-md mx-auto px-2 my-8">
-                    <h1>Notícia não encontrada</h1>
-                </div>
-                <Footer />
-            </div>
-        );
-    }
 
     return (
         <div>
