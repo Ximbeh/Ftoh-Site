@@ -22,11 +22,7 @@
   top: 130px;
 }
 
-.bottom-fixed-sidebar {
-  width: 513px;
-  position: absolute;
-  bottom: 28px;
-}
+
 
 @media (min-width: 1140px) {
   .bottom-fixed-sidebar {
