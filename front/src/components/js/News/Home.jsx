@@ -11,6 +11,7 @@ import LoadingPage from '../Boundary/Loading';
 
 const NewsHome = ({ championshipColorHex }) => {
   const { selectedChampionship } = useContext(ChampionshipContext);
+  
   const navigate = useNavigate();
 
   const contentAreaRef = useRef(null);

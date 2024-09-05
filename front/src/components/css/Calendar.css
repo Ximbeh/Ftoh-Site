@@ -2,6 +2,10 @@
     filter: invert(1);
 }
 
+.hoverColor:hover{
+  border-color: var(--champColor);
+}
+
 .gray{
   filter: grayscale(100%) invert(100%);
   transition: .2s;

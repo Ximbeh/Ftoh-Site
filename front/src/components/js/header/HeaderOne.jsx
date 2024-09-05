@@ -9,14 +9,22 @@ import LoadingPage from "../Boundary/Loading";
 
 const HeaderOne = () => {
     const { loading, error, data } = useQuery(GET_CHAMPIONSHIPS);
-    const { selectedChampionship, setChampionship } = useContext(ChampionshipContext);
+    const { selectedChampionship, setChampionship, setSelectedSeason } = useContext(ChampionshipContext);
     const navigate = useNavigate();
 
     if (loading) return <LoadingPage />;
     if (error) return <p>Error: {error.message}</p>;
 
     const handleChampionshipClick = (championship) => {
-        setChampionship(championship.id, championship.championshipName, championship.color, championship.logo);
+        setChampionship({
+            id: championship.id,
+            name: championship.championshipName,
+            color: championship.color,
+            logo: championship.logo
+        });
+        
+        const lastSeason = championship.seasons[championship.seasons.length - 1];        
+        setSelectedSeason([lastSeason]);
         navigate(`/${championship.id}`);
     };
 

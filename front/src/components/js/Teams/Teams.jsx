@@ -97,7 +97,7 @@ const Teams = () => {
                     ))}
                 </div>
 
-                <button className="flex duration-200 mx-auto mb-10 border-t-2 border-r-2 border-black rounded-tr-xl py-4 text-black font-formula hover:border-red-500 hover:text-red-500 cursor-pointer">
+                <button className="flex duration-200 mx-auto mb-10 border-t-2 border-r-2 border-black rounded-tr-xl py-4 text-black font-formula hoverColorcursor-pointer" style={{ '--champColor': selectedChampionship.color }}>
                     Hall da fama <ChevronRight color="rgb(229 57 53)" />
                 </button>
             </div>

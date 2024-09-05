@@ -23,36 +23,70 @@ const TabelaLastRace = () => {
 
   if (!championship) return <p>Campeonato não encontrado</p>;
 
-  const season = selectedSeason.find(season => season.seasonId === championship.seasons.find(s => s.date === selectedSeason[0].date)?.seasonId);
+  const filteredSeason = selectedSeason.find(season => season.seasonId === championship.seasons.find(s => s.date === selectedSeason[0].date)?.seasonId);
 
-  if (!season) return <p>Temporada não encontrada</p>;
+
+  
+  
+  if (!filteredSeason) return <p>Temporada não encontrada</p>;
 
   const createDateFromFormat = (dateStr, monthStr) => {
-    const monthMap = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, Mai: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dez: 11 };
+   
+    const monthMap = {
+      Jan: 0, Feb: 1, Mar: 2, Apr: 3, Mai: 4, Jun: 5,
+      Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dez: 11
+    };
+
+    const monthIndex = monthMap[monthStr];
+    if (monthIndex === undefined) {
+      // console.error(`Mês inválido: ${monthStr}`);
+      return new Date(NaN);
+    }
     const [day] = dateStr.split(' ');
-    return new Date(2024, monthMap[monthStr], parseInt(day, 10));
+    const dayNumber = parseInt(day, 10);
+    if (isNaN(dayNumber)) {
+      // console.error(`Dia inválido: ${day}`);
+      return new Date(NaN);
+    }
+    // Criar e retornar a data
+    return new Date(2024, monthIndex, dayNumber);
   };
 
-  const findLatestRace = (races) => {
-    const finishedRaces = races.filter(race => race.finished);
-    if (finishedRaces.length === 0) return null;
+const findLatestRace = (races) => {
+  const seasonIds = selectedSeason.map(season =>
+    championship.seasons.find(s => s.date === season.date)?.seasonId
+  ).filter(seasonId => seasonId);
 
-    return finishedRaces.reduce((latest, race) => {
-      const latestPhase = race.phases.reduce((latestPhase, phase) => {
-        const phaseDate = createDateFromFormat(phase.dayOfMonth, phase.Month);
-        const latestPhaseDate = createDateFromFormat(latestPhase.dayOfMonth, latestPhase.Month);
-        return phaseDate > latestPhaseDate ? phase : latestPhase;
-      }, { Month: 'Jan', dayOfMonth: '01' });
+  const finishedRaces = races.filter(race =>
+    race.finished &&
+    race.calendar.some(calendar =>
+      calendar.season.some(season => seasonIds.includes(season.seasonId))
+    )
+  );
 
-      const latestDate = createDateFromFormat(latestPhase.dayOfMonth, latestPhase.Month);
-      const currentLatestDate = createDateFromFormat(latest?.phases?.[0]?.dayOfMonth || '01', latest?.phases?.[0]?.Month || 'Jan');
 
-      return latestDate > currentLatestDate ? race : latest;
-    }, null);
-  };
+  return finishedRaces.reduce((latest, race) => {
 
+    const latestPhase = race.phases.reduce((latestPhase, phase) => {
+      const phaseDate = createDateFromFormat(phase.dayOfMonth, phase.Month);
+      const latestPhaseDate = createDateFromFormat(latestPhase.dayOfMonth, latestPhase.Month);
+      // console.log(`Comparing Phase Date: ${phaseDate} with Latest Phase Date: ${latestPhaseDate}`);
+      return phaseDate > latestPhaseDate ? phase : latestPhase;
+    }, { Month: 'Jan', dayOfMonth: '01' });
+
+    const latestDate = createDateFromFormat(latestPhase.dayOfMonth, latestPhase.Month);
+    const currentLatestDate = createDateFromFormat(latest?.phases?.[0]?.dayOfMonth || '01', latest?.phases?.[0]?.Month || 'Jan');
+
+    // console.log(`Latest Date: ${latestDate} Current Latest Date: ${currentLatestDate}`);
+
+    return latestDate > currentLatestDate ? race : latest;
+  }, null);
+};
+
+  
   const lastRace = findLatestRace(tabelaData.races);
-  if (!lastRace) return <p>Última corrida não encontrada</p>;
+  if (!lastRace) return <p className='my-10 text-center'>A temporada não teve nenhuma corrida ainda!</p>;
+ 
 
   const lastPhase = lastRace.phases?.slice(-1)[0];
 
@@ -100,7 +134,7 @@ const TabelaLastRace = () => {
       <div className='z-1 relative px-6 bg-gray-200'>
         <div className='max-w-lg mx-auto md:max-w-2xl lg:max-w-4xl xl:max-w-5xl'>
           <h1 className='relative font-formula-bold text-white text-6xl w-full text-center pt-10 uppercase'>{lastRace.name}</h1>
-          <h2 className='text-stroke relative font-formula-bold text-transparent text-5xl w-full text-center pt-2 uppercase'>{season.date}</h2>
+          <h2 className='text-stroke relative font-formula-bold text-transparent text-5xl w-full text-center pt-2 uppercase'>{filteredSeason.date}</h2>
           <div onClick={() => handleNavigateRace(lastRace)} className='cursor-pointer flex font-formula w-full text-center justify-center pt-4 pb-6'>
             <p className='mt-0.5 text-white text-sm uppercase'>{lastRace.fullName}</p>
             <ChevronRight className="chevron-right" style={{ color: selectedChampionship.color }} />

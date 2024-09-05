@@ -58,6 +58,7 @@ export const GET_CALENDAR_DATA = gql`
     seasons {
       seasonId
       date
+      championshipName
       championship {
         id
       }

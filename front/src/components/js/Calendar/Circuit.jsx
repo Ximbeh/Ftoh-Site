@@ -2,6 +2,8 @@ import { useQuery } from "@apollo/client";
 import { GET_CIRCUIT } from "../../../queries/getCircuit";
 import LoadingPage from '../Boundary/Loading';
 import { GET_DRIVERCIRCUIT } from "../../../queries/getDriverCircuit";
+import { useContext } from "react";
+import { ChampionshipContext } from "../../../Context/ChampionshipContext";
 
 const findFirstCircuit = (filteredCircuit) => {
     let minDate = null;
@@ -49,7 +51,7 @@ const findMinFastLap = (filteredCircuit) => {
 const Circuit = ({ race }) => {
     const { loading: circuitLoading, error: circuitError, data: circuitData } = useQuery(GET_CIRCUIT);
     const { loading: driverLoading, error: driverError, data: driverData } = useQuery(GET_DRIVERCIRCUIT);
-
+    const { selectedChampionship } = useContext(ChampionshipContext);
     if (circuitLoading || driverLoading) return <LoadingPage />;
     if (circuitError || driverError) return <p>Error: {circuitError?.message || driverError?.message}</p>;
 
@@ -66,7 +68,7 @@ const Circuit = ({ race }) => {
                 <div className="m-auto max-w-lg md:max-w-5xl lg:max-w-7xl">
                     <h3 className="py-4 font-formula uppercase text-lg lg:text-2xl lg:py-10">{race.fullName}</h3>
                 </div>
-                <div className="mt-10 border-t-8 border-r-8 rounded-tr-3xl py-6 pr-4 relative border-red-500">
+                <div className="mt-10 border-t-8 border-r-8 rounded-tr-3xl py-6 pr-4 relative" style={{borderColor:selectedChampionship.color}}>
                     <img
                         className="absolute -top-4 lg:-top-6 left-0 w-20 lg:w-24 bg-gray-200 px-4"
                         src={race.flag ? `/img/race/${race.flag}` : "https://via.placeholder.com/800x400"}

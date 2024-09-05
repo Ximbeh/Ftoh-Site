@@ -16,14 +16,21 @@ const GET_CHAMPIONSHIP_BY_ID = gql`
     championship(id: $id) {
       id
       championshipName
+      logo
+      color
       seasons {
         id
+        seasonId
+        date
+        championshipName
         news {
-          newsId
+          id
           title
-          image
-          video
           tags
+          image
+          newsId
+          writer
+          text
           headline
         }
       }
@@ -33,7 +40,7 @@ const GET_CHAMPIONSHIP_BY_ID = gql`
 
 const Home = () => {
   const { id } = useParams();
-  const { selectedChampionship, setChampionship } = useContext(ChampionshipContext);
+  const { selectedChampionship, setChampionship, setSelectedSeason } = useContext(ChampionshipContext);
   const { id: selectedChampionshipId } = selectedChampionship;
 
   const { loading, error, data } = useQuery(GET_CHAMPIONSHIP_BY_ID, {
@@ -43,9 +50,19 @@ const Home = () => {
 
   useEffect(() => {
     if (data?.championship && data.championship.id !== selectedChampionship.id) {
-      setChampionship(data.championship.id, data.championship.championshipName);
+       setChampionship({
+            id: data.championship.id,
+            name: data.championship.championshipName,
+            color: data.championship.color,
+            logo: data.championship.logo
+        });
+
+        const lastSeason = data.championship.seasons[data.championship.seasons.length - 1];        
+        setSelectedSeason([lastSeason]);
+     
     }
   }, [data, selectedChampionship.id, setChampionship]);
+
 
   if (loading) return <LoadingPage />;
   if (error) return <p>Error: {error.message}</p>;
@@ -53,6 +70,7 @@ const Home = () => {
   if (!data?.championship) {
     return <p>No championship data found.</p>;
   }
+  
 
   const newsItems = data.championship.seasons.flatMap(season => season.news);
   const newsWithVideo = newsItems.filter(news => news.video);

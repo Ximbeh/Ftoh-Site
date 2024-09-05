@@ -31,7 +31,19 @@ export const GET_TABELALAST = gql`
           points
         }
       }
+      calendar{
+        name
+        id
+        season{
+            seasonId
+            date
+            championship{
+                id
+            }
+        }
     }
+    }
+    
 
   }
 `;

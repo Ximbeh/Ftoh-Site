@@ -52,6 +52,8 @@ const Calendar = () => {
     // console.log(data.seasons);
     
     const seasonByChampionship = data.seasons.filter(season => season.championshipName === selectedChampionship.name);
+    console.log(data.seasons);
+    
     // console.log('Season By Championship:', seasonByChampionship);
 
     // Encontrar a temporada atual no dataSeason
@@ -59,6 +61,8 @@ const Calendar = () => {
 
     const handleChangeSeason = () => {
         if (championship && seasonByChampionship.length > 0) {
+            console.log("a");
+            
             // Encontrar a temporada atual em seasonByChampionship
             const currentIndex = seasonByChampionship.findIndex(season => season.seasonId === actualSeason?.seasonId);
 
@@ -74,6 +78,8 @@ const Calendar = () => {
 
     const displayedSeason = temporarySeason || actualSeason; // Use a temporada temporária se estiver definida, caso contrário, use a temporada atual
 
+    console.log(displayedSeason);
+    
 
     const filteredRaces = data.races.filter(race =>
     (race.calendar[0].season[0].date == displayedSeason.date &&
@@ -213,9 +219,9 @@ const Calendar = () => {
                             // console.log(firstPilot);
                             return (
                                 <div className='px-4' key={race.id}>
-                                    <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200"
-                                         onClick={() => handleNavigateRace(race)}>
-                                        <h4 className="text-red-500 bg-white absolute -top-4 font-formula-bold pr-2 uppercase">
+                                    <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hoverColor hover:pt-8 duration-200" style={{ '--champColor': selectedChampionship.color }}
+                                         onClick={() => handleNavigateRace(race) }>
+                                        <h4 className=" bg-white absolute -top-4 font-formula-bold pr-2 uppercase" style={{color: selectedChampionship.color}}>
                                             {race.phases?.length > 0
                                                 ? race.phases[race.phases.length - 1]?.name || "???"
                                                 : "???"}
@@ -234,7 +240,7 @@ const Calendar = () => {
                                         <div className="pb-4 border-b-2 border-gray-400 mb-4">
                                             <div className="flex">
                                                 <h3 className="font-formula-bold text-xl">{race.name}</h3>
-                                                <ChevronRight className="mt-0.5" color="rgb(229 57 53)" />
+                                                <ChevronRight className="mt-0.5" color="rgb(110, 110, 110)" />
                                             </div>
                                             <p className="font-formula text-gray-700">{race.fullName}</p>
                                         </div>
@@ -299,15 +305,15 @@ const Calendar = () => {
                 {actualRace &&
                  <div className="cursor-pointer bg-grayTotal text-white px-4 py-6 mb-10"
                  onClick={() => handleNavigateRace(actualRace)}>
-                 <div className="max-w-xl mx-auto md:max-w-3xl lg:max-w-5xl xl:max-w-7xl border-t-8 border-r-8 border-red-500 rounded-tr-3xl relative
-                 md:grid md:grid-cols-2 md:gap-2 xl:grid-cols-4">
+                 <div className="max-w-xl mx-auto md:max-w-3xl lg:max-w-5xl xl:max-w-7xl border-t-8 border-r-8 rounded-tr-3xl relative
+                 md:grid md:grid-cols-2 md:gap-2 xl:grid-cols-4" style={{borderColor: selectedChampionship.color}}>
 
                     <div>
                     {(() => {
                     const { dayRange, monthRange } = formatDateRange(actualRace.date);
                     return (
                         <>
-                               <h4 className="uppercase font-formula-bold text-red-500 pr-2 absolute -top-4 bg-grayTotal">Estágio - Próximo</h4>
+                               <h4 className="uppercase font-formula-bold pr-2 absolute -top-4 bg-grayTotal" style={{color: selectedChampionship.color}}>Estágio - Próximo</h4>
                 <div className="flex justify-between items-center py-4 mr-2 border-b-2 border-gray-400 mb-4">
                     <div className="flex flex-col">
                         <h3 className="font-formula-bold text-2xl">{dayRange}</h3>
@@ -318,7 +324,7 @@ const Calendar = () => {
                 <div className="pb-4 mb-10 md:mb-4 mr-2 border-b-2 border-gray-400">
                     <div className="flex">
                         <h3 className="font-formula-bold text-xl">{actualRace.name}</h3>
-                        <ChevronRight className="mt-1" color="rgb(229 57 53)" />
+                        <ChevronRight className="mt-1" color="rgb(110, 110, 110)" />
                     </div>
                     <p className="font-formula uppercase text-sm">{actualRace.fullName}</p>
                 </div>
@@ -371,9 +377,9 @@ const Calendar = () => {
 
                         return (
                             <div className='px-4' key={race.id}>
-                                <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hover:border-red-500 hover:pt-8 duration-200"
+                                <div className="relative pt-4 pr-2 mb-10 border-t-2 border-r-2 border-grayTotal rounded-tr-2xl cursor-pointer hoverColor  hover:pt-8 duration-200" style={{ '--champColor': selectedChampionship.color }}
                                     onClick={() => handleNavigateRace(race)}>
-                                    <h4 className="text-red-500 bg-white absolute -top-4 font-formula-bold pr-2 uppercase">
+                                    <h4 className=" bg-white absolute -top-4 font-formula-bold pr-2 uppercase" style={{color: selectedChampionship.color}}>
                                         {race.phases?.length > 0
                                             ? race.phases[race.phases.length - 1]?.name || "???"
                                             : "???"}
@@ -392,7 +398,7 @@ const Calendar = () => {
                                     <div className="pb-4 border-b-2 border-gray-400 mb-4">
                                         <div className="flex">
                                             <h3 className="font-formula-bold text-xl">{race.name}</h3>
-                                            <ChevronRight className="mt-0.5" color="rgb(229 57 53)" />
+                                            <ChevronRight className="mt-0.5" color="rgb(110, 110, 110)" />
                                         </div>
                                         <p className="font-formula text-gray-700">{race.fullName}</p>
                                     </div>
@@ -412,10 +418,10 @@ const Calendar = () => {
 
 
                 <div className="max-w-xl mx-auto md:max-w-3xl lg:max-w-5xl xl:max-w-7xl">
-                    <div className="cursor-pointer hover:border-red-500 flex items-center mb-10 
+                    <div className="hoverColor cursor-pointer flex items-center mb-10 
                     mx-4 border-t-2 border-l-2 border-gray-300 rounded-tl-xl px-2 py-4"
-                        onClick={handleChangeSeason}>
-                        <ChevronLeft color="rgb(229 57 53)" />
+                        onClick={handleChangeSeason}  style={{ '--champColor': selectedChampionship.color }}>
+                        <ChevronLeft color="rgb(110, 110, 110)" />
                         <div>
                             <h3 className="font-formula-bold uppercase text-xl">Season</h3>
                             <h3 className="font-formula-bold text-xl text-white text-stroke">  {displayedSeason ? displayedSeason.date - 1 : 'N/A'}</h3>

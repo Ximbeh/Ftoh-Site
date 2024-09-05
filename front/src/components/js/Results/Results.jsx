@@ -375,35 +375,41 @@ const Results = () => {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {
-                                                            raceSelected.phases[raceSelected.phases.length - 2].pilots
-                                                                .slice()
-                                                                .sort((a, b) => a.position - b.position)
-                                                                .map((pilot, index) => (
-                                                                    <tr key={pilot.id} className={index % 2 === 0 ? 'bg-gray-300' : 'bg-white'}>
-                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">{pilot.position ?? 'N/A'}</td>
-                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">
-                                                                            {filteredDrivers.find(driver => driver.id == pilot.pilotId)?.number}
-                                                                        </td>
-                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
-                                                                            <span className="sm:hidden">
-                                                                                {filteredDrivers.find(driver => driver.id == pilot.pilotId)?.nameAbreviado}
-                                                                            </span>
-                                                                            <span className="hidden sm:flex">
-                                                                                {filteredDrivers.find(driver => driver.id == pilot.pilotId)?.name}
-                                                                            </span>
-                                                                        </td>
-                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">
-                                                                            {filteredTeams.find(team => team.id == pilot.teamId)?.name ?? 'N/A'}
-                                                                        </td>
-                                                                        <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 ">
-                                                                            {pilot.timeFastLap ?? 'N/A'}
-                                                                        </td>
-
-                                                                    </tr>
-                                                                ))
-                                                        }
-                                                    </tbody>
+  {
+    // Verifique se phases existe e se há pelo menos dois elementos
+    raceSelected.phases && raceSelected.phases.length >= 2
+      ? raceSelected.phases[raceSelected.phases.length - 2].pilots
+          ? raceSelected.phases[raceSelected.phases.length - 2].pilots
+              .slice()
+              .sort((a, b) => a.position - b.position)
+              .map((pilot, index) => (
+                <tr key={pilot.id} className={index % 2 === 0 ? 'bg-gray-300' : 'bg-white'}>
+                  <td className="pl-3 py-4 whitespace-nowrap text-xs font-medium text-gray-900">
+                    {pilot.position ?? 'N/A'}
+                  </td>
+                  <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">
+                    {filteredDrivers.find(driver => driver.id == pilot.pilotId)?.number}
+                  </td>
+                  <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                    <span className="sm:hidden">
+                      {filteredDrivers.find(driver => driver.id == pilot.pilotId)?.nameAbreviado}
+                    </span>
+                    <span className="hidden sm:flex">
+                      {filteredDrivers.find(driver => driver.id == pilot.pilotId)?.name}
+                    </span>
+                  </td>
+                  <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900 md:table-cell hidden">
+                    {filteredTeams.find(team => team.id == pilot.teamId)?.name ?? 'N/A'}
+                  </td>
+                  <td className="pl-3 py-4 whitespace-nowrap text-xs text-gray-900">
+                    {pilot.timeFastLap ?? 'N/A'}
+                  </td>
+                </tr>
+              ))
+          : <tr><td colSpan="5">Nenhum piloto encontrado</td></tr>
+      : <tr><td colSpan="5">Não há informações suficientes</td></tr>
+  }
+</tbody>
                                                 </table>
 
                                             </div>

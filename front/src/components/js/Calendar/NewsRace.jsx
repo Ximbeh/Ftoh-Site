@@ -3,6 +3,9 @@ import NewsContainer from "../News/NewsContainer";
 import { GET_ALLNEWS } from "../../../queries/getAllNews";
 import { useState } from "react";
 import LoadingPage from '../Boundary/Loading';
+import { useContext } from "react";
+import { ChampionshipContext } from "../../../Context/ChampionshipContext";
+import "../../css/Tabela.css"
 
 const NewsRace = ({ race }) => {
     const { loading, error, data } = useQuery(GET_ALLNEWS);
@@ -30,7 +33,7 @@ const NewsRace = ({ race }) => {
                 </div>
                 {visibleCount < filteredNews.length && (
                     <button
-                        className="mt-4 font-formula text-sm border-t border-r rounded-tr-xl p-4 border-gray-400 hover:border-red-500 hover:text-red-500 duration-200 text-center flex justify-center items-center mx-auto"
+                        className="mt-4 font-formula text-sm border-t border-r rounded-tr-xl p-4 border-gray-400 hoverColor duration-200 text-center flex justify-center items-center mx-auto" style={{ '--champColor': selectedChampionship.color }}
                         onClick={loadMore}
                     >
                         Carregar mais +

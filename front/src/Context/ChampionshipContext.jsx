@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import LoadingPage from '../components/js/Boundary/Loading';
+import { useParams } from 'react-router-dom';
 
 export const ChampionshipContext = createContext();
 
@@ -22,7 +23,7 @@ const GET_CHAMPIONSHIPS = gql`
 
 export const ChampionshipProvider = ({ children }) => {
     const { loading, error, data } = useQuery(GET_CHAMPIONSHIPS);
-    const [selectedChampionship, setSelectedChampionship] = useState({
+    const [selectedChampionship, setChampionship] = useState({
         id: null,
         name: '',
         color: '',
@@ -30,30 +31,32 @@ export const ChampionshipProvider = ({ children }) => {
     });
     const [selectedSeason, setSelectedSeason] = useState([]);
 
-    useEffect(() => {
-        if (data && data.championships.length > 0) {
-            // Encontrar o campeonato padrão
-            const defaultChampionship = data.championships.find(champ => champ.championshipName === 'Fórmula 1') || data.championships[0];
-            
-            // Atualizar o campeonato selecionado e a temporada
-            setSelectedChampionship({
-                id: defaultChampionship.id,
-                name: defaultChampionship.championshipName,
-                color: defaultChampionship.color,
-                logo: defaultChampionship.logo
-            });
 
-            // Filtrar e definir a temporada selecionada
-            const defaultSeason = defaultChampionship.seasons.filter(season => season.date === '2023');
-            setSelectedSeason(defaultSeason);
-        }
-    }, [data]);
+    useEffect(() => {
+      if (data && data.championships.length > 0) {
+          const defaultChampionship = data.championships.find(champ => champ.championshipName === 'Fórmula 1') || data.championships[0];
+        
+          setChampionship({
+              id: defaultChampionship.id,
+              name: defaultChampionship.championshipName,
+              color: defaultChampionship.color,
+              logo: defaultChampionship.logo
+          });
+  
+          const defaultSeason = defaultChampionship.seasons.filter(season => season.date === '2023');
+          setSelectedSeason(defaultSeason);
+      }
+  }, [data]);
+
+  
 
     if (loading) return <LoadingPage />;
     if (error) return <p>Error: {error.message}</p>;
+   
+    
 
     return (
-        <ChampionshipContext.Provider value={{ selectedChampionship, setSelectedChampionship, selectedSeason, setSelectedSeason }}>
+        <ChampionshipContext.Provider value={{ selectedChampionship, setChampionship, selectedSeason, setSelectedSeason }}>
             {children}
         </ChampionshipContext.Provider>
     );

@@ -8,6 +8,11 @@
   border-color: var(--colorTeam);
 }
 
+.hoverColor:hover{
+  border-color: var(--champColor);
+  color: var(--champColor)
+}
+
 .cursor-pointer {
   cursor: pointer;
 }

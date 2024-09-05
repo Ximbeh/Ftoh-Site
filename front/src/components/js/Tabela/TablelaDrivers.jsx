@@ -14,7 +14,7 @@ import { GET_TABELADRIVERS } from '../../../queries/getTabelaDrivers';
 
 
 const TabelaDrivers = () => {
-  
+
   const navigate = useNavigate();
   const { selectedChampionship, selectedSeason } = useContext(ChampionshipContext);
   const { loading: tabelaLoading, error: tabelaError, data: tabelaData } = useQuery(GET_TABELADRIVERS);
@@ -26,12 +26,24 @@ const TabelaDrivers = () => {
   const championshipId = selectedChampionship?.id;
   const championship = championshipsData?.championships.find(champ => champ.id === championshipId);
 
+ 
+  
+
   if (!championship) return <p>Campeonato não encontrado</p>;
+
+
+
 
   const filteredDrivers = tabelaData?.drivers.filter(driver => {
     const team = tabelaData?.teams.find(team => team.id === driver.teamId);
     return team && team.seasonId === selectedSeason?.[0]?.seasonId && team.season?.championship?.id === championshipId;
   });
+
+
+
+
+
+
 
   const topDrivers = filteredDrivers
     ?.sort((a, b) => a.position - b.position)
@@ -46,20 +58,18 @@ const TabelaDrivers = () => {
   }) || [];
 
   const handleNavigatePilot = (driver) => {
-    navigate(`Pilots/Pilot/${driver.id}`)
-}
+    navigate(`/Pilots/Pilot/${driver.id}`)
+  }
 
-
-
-const handleButtonClick = () => {
-  navigate('/Results', {
+  const handleButtonClick = () => {
+    navigate('/Results', {
       state: {
-          temporarySeason: selectedSeason[0].seasonId,
-          midSelect: 'Pilotos',
-          finalSelect: 'All', 
+        temporarySeason: selectedSeason[0].seasonId,
+        midSelect: 'Pilotos',
+        finalSelect: 'All',
       }
-  });
-};
+    });
+  };
 
   return (
     <div>
@@ -135,7 +145,7 @@ const handleButtonClick = () => {
                   )}
                 </div>
               </div>
-              <div onClick={() => handleNavigatePilot(driversInfo[2])}className='cursor-pointer relative w-4/12 hidden md:flex flex-col'>
+              <div onClick={() => handleNavigatePilot(driversInfo[2])} className='cursor-pointer relative w-4/12 hidden md:flex flex-col'>
                 <div className='bg-white relative h-24 rounded-t-2xl flex'>
                   <svg className="ml-4 mt-4 w-12 h-12" width="102" height="26" viewBox="0 0 102 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <mask id="path-1-inside-1_642_20" fill="white">
@@ -181,11 +191,11 @@ const handleButtonClick = () => {
                   </div>
                   <div className='flex item-center'>
                     <p className='bg-gray-300 font-titillium rounded-2xl px-3 py-1'>{driver.points} PTS</p>
-                  <ChevronRight />
+                    <ChevronRight />
                   </div>
                 </div>
               ))}
-               <button onClick={handleButtonClick} className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': selectedChampionship.color }}>
+              <button onClick={handleButtonClick} className='tabela-completa-btn md:max-w-max md:px-4 w-full text-sm font-formula-bold py-4 mt-4 mb-10 rounded-lg uppercase border-2' style={{ '--championship-color': selectedChampionship.color }}>
                 <span className='tabela-completa-btn-text' style={{ '--championship-color': selectedChampionship.color }}>Tabela Completa</span>
               </button>
             </div>
