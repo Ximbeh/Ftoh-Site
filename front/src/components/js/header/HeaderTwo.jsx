@@ -38,7 +38,7 @@ const HeaderTwo = () => {
                         { path: '/Calendar', label: 'Calendário' },
                         { path: '/Results', label: 'Resultados' },
                         { path: '/Pilots', label: 'Pilotos' },
-                        { path: '/Teams', label: 'Times' }
+                        { path: '/Teams', label: 'Equipes' }
                     ].map(({ path, label, target }) => (
                         <a
                             key={label}
