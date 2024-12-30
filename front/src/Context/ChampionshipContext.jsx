@@ -43,7 +43,7 @@ export const ChampionshipProvider = ({ children }) => {
               logo: defaultChampionship.logo
           });
   
-          const defaultSeason = defaultChampionship.seasons.filter(season => season.date === '2023');
+          const defaultSeason = defaultChampionship.seasons.filter(season => season.date === '2024');
           setSelectedSeason(defaultSeason);
       }
   }, [data]);
