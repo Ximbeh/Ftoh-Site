@@ -23,7 +23,7 @@ const HeaderOne = () => {
             logo: championship.logo
         });
         
-        const lastSeason = championship.seasons[0];        
+        const lastSeason = championship.seasons[championship.seasons.length-1];        
         setSelectedSeason([lastSeason]);
         navigate(`/${championship.id}`);
     };
