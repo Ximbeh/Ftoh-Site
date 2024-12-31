@@ -15,18 +15,24 @@ const extractDayAndMonth = (dateString) => {
     return match ? { day: match[1], month: match[2] } : { day: null, month: null };
 };
 
-// Função auxiliar para filtrar corridas com base no campeonato e na temporada selecionados
-const filterRaces = (races, championshipId, seasonId) =>
-    races.filter(race =>
-        race.calendar.some(calendar =>
-            calendar.season.some(season =>
-                season.championship.id === championshipId &&
-                season.seasonId === seasonId
-            )
-        )
-    );
+// Função auxiliar para filtrar races com base no campeonato e na temporada selecionados
+const filterRaces = (races, championshipId, seasonId) => {
+    const filteredRaces = races.filter(race => {
+        const hasMatchingCalendar = race.calendar.some(calendar => {
+            const hasMatchingSeason = calendar.season.some(season => {
+                const isMatch = season.championship.id === championshipId &&
+                                season.seasonId === seasonId;
+                return isMatch;
+            });
+            return hasMatchingSeason;
+        });
+        return hasMatchingCalendar;
+    });
+    return filteredRaces;
+};
 
-// Função auxiliar para agrupar fases por ID da corrida
+
+// Função auxiliar para agrupar fases por ID da race
 const groupPhasesByRaceId = (phases) => {
     return phases.reduce((acc, phase) => {
         const raceId = Array.isArray(phase.race) ? phase.race[0]?.id : phase.race?.id;
@@ -71,25 +77,50 @@ const CarouselSchedule = () => {
     const raceDateNumbers = raceDates.map(dateString => extractDayAndMonth(dateString).day);
     const raceDateMonths = raceDates.map(dateString => extractDayAndMonth(dateString).month);
 
-    const filteredPhases = carouselData?.phases.filter(phase => {
-        const races = Array.isArray(phase.race) ? phase.race : [phase.race];
-        return races.some(race =>
-            race.calendar.some(calendar =>
-                calendar.season.some(season =>
+const filteredPhases = carouselData?.phases.filter((phase) => {
+    const races = Array.isArray(phase.race) ? phase.race : [phase.race];
+
+    return races.some((race, index) => {
+        if (!race) {
+            console.warn(`Race é null ou undefined na posição ${index}:`, race);
+            return false;
+        }
+
+        if (!race.calendar) {
+            console.warn(`Race com calendar null na posição ${index}:`, race);
+            return false;
+        }
+
+        return race.calendar.some((calendar, calIndex) => {
+            if (!calendar) {
+                console.warn(`Calendar é null ou undefined no índice ${calIndex}:`, calendar);
+                return false;
+            }
+
+            return calendar.season.some((season, seasonIndex) => {
+                if (!season) {
+                    console.warn(`Season é null ou undefined no índice ${seasonIndex}:`, season);
+                    return false;
+                }
+
+                return (
                     season.championship.id === championshipId &&
                     season.id === selectedSeason?.seasonId
-                )
-            )
-        );
+                );
+            });
+        });
     });
+});
+
 
     const groupedPhases = groupPhasesByRaceId(filteredPhases || []);
+    
 
     return (
         <div className='relative'>
             <div className="slide-container">
                 {filteredRaces.map((race, index) => (
-                    <span key={race.id} id={`corrida${index + 1}`} className="corrida absolute -top-28" />
+                    <span key={race.id} id={`race${index + 1}`} className="race absolute -top-28" />
                 ))}
 
                 <div className="image-slider">
@@ -117,10 +148,10 @@ const CarouselSchedule = () => {
                             </div>
                             <div className='content open' id={`contentOpen${index + 1}`}>
                                 <h2 className='text-white mb-2 text-center font-formula-bold text-xl px-2 md:px-0 md:text-2xl'>
-                                    {race.fullName || 'Nome Completo da Corrida'}
+                                    {race.fullName || 'Nome Completo da Race'}
                                 </h2>
                                 <h5 className='mb-4 text-gray-600 text-sm font-titillium'>
-                                    {race.date || 'Data da Corrida'}
+                                    {race.date || 'Data da Race'}
                                 </h5>
                                 <div className='flex flex-col gap-2'>
                                     {race.phases && race.phases.length > 0 ? (
@@ -139,12 +170,12 @@ const CarouselSchedule = () => {
                                         ))
                                     ) : (
                                         <div className='text-gray-600 text-xs px-2'>
-                                            Sem informações de fases disponíveis
+                                            No phases information yet
                                         </div>
                                     )}
                                 </div>
                             </div>
-                            <a href={`#corrida${index + 1}`} className="button" id={`button-${index + 1}`} />
+                            <a href={`#race${index + 1}`} className="button" id={`button-${index + 1}`} />
                         </div>
                     ))}
                 </div>

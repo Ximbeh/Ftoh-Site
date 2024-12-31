@@ -68,146 +68,164 @@ body{
 /* ----------------------//------------------------------- */
 
 
-#corrida1:target ~ .image-slider #contentOpen1,
-#corrida1:target ~ .image-slider #button-1 {
+#race1:target ~ .image-slider #contentOpen1,
+#race1:target ~ .image-slider #button-1 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
 
-#corrida2:target ~ .image-slider #contentOpen2,
-#corrida2:target ~ .image-slider #button-2 {
+#race2:target ~ .image-slider #contentOpen2,
+#race2:target ~ .image-slider #button-2 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
 
-#corrida3:target ~ .image-slider #contentOpen3,
-#corrida3:target ~ .image-slider #button-3 {
+#race3:target ~ .image-slider #contentOpen3,
+#race3:target ~ .image-slider #button-3 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
 
-#corrida4:target ~ .image-slider #contentOpen4,
-#corrida4:target ~ .image-slider #button-4 {
+#race4:target ~ .image-slider #contentOpen4,
+#race4:target ~ .image-slider #button-4 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
 
-#corrida5:target ~ .image-slider #contentOpen5,
-#corrida5:target ~ .image-slider #button-5 {
+#race5:target ~ .image-slider #contentOpen5,
+#race5:target ~ .image-slider #button-5 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
 
-#corrida6:target ~ .image-slider #contentOpen6,
-#corrida6:target ~ .image-slider #button-6 {
+#race6:target ~ .image-slider #contentOpen6,
+#race6:target ~ .image-slider #button-6 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
 
-#corrida7:target ~ .image-slider #contentOpen7,
-#corrida7:target ~ .image-slider #button-7 {
+#race7:target ~ .image-slider #contentOpen7,
+#race7:target ~ .image-slider #button-7 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
 
-#corrida8:target ~ .image-slider #contentOpen8,
-#corrida8:target ~ .image-slider #button-8 {
+#race8:target ~ .image-slider #contentOpen8,
+#race8:target ~ .image-slider #button-8 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
 
-#corrida9:target ~ .image-slider #contentOpen9,
-#corrida9:target ~ .image-slider #button-9 {
+#race9:target ~ .image-slider #contentOpen9,
+#race9:target ~ .image-slider #button-9 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
 
-#corrida10:target ~ .image-slider #contentOpen10,
-#corrida10:target ~ .image-slider #button-10 {
+#race10:target ~ .image-slider #contentOpen10,
+#race10:target ~ .image-slider #button-10 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
 
-#corrida11:target ~ .image-slider #contentOpen11,
-#corrida11:target ~ .image-slider #button-11 {
+#race11:target ~ .image-slider #contentOpen11,
+#race11:target ~ .image-slider #button-11 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
 
-#corrida12:target ~ .image-slider #contentOpen12,
-#corrida12:target ~ .image-slider #button-12 {
+#race12:target ~ .image-slider #contentOpen12,
+#race12:target ~ .image-slider #button-12 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
 
-#corrida13:target ~ .image-slider #contentOpen13,
-#corrida13:target ~ .image-slider #button-13 {
+#race13:target ~ .image-slider #contentOpen13,
+#race13:target ~ .image-slider #button-13 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
 
-#corrida14:target ~ .image-slider #contentOpen14,
-#corrida14:target ~ .image-slider #button-14 {
+#race14:target ~ .image-slider #contentOpen14,
+#race14:target ~ .image-slider #button-14 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
 
-#corrida15:target ~ .image-slider #contentOpen15,
-#corrida15:target ~ .image-slider #button-15 {
+#race15:target ~ .image-slider #contentOpen15,
+#race15:target ~ .image-slider #button-15 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
 
-#corrida16:target ~ .image-slider #contentOpen16,
-#corrida16:target ~ .image-slider #button-16 {
+#race16:target ~ .image-slider #contentOpen16,
+#race16:target ~ .image-slider #button-16 {
     transition: height 0.5s ease-out, opacity 0.5s ease-out;
     transition-delay: 0s, 0.7s;
-    height: 60%;
+    height: 80%;
+    opacity: 1;
+    width: 514px;
+}
+
+#race17:target ~ .image-slider #contentOpen17,
+#race17:target ~ .image-slider #button-17 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 80%;
+    opacity: 1;
+    width: 514px;
+}
+
+#race18:target ~ .image-slider #contentOpen18,
+#race18:target ~ .image-slider #button-18 {
+    transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    transition-delay: 0s, 0.7s;
+    height: 80%;
     opacity: 1;
     width: 514px;
 }
@@ -218,83 +236,93 @@ body{
 /* ----------------------//------------------------------- */
 
 
-#corrida1:target ~ .image-slider #content1 h2,
-#corrida1:target ~ .image-slider #content1 h4 {
+#race1:target ~ .image-slider #content1 h2,
+#race1:target ~ .image-slider #content1 h4 {
     display: none;
 }
 
-#corrida2:target ~ .image-slider #content2 h2,
-#corrida2:target ~ .image-slider #content2 h4 {
+#race2:target ~ .image-slider #content2 h2,
+#race2:target ~ .image-slider #content2 h4 {
     display: none;
 }
 
-#corrida3:target ~ .image-slider #content3 h2,
-#corrida3:target ~ .image-slider #content3 h4 {
+#race3:target ~ .image-slider #content3 h2,
+#race3:target ~ .image-slider #content3 h4 {
     display: none;
 }
 
-#corrida4:target ~ .image-slider #content4 h2,
-#corrida4:target ~ .image-slider #content4 h4 {
+#race4:target ~ .image-slider #content4 h2,
+#race4:target ~ .image-slider #content4 h4 {
     display: none;
 }
 
-#corrida5:target ~ .image-slider #content5 h2,
-#corrida5:target ~ .image-slider #content5 h4 {
+#race5:target ~ .image-slider #content5 h2,
+#race5:target ~ .image-slider #content5 h4 {
     display: none;
 }
 
-#corrida6:target ~ .image-slider #content6 h2,
-#corrida6:target ~ .image-slider #content6 h4 {
+#race6:target ~ .image-slider #content6 h2,
+#race6:target ~ .image-slider #content6 h4 {
     display: none;
 }
 
-#corrida7:target ~ .image-slider #content7 h2,
-#corrida7:target ~ .image-slider #content7 h4 {
+#race7:target ~ .image-slider #content7 h2,
+#race7:target ~ .image-slider #content7 h4 {
     display: none;
 }
 
-#corrida8:target ~ .image-slider #content8 h2,
-#corrida8:target ~ .image-slider #content8 h4 {
+#race8:target ~ .image-slider #content8 h2,
+#race8:target ~ .image-slider #content8 h4 {
     display: none;
 }
 
-#corrida9:target ~ .image-slider #content9 h2,
-#corrida9:target ~ .image-slider #content9 h4 {
+#race9:target ~ .image-slider #content9 h2,
+#race9:target ~ .image-slider #content9 h4 {
     display: none;
 }
 
-#corrida10:target ~ .image-slider #content10 h2,
-#corrida10:target ~ .image-slider #content10 h4 {
+#race10:target ~ .image-slider #content10 h2,
+#race10:target ~ .image-slider #content10 h4 {
     display: none;
 }
 
-#corrida11:target ~ .image-slider #content11 h2,
-#corrida11:target ~ .image-slider #content11 h4 {
+#race11:target ~ .image-slider #content11 h2,
+#race11:target ~ .image-slider #content11 h4 {
     display: none;
 }
 
-#corrida12:target ~ .image-slider #content12 h2,
-#corrida12:target ~ .image-slider #content12 h4 {
+#race12:target ~ .image-slider #content12 h2,
+#race12:target ~ .image-slider #content12 h4 {
     display: none;
 }
 
-#corrida13:target ~ .image-slider #content13 h2,
-#corrida13:target ~ .image-slider #content13 h4 {
+#race13:target ~ .image-slider #content13 h2,
+#race13:target ~ .image-slider #content13 h4 {
     display: none;
 }
 
-#corrida14:target ~ .image-slider #content14 h2,
-#corrida14:target ~ .image-slider #content14 h4 {
+#race14:target ~ .image-slider #content14 h2,
+#race14:target ~ .image-slider #content14 h4 {
     display: none;
 }
 
-#corrida15:target ~ .image-slider #content15 h2,
-#corrida15:target ~ .image-slider #content15 h4 {
+#race15:target ~ .image-slider #content15 h2,
+#race15:target ~ .image-slider #content15 h4 {
     display: none;
 }
 
-#corrida16:target ~ .image-slider #content16 h2,
-#corrida16:target ~ .image-slider #content16 h4 {
+#race16:target ~ .image-slider #content16 h2,
+#race16:target ~ .image-slider #content16 h4 {
+    display: none;
+}
+
+#race17:target ~ .image-slider #content17 h2,
+#race17:target ~ .image-slider #content17 h4 {
+    display: none;
+}
+
+#race18:target ~ .image-slider #content18 h2,
+#race18:target ~ .image-slider #content18 h4 {
     display: none;
 }
 
@@ -302,97 +330,109 @@ body{
 /* ----------------------//------------------------------- */
 
 
-#corrida1:target ~ .image-slider {
+#race1:target ~ .image-slider {
     left: calc(50% + 1100px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida2:target ~ .image-slider {
+#race2:target ~ .image-slider {
     left: calc(50% + 950px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida3:target ~ .image-slider {
+#race3:target ~ .image-slider {
     left: calc(50% + 800px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida4:target ~ .image-slider {
+#race4:target ~ .image-slider {
     left: calc(50% + 650px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida5:target ~ .image-slider {
+#race5:target ~ .image-slider {
     left: calc(50% + 500px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida6:target ~ .image-slider {
+#race6:target ~ .image-slider {
     left: calc(50% + 350px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida7:target ~ .image-slider {
+#race7:target ~ .image-slider {
     left: calc(50% + 200px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida8:target ~ .image-slider {
+#race8:target ~ .image-slider {
     left: calc(50% + 50px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida9:target ~ .image-slider {
+#race9:target ~ .image-slider {
     left: calc(50% - 100px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida10:target ~ .image-slider {
+#race10:target ~ .image-slider {
     left: calc(50% - 250px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida11:target ~ .image-slider {
+#race11:target ~ .image-slider {
     left: calc(50% - 400px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida12:target ~ .image-slider {
+#race12:target ~ .image-slider {
     left: calc(50% - 550px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida13:target ~ .image-slider {
+#race13:target ~ .image-slider {
     left: calc(50% - 700px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida14:target ~ .image-slider {
+#race14:target ~ .image-slider {
     left: calc(50% - 850px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida15:target ~ .image-slider {
+#race15:target ~ .image-slider {
     left: calc(50% - 1000px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida16:target ~ .image-slider {
+#race16:target ~ .image-slider {
+    left: calc(50% - 1100px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#race17:target ~ .image-slider {
+    left: calc(50% - 1100px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#race18:target ~ .image-slider {
     left: calc(50% - 1100px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
@@ -412,194 +452,217 @@ body{
     }
 
     
-#corrida1:target ~ .image-slider #contentOpen1,
-#corrida1:target ~ .image-slider #button-1 {
+#race1:target ~ .image-slider #contentOpen1,
+#race1:target ~ .image-slider #button-1 {
  
     width: 280px;
 }
 
-#corrida2:target ~ .image-slider #contentOpen2,
-#corrida2:target ~ .image-slider #button-2 {
+#race2:target ~ .image-slider #contentOpen2,
+#race2:target ~ .image-slider #button-2 {
  
     width: 280px;
 }
 
-#corrida3:target ~ .image-slider #contentOpen3,
-#corrida3:target ~ .image-slider #button-3 {
+#race3:target ~ .image-slider #contentOpen3,
+#race3:target ~ .image-slider #button-3 {
  
     width: 280px;
 }
 
-#corrida4:target ~ .image-slider #contentOpen4,
-#corrida4:target ~ .image-slider #button-4 {
+#race4:target ~ .image-slider #contentOpen4,
+#race4:target ~ .image-slider #button-4 {
  
     width: 280px;
 }
 
-#corrida5:target ~ .image-slider #contentOpen5,
-#corrida5:target ~ .image-slider #button-5 {
+#race5:target ~ .image-slider #contentOpen5,
+#race5:target ~ .image-slider #button-5 {
  
     width: 280px;
 }
 
-#corrida6:target ~ .image-slider #contentOpen6,
-#corrida6:target ~ .image-slider #button-6 {
+#race6:target ~ .image-slider #contentOpen6,
+#race6:target ~ .image-slider #button-6 {
  
     width: 280px;
 }
 
-#corrida7:target ~ .image-slider #contentOpen7,
-#corrida7:target ~ .image-slider #button-7 {
+#race7:target ~ .image-slider #contentOpen7,
+#race7:target ~ .image-slider #button-7 {
  
     width: 280px;
 }
 
-#corrida8:target ~ .image-slider #contentOpen8,
-#corrida8:target ~ .image-slider #button-8 {
+#race8:target ~ .image-slider #contentOpen8,
+#race8:target ~ .image-slider #button-8 {
  
     width: 280px;
 }
 
-#corrida9:target ~ .image-slider #contentOpen9,
-#corrida9:target ~ .image-slider #button-9 {
+#race9:target ~ .image-slider #contentOpen9,
+#race9:target ~ .image-slider #button-9 {
  
     width: 280px;
 }
 
-#corrida10:target ~ .image-slider #contentOpen10,
-#corrida10:target ~ .image-slider #button-10 {
+#race10:target ~ .image-slider #contentOpen10,
+#race10:target ~ .image-slider #button-10 {
  
     width: 280px;
 }
 
-#corrida11:target ~ .image-slider #contentOpen11,
-#corrida11:target ~ .image-slider #button-11 {
+#race11:target ~ .image-slider #contentOpen11,
+#race11:target ~ .image-slider #button-11 {
  
     width: 280px;
 }
 
-#corrida12:target ~ .image-slider #contentOpen12,
-#corrida12:target ~ .image-slider #button-12 {
+#race12:target ~ .image-slider #contentOpen12,
+#race12:target ~ .image-slider #button-12 {
  
     width: 280px;
 }
 
-#corrida13:target ~ .image-slider #contentOpen13,
-#corrida13:target ~ .image-slider #button-13 {
+#race13:target ~ .image-slider #contentOpen13,
+#race13:target ~ .image-slider #button-13 {
  
     width: 280px;
 }
 
-#corrida14:target ~ .image-slider #contentOpen14,
-#corrida14:target ~ .image-slider #button-14 {
+#race14:target ~ .image-slider #contentOpen14,
+#race14:target ~ .image-slider #button-14 {
  
     width: 280px;
 }
 
-#corrida15:target ~ .image-slider #contentOpen15,
-#corrida15:target ~ .image-slider #button-15 {
+#race15:target ~ .image-slider #contentOpen15,
+#race15:target ~ .image-slider #button-15 {
  
     width: 280px;
 }
 
-#corrida16:target ~ .image-slider #contentOpen16,
-#corrida16:target ~ .image-slider #button-16 {
+#race16:target ~ .image-slider #contentOpen16,
+#race16:target ~ .image-slider #button-16 {
  
     width: 280px;
 }
 
-#corrida1:target ~ .image-slider {
+#race17:target ~ .image-slider #contentOpen17,
+#race17:target ~ .image-slider #button-17 {
+ 
+    width: 280px;
+}
+
+#race18:target ~ .image-slider #contentOpen18,
+#race18:target ~ .image-slider #button-18 {
+ 
+    width: 280px;
+}
+#race1:target ~ .image-slider {
+    left: calc(50% + 1030px);
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#race2:target ~ .image-slider {
     left: calc(50% + 910px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida2:target ~ .image-slider {
+#race3:target ~ .image-slider {
     left: calc(50% + 790.25px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida3:target ~ .image-slider {
+#race4:target ~ .image-slider {
     left: calc(50% + 670px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida4:target ~ .image-slider {
+#race5:target ~ .image-slider {
     left: calc(50% + 548px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida5:target ~ .image-slider {
+#race6:target ~ .image-slider {
     left: calc(50% + 425px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida6:target ~ .image-slider {
+#race7:target ~ .image-slider {
     left: calc(50% + 305px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida7:target ~ .image-slider {
+#race8:target ~ .image-slider {
     left: calc(50% + 182px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida8:target ~ .image-slider {
+#race9:target ~ .image-slider {
     left: calc(50% + 60px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida9:target ~ .image-slider {
+#race10:target ~ .image-slider {
     left: calc(50% - 60px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida10:target ~ .image-slider {
+#race11:target ~ .image-slider {
     left: calc(50% - 182px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida11:target ~ .image-slider {
+#race12:target ~ .image-slider {
     left: calc(50% - 305px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida12:target ~ .image-slider {
+#race13:target ~ .image-slider {
     left: calc(50% - 425px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida13:target ~ .image-slider {
+#race14:target ~ .image-slider {
     left: calc(50% - 547px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida14:target ~ .image-slider {
+#race15:target ~ .image-slider {
     left: calc(50% - 670px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida15:target ~ .image-slider {
+#race16:target ~ .image-slider {
     left: calc(50% - 790.25px);
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
 
-#corrida16:target ~ .image-slider {
-    left: calc(50% - 910.25px);
+#race17:target ~ .image-slider {
+    left: calc(50% - 910.25px); /* Ajuste com base na sequência */
+    transform: translate(-50%);
+    transition: left 0.5s ease-out;
+}
+
+#race18:target ~ .image-slider {
+    left: calc(50% - 1030px); /* Ajuste com base na sequência */
     transform: translate(-50%);
     transition: left 0.5s ease-out;
 }
