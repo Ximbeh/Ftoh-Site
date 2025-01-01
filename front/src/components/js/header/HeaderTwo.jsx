@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import { ChampionshipContext } from "../../../Context/ChampionshipContext";
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import LoadingPage from '../Boundary/Loading';
+import GoogleTranslateComponent from "../GoogleTranslateComponent"
 
 const HeaderTwo = () => {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ const HeaderTwo = () => {
     const handleNavigate = (path) => () => navigate(path);
 
     return (
-        <div className="hidden lg:flex" style={{ backgroundColor: selectedChampionship.color }}>
+        <div className="hidden lg:flex justify-between pr-10" style={{ backgroundColor: selectedChampionship.color }}>
             <div className="flex space-x-8 max-w-screen-lg ml-10">
                 <img
                     className="h-8 my-5 cursor-pointer"
@@ -53,6 +54,7 @@ const HeaderTwo = () => {
                     ))}
                 </div>
             </div>
+            <GoogleTranslateComponent />
         </div>
     );
 }
