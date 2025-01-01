@@ -6,7 +6,6 @@ import { useContext } from 'react';
 import { ChampionshipContext } from "../../../Context/ChampionshipContext";
 import { GET_CHAMPIONSHIPS } from '../../../queries/getChampionship';
 import LoadingPage from '../Boundary/Loading';
-import GoogleTranslateComponent from "../GoogleTranslateComponent"
 
 const HeaderTwo = () => {
     const navigate = useNavigate();
@@ -54,7 +53,6 @@ const HeaderTwo = () => {
                     ))}
                 </div>
             </div>
-            <GoogleTranslateComponent />
         </div>
     );
 }
