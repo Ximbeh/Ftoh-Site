@@ -31,6 +31,18 @@ const Pilots = () => {
     if (driversError) return <p>Error: {driversError.message}</p>;
     if (!championship) return <p>Campeonato não encontrado</p>;
 
+// Filtrar os pilotos com seasonId nulo ou undefined
+const driversWithoutSeasonId = driversData.drivers.filter(
+    driver => !driver.team || driver.team.seasonId == null // Verifica se 'team' é nulo/undefined e depois verifica 'seasonId'
+  );
+  
+  // Logar os nomes dos pilotos com seasonId nulo ou undefined
+  console.log("Pilotos com seasonId nulo ou undefined:");
+  driversWithoutSeasonId.forEach(driver => {
+    console.log(driver.name); // Substitua "name" pela propriedade que armazena o nome do piloto, se diferente.
+  });
+  
+
     const filteredDrivers = driversData.drivers.filter(driver => driver.team.seasonId === selectedSeason[0].seasonId);
 
     const getNomeESobrenome = (name) => {

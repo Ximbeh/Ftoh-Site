@@ -50,9 +50,15 @@ const Team = () => {
         teams.name.some(name=>name == team.name)
     )
 
+    console.log(dataTeams.teamHistories);
+    
+
     
     const firstPilot = dataTeams.driverHistories.find(drivers=>drivers.name == team.drivers[0].name)
     const secondPilot =  dataTeams.driverHistories.find(drivers=>drivers.name == team.drivers[1].name)
+    
+
+    console.log(firstPilot, secondPilot);
     
     
 
