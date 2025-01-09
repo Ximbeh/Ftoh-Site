@@ -94,8 +94,15 @@ const News = () => {
                         />
                         <p className="mt-10 font-titillium font-bold lg:text-xl">{news.headline}</p>
                         <div className="mt-5 font-titillium lg:text-xl">
-                            <p>{news.text}</p>
+                            {news.text.includes('<') ? (
+                                // Renderiza como HTML se contiver tags
+                                <div dangerouslySetInnerHTML={{ __html: news.text }} />
+                            ) : (
+                                // Renderiza como texto simples
+                                <p>{news.text}</p>
+                            )}
                         </div>
+
                         <div className="mt-5">
                             <img
                                 className="rounded-tr-xl w-full object-contain"

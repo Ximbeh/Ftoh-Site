@@ -97,7 +97,8 @@ const NewsHome = ({ championshipColorHex }) => {
 
   const acceptableNews = filterNews(news);
   const principalNews = acceptableNews.slice(-1)[0];
-  const secondNews = acceptableNews.slice(Math.max(news.length - 12, 0), news.length - 6).reverse();
+  const secondNews = acceptableNews.reverse().slice(1, 7);
+
 
   const handleNavigate = () => {
     navigate('/latest', { state: { news } });
